@@ -433,7 +433,7 @@ PhrasePageScrapeResult parsePhrasePageData(pageHtml, query) {
   return result;
 }
 
-class API {
+class JishoApi {
 
   /// Query the official Jisho API for a word or phrase
   /// 
