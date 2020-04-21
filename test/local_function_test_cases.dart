@@ -91,23 +91,28 @@ void test_local_functions() async {
   });
 
   test('getRadical', () {
-
+    final result = getRadical(kanjiPage);
+    expect(result, ['ジ']); //FIX
   });
 
   test('getParts', () {
-
+    final result = getParts(kanjiPage);
+    expect(result, ['土', '寸', '日']);
   });
 
   test('getSvgUri', () {
-
+    final result = getSvgUri(kanjiPage);
+    expect(result, 'http://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/06642.svg');
   });
 
   test('getGifUri', () {
-
+    final result = getGifUri(kanjiPage);
+    expect(result, 'https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/3c.gif');
   });
 
   test('getNewspaperFrequencyRank', () {
-
+    final result = getNewspaperFrequencyRank(kanjiPage);
+    expect(result, 16); //This might change
   });
 
   test('parseKanjiPageData', () {

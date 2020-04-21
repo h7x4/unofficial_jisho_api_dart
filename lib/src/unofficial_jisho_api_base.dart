@@ -197,7 +197,7 @@ String getGifUri(String kanji) {
 
 int getNewspaperFrequencyRank(String pageHtml) {
   final frequencySection = getStringBetweenStrings(pageHtml, '<div class="frequency">', '</div>');
-  return frequencySection ?? int.parse(getStringBetweenStrings(frequencySection, '<strong>', '</strong>'));
+  return frequencySection.isNotEmpty ? int.parse(getStringBetweenStrings(frequencySection, '<strong>', '</strong>')) : null;
 }
 
 KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
