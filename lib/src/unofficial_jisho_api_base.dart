@@ -8,9 +8,9 @@ final htmlUnescape = html_entities.HtmlUnescape();
 
 // TODO: Put public facing types in this file.
 
-const String JISHO_API = 'http://jisho.org/api/v1/search/words';
-const String SCRAPE_BASE_URI = 'http://jisho.org/search/';
-const String STROKE_ORDER_DIAGRAM_BASE_URI = 'http://classic.jisho.org/static/images/stroke_diagrams/';
+const String JISHO_API = 'https://jisho.org/api/v1/search/words';
+const String SCRAPE_BASE_URI = 'https://jisho.org/search/';
+const String STROKE_ORDER_DIAGRAM_BASE_URI = 'https://classic.jisho.org/static/images/stroke_diagrams/';
 
 /* KANJI SEARCH FUNCTIONS START */
 
@@ -33,9 +33,9 @@ String uriForPhraseSearch(String phrase) {
   return '${JISHO_API}?keyword=${Uri.encodeComponent(phrase)}';
 }
 
-bool containsKanjiGlyph(pageHtml, String kanji) {
+bool containsKanjiGlyph(String pageHtml, String kanji) {
   final kanjiGlyphToken = '<h1 class="character" data-area-name="print" lang="ja">${kanji}</h1>';
-  return pageHtml.indexOf(kanjiGlyphToken) != -1;
+  return pageHtml.contains(kanjiGlyphToken);
 }
 
 String getStringBetweenIndicies(String data, int startIndex, int endIndex) {
@@ -44,22 +44,22 @@ String getStringBetweenIndicies(String data, int startIndex, int endIndex) {
 }
 
 String getStringBetweenStrings(String data, String startString, String endString) {
-  final regex = RegExp('${RegExp.escape(startString)}(.*?)${RegExp.escape(endString)}');
-  final match = regex.allMatches(data).toList();
+  final regex = RegExp('${RegExp.escape(startString)}(.*?)${RegExp.escape(endString)}', dotAll: true);
+  final match = regex.allMatches(data).toList(); //TODO: Something wrong here
 
-  return match ?? match[1].toString();
+  return match.isNotEmpty ? match[0].group(1).toString() : null;
 }
 
-int getIntBetweenStrings(pageHtml, String startString, String endString) {
+int getIntBetweenStrings(String pageHtml, String startString, String endString) {
   final  stringBetweenStrings = getStringBetweenStrings(pageHtml, startString, endString);
-  return stringBetweenStrings ?? int.parse(stringBetweenStrings);
+  return int.parse(stringBetweenStrings);
 }
 
 List<String> getAllGlobalGroupMatches(String str, RegExp regex) {
   var regexResults = regex.allMatches(str).toList();
-  var results = [];
+  List<String> results = [];
   for (var match in regexResults) {
-    results.add(match.toString().split(' ')[0]);
+    results.add(match.group(1));
   }
 
   return results;
@@ -70,20 +70,20 @@ List<String> parseAnchorsToArray(String str) {
   return getAllGlobalGroupMatches(str, regex);
 }
 
-List<String> getYomi(pageHtml, String yomiLocatorSymbol) {
+List<String> getYomi(String pageHtml, String yomiLocatorSymbol) {
   final yomiSection = getStringBetweenStrings(pageHtml, '<dt>${yomiLocatorSymbol}:</dt>', '</dl>');
   return parseAnchorsToArray(yomiSection ?? '');
 }
 
-List<String> getKunyomi(pageHtml) {
+List<String> getKunyomi(String pageHtml) {
   return getYomi(pageHtml, KUNYOMI_LOCATOR_SYMBOL);
 }
 
-List<String> getOnyomi(pageHtml) {
+List<String> getOnyomi(String pageHtml) {
   return getYomi(pageHtml, ONYOMI_LOCATOR_SYMBOL);
 }
 
-List<YomiExample> getYomiExamples(pageHtml, String yomiLocatorSymbol) {
+List<YomiExample> getYomiExamples(String pageHtml, String yomiLocatorSymbol) {
   final locatorString = '<h2>${yomiLocatorSymbol} reading compounds</h2>';
   final exampleSection = getStringBetweenStrings(pageHtml, locatorString, '</ul>');
   if (exampleSection==null) {
@@ -102,18 +102,18 @@ List<YomiExample> getYomiExamples(pageHtml, String yomiLocatorSymbol) {
     );
   });
 
-  return examples;
+  return examples.toList();
 }
 
-List<YomiExample> getOnyomiExamples(pageHtml) {
+List<YomiExample> getOnyomiExamples(String pageHtml) {
   return getYomiExamples(pageHtml, ONYOMI_LOCATOR_SYMBOL);
 }
 
-List<YomiExample> getKunyomiExamples(pageHtml) {
+List<YomiExample> getKunyomiExamples(String pageHtml) {
   return getYomiExamples(pageHtml, KUNYOMI_LOCATOR_SYMBOL);
 }
 
-Radical getRadical(pageHtml) {
+Radical getRadical(String pageHtml) {
   const radicalMeaningStartString = '<span class="radical_meaning">';
   const radicalMeaningEndString = '</span>';
 
@@ -165,7 +165,7 @@ Radical getRadical(pageHtml) {
   return null;
 }
 
-List<String> getParts(pageHtml) {
+List<String> getParts(String pageHtml) {
   const partsSectionStartString = '<dt>Parts:</dt>';
   const partsSectionEndString = '</dl>';
 
@@ -181,7 +181,7 @@ List<String> getParts(pageHtml) {
   return (result);
 }
 
-String getSvgUri(pageHtml) {
+String getSvgUri(String pageHtml) {
   var svgRegex = RegExp('\/\/.*?.cloudfront.net\/.*?.svg/');
   final regexResult = svgRegex.firstMatch(pageHtml).toString();
   return regexResult ?? 'http:${regexResult}';
@@ -195,12 +195,12 @@ String getGifUri(String kanji) {
   return animationUri;
 }
 
-int getNewspaperFrequencyRank(pageHtml) {
+int getNewspaperFrequencyRank(String pageHtml) {
   final frequencySection = getStringBetweenStrings(pageHtml, '<div class="frequency">', '</div>');
   return frequencySection ?? int.parse(getStringBetweenStrings(frequencySection, '<strong>', '</strong>'));
 }
 
-KanjiResult parseKanjiPageData(pageHtml, String kanji) {
+KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
   final result = KanjiResult();
   result.query = kanji;
   result.found = containsKanjiGlyph(pageHtml, kanji);
@@ -304,7 +304,7 @@ ExampleResultData parseExampleDiv(div) {
   return result;
 }
 
-ExampleResults parseExamplePageData(pageHtml, String phrase) {
+ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final document = xml.parse(pageHtml);
   final divs = document.descendants.where((node) => node.attributes[0].value == 'sentence_content').toList();
 
@@ -445,7 +445,7 @@ class JishoApi {
   /// @async
   searchForPhrase(String phrase) {
     final uri = uriForPhraseSearch(phrase);
-    return http.read(uri).then((response) => jsonDecode(response).data);
+    return http.get(uri).then((response) => jsonDecode(response.body).data);
   }
 
   /// Scrape the word page for a word/phrase.
@@ -461,8 +461,8 @@ class JishoApi {
   Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
     final uri = uriForPhraseScrape(phrase);
     try {
-      final response = await http.read(uri);
-      return parsePhrasePageData(jsonDecode(response).data, phrase);
+      final response = await http.get(uri);
+      return parsePhrasePageData(response.body, phrase);
     } catch (err) {
       if (err.response.status == 404) {
         return PhrasePageScrapeResult(
@@ -481,7 +481,7 @@ class JishoApi {
   /// @async
   Future<KanjiResult> searchForKanji(String kanji) {
     final uri = uriForKanjiSearch(kanji);
-    return http.read(uri).then((response) => parseKanjiPageData(jsonDecode(response).data, kanji));
+    return http.get(uri).then((response) => parseKanjiPageData(response.body, kanji));
   }
 
   /// Scrape Jisho.org for examples.
@@ -490,6 +490,6 @@ class JishoApi {
   /// @async
   Future<ExampleResults> searchForExamples(String phrase) {
     final uri = uriForExampleSearch(phrase);
-    return http.read(uri).then((response) => parseExamplePageData(jsonDecode(response).data, phrase));
+    return http.get(uri).then((response) => parseExamplePageData(response.body, phrase));
   }
 }

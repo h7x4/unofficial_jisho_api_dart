@@ -3,6 +3,7 @@ import 'package:path/path.dart' as path;
 import 'dart:convert';
 
 import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
+import 'local_function_test_cases.dart' show test_local_functions;
 import 'package:test/test.dart';
 
 final jisho = JishoApi();
@@ -21,7 +22,7 @@ void runTestCases(List<String> testCaseFiles, String apiFunction) async {
       switch(apiFunction) {
         case 'searchForKanji': {
           final result = await jisho.searchForKanji(testCase['query']);
-          expect(result, testCase['expectedResult']);
+          expect(result, jsonDecode(testCase['expectedResult']));
           break;
         }
         case 'searchForExamples': {
@@ -41,6 +42,8 @@ void runTestCases(List<String> testCaseFiles, String apiFunction) async {
 }
 
 void main() async {
+
+  await test_local_functions();
 
   await runTestCases(getFilePaths('kanji_test_cases'), 'searchForKanji');
 
