@@ -90,7 +90,7 @@ List<YomiExample> getYomiExamples(String pageHtml, String yomiLocatorSymbol) {
     return null;
   }
 
-  final regex = RegExp(r'/<li>(.*?)<\/li>');
+  final regex = RegExp(r'<li>(.*?)<\/li>', dotAll: true);
   final regexResults = getAllGlobalGroupMatches(exampleSection, regex).map((s) => s.trim());
 
   final examples = regexResults.map((regexResult) {
@@ -182,9 +182,9 @@ List<String> getParts(String pageHtml) {
 }
 
 String getSvgUri(String pageHtml) {
-  var svgRegex = RegExp('\/\/.*?.cloudfront.net\/.*?.svg/');
-  final regexResult = svgRegex.firstMatch(pageHtml).toString();
-  return regexResult ?? 'http:${regexResult}';
+  var svgRegex = RegExp('\/\/.*?.cloudfront.net\/.*?.svg');
+  final regexResult = svgRegex.firstMatch(pageHtml).group(0).toString();
+  return regexResult.isNotEmpty ? 'http:${regexResult}' : null;
 }
 
 String getGifUri(String kanji) {

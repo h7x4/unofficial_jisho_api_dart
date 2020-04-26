@@ -69,11 +69,20 @@ class YomiExample {
   String reading;
   String meaning;
 
-  YomiExample({String example, String reading, String meaning}){
+  YomiExample({String example, String reading, String meaning})
+  {
     this.example = example;
     this.reading = reading;
     this.meaning = meaning;
   }
+
+  Map<String, String> toJson() =>
+  {
+    'example': example,
+    'reading': reading,
+    'meaning': meaning
+  }; 
+
 }
 
 class Radical {
@@ -86,6 +95,14 @@ class Radical {
     this.forms = forms;
     this.meaning = meaning;
   }
+
+    Map<String, dynamic> toJson() =>
+  {
+    'symbol': symbol,
+    'forms': forms,
+    'meaning': meaning
+  }; 
+
 }
 
 class KanjiResult {
