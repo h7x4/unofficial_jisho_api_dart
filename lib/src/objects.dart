@@ -96,12 +96,12 @@ class Radical {
     this.meaning = meaning;
   }
 
-    Map<String, dynamic> toJson() =>
-  {
-    'symbol': symbol,
-    'forms': forms,
-    'meaning': meaning
-  }; 
+  Map<String, dynamic> toJson() =>
+    {
+      if (symbol != null) 'symbol': symbol,
+      if (forms != null) 'forms': forms,
+      if (meaning != null) 'meaning': meaning
+    }; 
 
 }
 
@@ -116,14 +116,42 @@ class KanjiResult {
   String meaning;
   List<String> kunyomi;
   List<String> onyomi;
-  List<YomiExample> onyomiExamples;
   List<YomiExample> kunyomiExamples;
+  List<YomiExample> onyomiExamples;
   Radical radical;
   List<String> parts;
   String strokeOrderDiagramUri;
   String strokeOrderSvgUri;
   String strokeOrderGifUri;
   String uri;
+
+  Map<String, dynamic> toJson() {
+
+    if (found == false) return {
+      'query': query,
+      'found': found
+    };
+
+    return {
+      'query': query,
+      'found': found,
+      'taughtIn': taughtIn,
+      'jlptLevel': jlptLevel,
+      'newspaperFrequencyRank': newspaperFrequencyRank.toString(),
+      'strokeCount': strokeCount,
+      'meaning': meaning,
+      'kunyomi': kunyomi,
+      'onyomi': onyomi,
+      'onyomiExamples': onyomiExamples.map((onyomiExample) => onyomiExample.toJson()).toList(),
+      'kunyomiExamples': kunyomiExamples.map((kunyomiExample) => kunyomiExample.toJson()).toList(),
+      'radical': radical.toJson(),
+      'parts': parts,
+      'strokeOrderDiagramUri': strokeOrderDiagramUri,
+      'strokeOrderSvgUri': strokeOrderSvgUri,
+      'strokeOrderGifUri': strokeOrderGifUri,
+      'uri': uri
+    };
+  }
 }
 
 class ExampleSentencePiece {

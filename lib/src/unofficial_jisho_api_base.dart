@@ -8,9 +8,9 @@ final htmlUnescape = html_entities.HtmlUnescape();
 
 // TODO: Put public facing types in this file.
 
-const String JISHO_API = 'https://jisho.org/api/v1/search/words';
-const String SCRAPE_BASE_URI = 'https://jisho.org/search/';
-const String STROKE_ORDER_DIAGRAM_BASE_URI = 'https://classic.jisho.org/static/images/stroke_diagrams/';
+const String JISHO_API = 'http://jisho.org/api/v1/search/words';
+const String SCRAPE_BASE_URI = 'http://jisho.org/search/';
+const String STROKE_ORDER_DIAGRAM_BASE_URI = 'http://classic.jisho.org/static/images/stroke_diagrams/';
 
 /* KANJI SEARCH FUNCTIONS START */
 

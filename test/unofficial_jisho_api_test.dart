@@ -22,7 +22,7 @@ void runTestCases(List<String> testCaseFiles, String apiFunction) async {
       switch(apiFunction) {
         case 'searchForKanji': {
           final result = await jisho.searchForKanji(testCase['query']);
-          expect(result, jsonDecode(testCase['expectedResult']));
+          expect(result.toJson(), testCase['expectedResult']);
           break;
         }
         case 'searchForExamples': {
