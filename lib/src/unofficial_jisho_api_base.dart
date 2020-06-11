@@ -197,7 +197,7 @@ String getGifUri(String kanji) {
 
 int getNewspaperFrequencyRank(String pageHtml) {
   final frequencySection = getStringBetweenStrings(pageHtml, '<div class="frequency">', '</div>');
-  return frequencySection.isNotEmpty ? int.parse(getStringBetweenStrings(frequencySection, '<strong>', '</strong>')) : null;
+  return (frequencySection != null) ? int.parse(getStringBetweenStrings(frequencySection, '<strong>', '</strong>')) : null;
 }
 
 KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
@@ -236,7 +236,7 @@ String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
-ExampleResultData getKanjiAndKana(div) {
+ExampleResultData getKanjiAndKana(xml.XmlNode div) {
   final ul = div.find('ul').eq(0);
   final contents = ul.contents();
 
@@ -282,7 +282,7 @@ ExampleResultData getKanjiAndKana(div) {
   );
 }
 
-List<ExampleSentencePiece> getPieces(sentenceElement) {
+List<ExampleSentencePiece> getPieces(xml.XmlNode sentenceElement) {
   final pieceElements = sentenceElement.find('li.clearfix');
   final pieces = [];
   for (var pieceIndex = 0; pieceIndex < pieceElements.length; pieceIndex += 1) {
@@ -296,7 +296,7 @@ List<ExampleSentencePiece> getPieces(sentenceElement) {
   return pieces;
 }
 
-ExampleResultData parseExampleDiv(div) {
+ExampleResultData parseExampleDiv(xml.XmlNode div) {
   final result = getKanjiAndKana(div);
   result.english = div.find('.english').text();
   result.pieces = getPieces(div);
@@ -323,7 +323,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
 
 /* PHRASE SCRAPE FUNCTIONS START */
 
-List<String> getTags(document) {
+List<String> getTags(xml.XmlDocument document) {
   final tags = [];
   final tagElements = document.descendants.where((node) => node.attributes[0].value == 'concept_light-tag').toList();
 
@@ -335,7 +335,7 @@ List<String> getTags(document) {
   return tags;
 }
 
-PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(document) {
+PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(xml.XmlDocument document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
   //TODO: Fix
@@ -414,11 +414,11 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(document) {
   return returnValues;
 }
 
-String uriForPhraseScrape(searchTerm) {
+String uriForPhraseScrape(String searchTerm) {
   return 'https://jisho.org/word/${Uri.encodeComponent(searchTerm)}';
 }
 
-PhrasePageScrapeResult parsePhrasePageData(pageHtml, query) {
+PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
   final document = xml.parse(pageHtml);
   final result = getMeaningsOtherFormsAndNotes(document);
 
@@ -443,7 +443,7 @@ class JishoApi {
   /// @returns {Object} The response data from the official Jisho.org API. Its format is somewhat
   ///   complex and is not documented, so put on your trial-and-error hat.
   /// @async
-  searchForPhrase(String phrase) {
+  searchForPhrase(String phrase) async {
     final uri = uriForPhraseSearch(phrase);
     return http.get(uri).then((response) => jsonDecode(response.body).data);
   }
@@ -479,7 +479,7 @@ class JishoApi {
   /// @param {string} kanji The kanji to search for.
   /// @returns {KanjiResult} Information about the searched kanji.
   /// @async
-  Future<KanjiResult> searchForKanji(String kanji) {
+  Future<KanjiResult> searchForKanji(String kanji) async {
     final uri = uriForKanjiSearch(kanji);
     return http.get(uri).then((response) => parseKanjiPageData(response.body, kanji));
   }
@@ -488,7 +488,7 @@ class JishoApi {
   /// @param {string} phrase The word or phrase to search for.
   /// @returns {ExampleResults}
   /// @async
-  Future<ExampleResults> searchForExamples(String phrase) {
+  Future<ExampleResults> searchForExamples(String phrase) async {
     final uri = uriForExampleSearch(phrase);
     return http.get(uri).then((response) => parseExamplePageData(response.body, phrase));
   }
