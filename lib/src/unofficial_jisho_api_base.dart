@@ -1,8 +1,8 @@
 import 'package:unofficial_jisho_api/src/objects.dart';
 import 'package:http/http.dart' as http;
-import 'package:xml/xml.dart' as xml;
 import 'package:html_unescape/html_unescape.dart' as html_entities;
 import 'dart:convert';
+import 'dart:html';
 
 final htmlUnescape = html_entities.HtmlUnescape();
 
@@ -230,33 +230,35 @@ KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
 
 /* EXAMPLE SEARCH FUNCTIONS START */
 
-RegExp kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
+final RegExp kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
 
 String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
-ExampleResultData getKanjiAndKana(xml.XmlNode div) {
-  final ul = div.find('ul').eq(0);
-  final contents = ul.contents();
+ExampleResultData getKanjiAndKana(Element div) {
+  final ul = div.querySelector('ul');
+  final contents = ul.children;
+  
 
   var kanji = '';
   var kana = '';
   for (var i = 0; i < contents.length; i += 1) {
-    final content = contents.eq(i);
-    if (content[0].name == 'li') {
+    final content = contents[i];
+    if (content.tagName == 'li') {
       final li = content;
-      final furigana = li.find('.furigana').text();
-      final unlifted = li.find('.unlinked').text();
+      final furigana = li.querySelector('.furigana').text;
+      final unlifted = li.querySelector('.unlinked').text;
 
-      if (furigana) {
+      if (furigana != null) {
         kanji += unlifted;
         kana += furigana;
 
         final kanaEnding = [];
         for (var j = unlifted.length - 1; j > 0; j -= 1) {
-          if (!unlifted[j].match(kanjiRegex)) {
-            kanaEnding.add(unlifted[j]);
+          final char = unlifted[j];
+          if (!kanjiRegex.hasMatch(char)) {
+            kanaEnding.add(char);
           } else {
             break;
           }
@@ -268,8 +270,8 @@ ExampleResultData getKanjiAndKana(xml.XmlNode div) {
         kana += unlifted;
       }
     } else {
-      final text = content.text().trim();
-      if (text) {
+      final text = content.text.trim();
+      if (text != null) {
         kanji += text;
         kana += text;
       }
@@ -282,31 +284,32 @@ ExampleResultData getKanjiAndKana(xml.XmlNode div) {
   );
 }
 
-List<ExampleSentencePiece> getPieces(xml.XmlNode sentenceElement) {
-  final pieceElements = sentenceElement.find('li.clearfix');
+List<ExampleSentencePiece> getPieces(Element sentenceElement) {
+  final pieceElements = sentenceElement.querySelectorAll('li.clearfix');
   final pieces = [];
   for (var pieceIndex = 0; pieceIndex < pieceElements.length; pieceIndex += 1) {
-    final pieceElement = pieceElements.eq(pieceIndex);
+    final pieceElement = pieceElements[pieceIndex];
     pieces.add(ExampleSentencePiece(
-      lifted: pieceElement.children('.furigana').text(),
-      unlifted: pieceElement.children('.unlinked').text(),
+      lifted: pieceElement.querySelector('.furigana').text,
+      unlifted: pieceElement.querySelector('.unlinked').text,
     ));
   }
 
   return pieces;
 }
 
-ExampleResultData parseExampleDiv(xml.XmlNode div) {
+ExampleResultData parseExampleDiv(Element div) {
   final result = getKanjiAndKana(div);
-  result.english = div.find('.english').text();
+  result.english = div.querySelector('.english').text;
   result.pieces = getPieces(div);
 
   return result;
 }
 
 ExampleResults parseExamplePageData(String pageHtml, String phrase) {
-  final document = xml.parse(pageHtml);
-  final divs = document.descendants.where((node) => node.attributes[0].value == 'sentence_content').toList();
+  final parser = DomParser();
+  final document = parser.parseFromString(pageHtml, 'text/html');
+  final divs = document.querySelectorAll('.sentence_content');
 
   final results = divs.map((div) => parseExampleDiv(div));
 
@@ -323,77 +326,72 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
 
 /* PHRASE SCRAPE FUNCTIONS START */
 
-List<String> getTags(xml.XmlDocument document) {
+List<String> getTags(Document document) {
   final tags = [];
-  final tagElements = document.descendants.where((node) => node.attributes[0].value == 'concept_light-tag').toList();
+  final tagElements = document.querySelectorAll('.concept_light-tag');
 
   for (var i = 0; i < tagElements.length; i += 1) {
-    final tagText = tagElements.eq(i).text();
+    final tagText = tagElements[i].text;
     tags.add(tagText);
   }
 
   return tags;
 }
 
-PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(xml.XmlDocument document) {
+PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
-  //TODO: Fix
   // const meaningsWrapper = $('#page_container > div > div > article > div > div.concept_light-meanings.medium-9.columns > div');
-  final meaningsWrapper = document.descendants.where((node) => node.attributes[0].value == 'page_container').toList();
+  final meaningsWrapper = document.querySelector('.meanings-wrapper');
 
-
-
-  final meaningsChildren = meaningsWrapper.children();
+  final meaningsChildren = meaningsWrapper.children;
   final meanings = [];
 
   var mostRecentWordTypes = [];
   for (var meaningIndex = 0; meaningIndex < meaningsChildren.length; meaningIndex += 1) {
-    final child = meaningsChildren.eq(meaningIndex);
-    if (child.hasClass('meaning-tags')) {
-      mostRecentWordTypes = child.text().split(',').map((s) => s.trim().toLowerCase());
+    final child = meaningsChildren[meaningIndex];
+    if (child.className.contains('meaning-tags')) {
+      mostRecentWordTypes = child.text.split(',').map((s) => s.trim().toLowerCase()).toList();
     } else if (mostRecentWordTypes[0] == 'other forms') {
-      returnValues.otherForms = child.text().split('、')
-        .map((s) => s.replaceAll('【', '').replaceAll('】', '').split(' '))
-        .map((a) => (ExampleResultData( kanji: a[0], kana: a[1] )));
-    } else if (mostRecentWordTypes[0] == 'notes') {
-      returnValues.notes = child.text().split('\n');
-    } else {
-      final meaning = child.find('.meaning-meaning').text();
-      final meaningAbstract = child.find('.meaning-abstract')
-        .find('a')
-        .remove()
-        .end()
-        .text();
 
-      final supplemental = child.find('.supplemental_info').text().split(',')
+      returnValues.otherForms = child.text.split('、')
+        .map((s) => s.replaceAll('【', '').replaceAll('】', '').split(' '))
+        .map((a) => (KanjiKanaPair( kanji: a[0], kana: a[1] )));
+        
+    } else if (mostRecentWordTypes[0] == 'notes') {
+      returnValues.notes = child.text.split('\n');
+    } else {
+      final meaning = child.querySelector('.meaning-meaning').text;
+        child.querySelector('.meaning-abstract')
+        .querySelector('a')
+        .remove();
+      final meaningAbstract = child.querySelector('.meaning-abstract').text;
+
+      final supplemental = child.querySelector('.supplemental_info').text.split(',')
         .map((s) => s.trim())
-        .filter((s) => s);
+        .toList();
 
       final seeAlsoTerms = [];
       for (var i = supplemental.length - 1; i >= 0; i -= 1) {
         final supplementalEntry = supplemental[i];
         if (supplementalEntry.startsWith('See also')) {
           seeAlsoTerms.add(supplementalEntry.replaceAll('See also ', ''));
-          supplemental.splice(i, 1);
+          supplemental.removeAt(i);
         }
       }
 
       final sentences = [];
-      final sentenceElements = child.find('.sentences').children('.sentence');
+      final sentenceElements = child.querySelector('.sentences').querySelectorAll('.sentence');
 
       for (var sentenceIndex = 0; sentenceIndex < sentenceElements.length; sentenceIndex += 1) {
-        final sentenceElement = sentenceElements.eq(sentenceIndex);
+        final sentenceElement = sentenceElements[sentenceIndex];
 
-        final english = sentenceElement.find('.english').text();
+        final english = sentenceElement.querySelector('.english').text;
         final pieces = getPieces(sentenceElement);
 
-        final japanese = sentenceElement
-          .find('.english').remove().end()
-          .find('.furigana')
-          .remove()
-          .end()
-          .text();
+        sentenceElement.querySelector('.english').remove();
+        sentenceElement.querySelector('.furigana').remove();
+        final japanese = sentenceElement.text;
 
         sentences.add(PhraseScrapeSentence(english: english, japanese: japanese, pieces: pieces));
       }
@@ -419,7 +417,8 @@ String uriForPhraseScrape(String searchTerm) {
 }
 
 PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
-  final document = xml.parse(pageHtml);
+  final parser = DomParser();
+  final document = parser.parseFromString(pageHtml, 'text/html');
   final result = getMeaningsOtherFormsAndNotes(document);
 
     result.found = true;

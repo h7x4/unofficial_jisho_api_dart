@@ -36,11 +36,24 @@ class PhraseScrapeMeaning {
   }
 }
 
+class KanjiKanaPair {
+  String kanji;
+  String kana;
+
+  KanjiKanaPair({
+    String kanji,
+    String kana
+  }){
+    this.kanji = kanji;
+    this.kana = kana;
+  }
+}
+
 class PhrasePageScrapeResult {
   bool found;
   String query;
   String uri;
-  List<String> otherForms;
+  List<KanjiKanaPair> otherForms;
   List<PhraseScrapeMeaning> meanings;
   List<String> tags;
   List<String> notes;
@@ -49,7 +62,7 @@ class PhrasePageScrapeResult {
     bool found,
     String query,
     String uri,
-    List<String> otherForms,
+    List<KanjiKanaPair> otherForms,
     List<PhraseScrapeMeaning> meanings,
     List<String> tags,
     List<String> notes,
