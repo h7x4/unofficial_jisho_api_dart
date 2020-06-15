@@ -17,20 +17,20 @@ void test_local_functions() async {
 
   test('uriForKanjiSearch', () {
     final result = uriForKanjiSearch('時');
-    expect(result, 'http://jisho.org/search/%E6%99%82%23kanji');
+    expect(result, 'https://jisho.org/search/%E6%99%82%23kanji');
   });
 
   test('getUriForStrokeOrderDiagram', () {
     final result = getUriForStrokeOrderDiagram('時');
-    expect(result, 'http://classic.jisho.org/static/images/stroke_diagrams/26178_frames.png');
+    expect(result, 'https://classic.jisho.org/static/images/stroke_diagrams/26178_frames.png');
   });
 
   test('uriForPhraseSearch', () {
     final result = uriForPhraseSearch('時間');
-    expect(result, 'http://jisho.org/api/v1/search/words?keyword=%E6%99%82%E9%96%93');
+    expect(result, 'https://jisho.org/api/v1/search/words?keyword=%E6%99%82%E9%96%93');
   });
 
-  final kanjiPage = (await http.get('http://jisho.org/search/%E6%99%82%23kanji')).body;
+  final kanjiPage = (await http.get('https://jisho.org/search/%E6%99%82%23kanji')).body;
 
   test('containsKanjiGlyph', () {
     final result = containsKanjiGlyph(kanjiPage, '時');
@@ -199,7 +199,7 @@ void test_local_functions() async {
 
   test('getSvgUri', () {
     final result = getSvgUri(kanjiPage);
-    expect(result, 'http://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/06642.svg');
+    expect(result, 'https://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/06642.svg');
   });
 
   test('getGifUri', () {
@@ -277,10 +277,10 @@ void test_local_functions() async {
       meaning: 'sun, day'
     );
     expectedResult.parts = ['土', '寸', '日'];
-    expectedResult.strokeOrderDiagramUri = 'http://classic.jisho.org/static/images/stroke_diagrams/26178_frames.png';
-    expectedResult.strokeOrderSvgUri = 'http://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/06642.svg';
+    expectedResult.strokeOrderDiagramUri = 'https://classic.jisho.org/static/images/stroke_diagrams/26178_frames.png';
+    expectedResult.strokeOrderSvgUri = 'https://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/06642.svg';
     expectedResult.strokeOrderGifUri = 'https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/6642.gif';
-    expectedResult.uri = 'http://jisho.org/search/%E6%99%82%23kanji';
+    expectedResult.uri = 'https://jisho.org/search/%E6%99%82%23kanji';
 
     expect(
       json.encode(result),

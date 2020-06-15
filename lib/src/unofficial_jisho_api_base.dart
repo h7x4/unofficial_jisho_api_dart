@@ -9,9 +9,9 @@ final htmlUnescape = html_entities.HtmlUnescape();
 
 // TODO: Put public facing types in this file.
 
-const String JISHO_API = 'http://jisho.org/api/v1/search/words';
-const String SCRAPE_BASE_URI = 'http://jisho.org/search/';
-const String STROKE_ORDER_DIAGRAM_BASE_URI = 'http://classic.jisho.org/static/images/stroke_diagrams/';
+const String JISHO_API = 'https://jisho.org/api/v1/search/words';
+const String SCRAPE_BASE_URI = 'https://jisho.org/search/';
+const String STROKE_ORDER_DIAGRAM_BASE_URI = 'https://classic.jisho.org/static/images/stroke_diagrams/';
 
 /* KANJI SEARCH FUNCTIONS START */
 
@@ -185,7 +185,7 @@ List<String> getParts(String pageHtml) {
 String getSvgUri(String pageHtml) {
   var svgRegex = RegExp('\/\/.*?.cloudfront.net\/.*?.svg');
   final regexResult = svgRegex.firstMatch(pageHtml).group(0).toString();
-  return regexResult.isNotEmpty ? 'http:${regexResult}' : null;
+  return regexResult.isNotEmpty ? 'https:${regexResult}' : null;
 }
 
 String getGifUri(String kanji) {
