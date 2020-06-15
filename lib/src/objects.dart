@@ -140,10 +140,12 @@ class KanjiResult {
 
   Map<String, dynamic> toJson() {
 
-    if (found == false) return {
-      'query': query,
-      'found': found
-    };
+    if (found == false) {
+      return {
+        'query': query,
+        'found': found
+      };
+    }
 
     return {
       'query': query,
@@ -175,6 +177,13 @@ class ExampleSentencePiece {
     this.unlifted = unlifted;
     this.lifted = lifted;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'unlifted': unlifted,
+      'lifted': lifted
+    };
+  }
 }
 
 class ExampleResultData {
@@ -183,11 +192,20 @@ class ExampleResultData {
   String english;
   List<ExampleSentencePiece> pieces;
 
-  ExampleResultData({String kanji, String kana, String english, List<ExampleSentencePiece> pieces}){
+  ExampleResultData({String english, String kanji, String kana, List<ExampleSentencePiece> pieces}){
+    this.english = english;
     this.kanji = kanji;
     this.kana = kana;
-    this.english = english;
     this.pieces = pieces;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'english': english,
+      'kanji': kanji,
+      'kana': kana,
+      'pieces': pieces
+    };
   }
 }
 
@@ -198,12 +216,22 @@ class ExampleResults {
   List<ExampleResultData> results;
   String phrase;
 
-  ExampleResults({String query, bool found, String uri, List<ExampleResultData> results, String phrase}){
+  ExampleResults({String query, bool found, List<ExampleResultData> results, String uri, String phrase}){
     this.query = query;
     this.found = found;
-    this.uri = uri;
     this.results = results;
+    this.uri = uri;
     this.phrase = phrase;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'query': query,
+      'found': found,
+      'results': results,
+      'uri': uri,
+      'phrase': phrase
+    };
   }
 }
 

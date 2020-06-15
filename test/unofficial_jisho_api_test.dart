@@ -20,7 +20,7 @@ void runTestCases(List<String> testCaseFiles, Function apiFunction) async {
     final testCase = jsonDecode(file);
     await test('Test ${testCount}', () async {
       final result = await apiFunction(testCase['query']);
-      expect(result, testCase['expectedResult']);
+      expect(jsonEncode(result), jsonEncode(testCase['expectedResult']));
     });
   }
 }

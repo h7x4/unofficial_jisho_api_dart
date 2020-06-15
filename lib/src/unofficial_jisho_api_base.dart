@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:html_unescape/html_unescape.dart' as html_entities;
 import 'dart:convert';
 import 'package:html/parser.dart';
+import 'package:html/dom.dart';
 
 final htmlUnescape = html_entities.HtmlUnescape();
 
@@ -236,7 +237,7 @@ String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
-ExampleResultData getKanjiAndKana(div) {
+ExampleResultData getKanjiAndKana(Element div) {
   final ul = div.querySelector('ul');
   final contents = ul.children;
   
@@ -245,10 +246,10 @@ ExampleResultData getKanjiAndKana(div) {
   var kana = '';
   for (var i = 0; i < contents.length; i += 1) {
     final content = contents[i];
-    if (content.tagName == 'li') {
+    if (content.localName == 'li') {
       final li = content;
-      final furigana = li.querySelector('.furigana').text;
-      final unlifted = li.querySelector('.unlinked').text;
+      final furigana = li.querySelector('.furigana')?.text;
+      final unlifted = li.querySelector('.unlinked')?.text;
 
       if (furigana != null) {
         kanji += unlifted;
@@ -284,21 +285,21 @@ ExampleResultData getKanjiAndKana(div) {
   );
 }
 
-List<ExampleSentencePiece> getPieces(sentenceElement) {
+List<ExampleSentencePiece> getPieces(Element sentenceElement) {
   final pieceElements = sentenceElement.querySelectorAll('li.clearfix');
-  final pieces = [];
+  final List<ExampleSentencePiece> pieces = [];
   for (var pieceIndex = 0; pieceIndex < pieceElements.length; pieceIndex += 1) {
     final pieceElement = pieceElements[pieceIndex];
     pieces.add(ExampleSentencePiece(
-      lifted: pieceElement.querySelector('.furigana').text,
-      unlifted: pieceElement.querySelector('.unlinked').text,
+      lifted: pieceElement.querySelector('.furigana')?.text,
+      unlifted: pieceElement.querySelector('.unlinked')?.text,
     ));
   }
 
   return pieces;
 }
 
-ExampleResultData parseExampleDiv(div) {
+ExampleResultData parseExampleDiv(Element div) {
   final result = getKanjiAndKana(div);
   result.english = div.querySelector('.english').text;
   result.pieces = getPieces(div);
@@ -310,7 +311,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final document = parse(pageHtml);
   final divs = document.querySelectorAll('.sentence_content');
 
-  final results = divs.map((div) => parseExampleDiv(div));
+  final results = divs.map((div) => parseExampleDiv(div)).toList();
 
   return ExampleResults(
     query: phrase,
@@ -325,7 +326,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
 
 /* PHRASE SCRAPE FUNCTIONS START */
 
-List<String> getTags(document) {
+List<String> getTags(Document document) {
   final tags = [];
   final tagElements = document.querySelectorAll('.concept_light-tag');
 
@@ -337,7 +338,7 @@ List<String> getTags(document) {
   return tags;
 }
 
-PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(document) {
+PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
   // const meaningsWrapper = $('#page_container > div > div > article > div > div.concept_light-meanings.medium-9.columns > div');
