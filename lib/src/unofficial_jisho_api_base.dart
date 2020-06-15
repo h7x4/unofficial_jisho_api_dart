@@ -2,7 +2,7 @@ import 'package:unofficial_jisho_api/src/objects.dart';
 import 'package:http/http.dart' as http;
 import 'package:html_unescape/html_unescape.dart' as html_entities;
 import 'dart:convert';
-import 'dart:html';
+import 'package:html/parser.dart';
 
 final htmlUnescape = html_entities.HtmlUnescape();
 
@@ -236,7 +236,7 @@ String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
-ExampleResultData getKanjiAndKana(Element div) {
+ExampleResultData getKanjiAndKana(div) {
   final ul = div.querySelector('ul');
   final contents = ul.children;
   
@@ -284,7 +284,7 @@ ExampleResultData getKanjiAndKana(Element div) {
   );
 }
 
-List<ExampleSentencePiece> getPieces(Element sentenceElement) {
+List<ExampleSentencePiece> getPieces(sentenceElement) {
   final pieceElements = sentenceElement.querySelectorAll('li.clearfix');
   final pieces = [];
   for (var pieceIndex = 0; pieceIndex < pieceElements.length; pieceIndex += 1) {
@@ -298,7 +298,7 @@ List<ExampleSentencePiece> getPieces(Element sentenceElement) {
   return pieces;
 }
 
-ExampleResultData parseExampleDiv(Element div) {
+ExampleResultData parseExampleDiv(div) {
   final result = getKanjiAndKana(div);
   result.english = div.querySelector('.english').text;
   result.pieces = getPieces(div);
@@ -307,8 +307,7 @@ ExampleResultData parseExampleDiv(Element div) {
 }
 
 ExampleResults parseExamplePageData(String pageHtml, String phrase) {
-  final parser = DomParser();
-  final document = parser.parseFromString(pageHtml, 'text/html');
+  final document = parse(pageHtml);
   final divs = document.querySelectorAll('.sentence_content');
 
   final results = divs.map((div) => parseExampleDiv(div));
@@ -326,7 +325,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
 
 /* PHRASE SCRAPE FUNCTIONS START */
 
-List<String> getTags(Document document) {
+List<String> getTags(document) {
   final tags = [];
   final tagElements = document.querySelectorAll('.concept_light-tag');
 
@@ -338,7 +337,7 @@ List<String> getTags(Document document) {
   return tags;
 }
 
-PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
+PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
   // const meaningsWrapper = $('#page_container > div > div > article > div > div.concept_light-meanings.medium-9.columns > div');
@@ -417,8 +416,7 @@ String uriForPhraseScrape(String searchTerm) {
 }
 
 PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
-  final parser = DomParser();
-  final document = parser.parseFromString(pageHtml, 'text/html');
+  final document = parse(pageHtml);
   final result = getMeaningsOtherFormsAndNotes(document);
 
     result.found = true;
