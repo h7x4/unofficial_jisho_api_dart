@@ -240,7 +240,6 @@ String uriForExampleSearch(String phrase) {
 ExampleResultData getKanjiAndKana(Element div) {
   final ul = div.querySelector('ul');
   final contents = ul.children;
-  
 
   var kanji = '';
   var kana = '';
@@ -270,7 +269,7 @@ ExampleResultData getKanjiAndKana(Element div) {
         kanji += unlifted;
         kana += unlifted;
       }
-    } else {
+    } else { // TODO: This doesn't catch the "。" when it's not in a tag
       final text = content.text.trim();
       if (text != null) {
         kanji += text;

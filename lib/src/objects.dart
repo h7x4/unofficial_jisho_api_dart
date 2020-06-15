@@ -147,12 +147,12 @@ class KanjiResult {
       };
     }
 
-    return {
+    var returnObject = {
       'query': query,
       'found': found,
       'taughtIn': taughtIn,
       'jlptLevel': jlptLevel,
-      'newspaperFrequencyRank': newspaperFrequencyRank.toString(),
+      'newspaperFrequencyRank': newspaperFrequencyRank.toString(), // TODO: Rewrite tests to make this value an int
       'strokeCount': strokeCount,
       'meaning': meaning,
       'kunyomi': kunyomi,
@@ -166,22 +166,27 @@ class KanjiResult {
       'strokeOrderGifUri': strokeOrderGifUri,
       'uri': uri
     };
+
+    if (newspaperFrequencyRank == null) returnObject.update('newspaperFrequencyRank', (value) => null);
+    returnObject.removeWhere((key, value) => value == null);
+    
+    return returnObject;
   }
 }
 
 class ExampleSentencePiece {
-  String unlifted;
   String lifted;
+  String unlifted;
 
-  ExampleSentencePiece({String unlifted, String lifted}){
-    this.unlifted = unlifted;
+  ExampleSentencePiece({String lifted, String unlifted}){
     this.lifted = lifted;
+    this.unlifted = unlifted;
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'unlifted': unlifted,
-      'lifted': lifted
+      if (lifted != null) 'lifted': lifted,
+      if (unlifted != null)'unlifted': unlifted
     };
   }
 }
