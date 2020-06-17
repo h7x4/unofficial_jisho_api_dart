@@ -345,7 +345,27 @@ List<String> getTags(Document document) {
   return tags;
 }
 
+String getMeaning(Element child) => child.querySelector('.meaning-meaning').text;
+
+String getMeaningAbstract(Element child) {
+  
+  child.querySelector('.meaning-abstract')?.querySelector('a')?.remove(); //TODO: Loop remove
+  return child.querySelector('.meaning-abstract')?.text;
+}
+
+List<KanjiKanaPair> getOtherForms(Element child) {
+  return child.text.split('、')
+    .map((s) => s.replaceAll('【', '').replaceAll('】', '').split(' '))
+    .map((a) => (KanjiKanaPair( kanji: a[0], kana: (a.length == 2) ? a[1] : null ))).toList();
+}
+
+List<String> getSupplemental(Element child) {
+  return child.querySelector('.supplemental_info')?.text?.split(',')?.map((s) => s.trim())?.toList();
+}
+
 List<String> getSeeAlsoTerms(List<String> supplemental) {
+  if (supplemental == null) return null;
+
   final List<String> seeAlsoTerms = [];
   for (var i = supplemental.length - 1; i >= 0; i -= 1) {
     final supplementalEntry = supplemental[i];
@@ -357,9 +377,11 @@ List<String> getSeeAlsoTerms(List<String> supplemental) {
   return seeAlsoTerms;
 }
 
-List<PhraseScrapeSentence> getSentences(List<Element> sentenceElements) {
-  final List<PhraseScrapeSentence> sentences = [];
+List<PhraseScrapeSentence> getSentences(Element child) {
+  final sentenceElements = child.querySelector('.sentences')?.querySelectorAll('.sentence');
+  if (sentenceElements == null) return null;
 
+  final List<PhraseScrapeSentence> sentences = [];
   for (var sentenceIndex = 0; sentenceIndex < (sentenceElements?.length ?? 0); sentenceIndex += 1) {
     final sentenceElement = sentenceElements[sentenceIndex];
 
@@ -367,7 +389,6 @@ List<PhraseScrapeSentence> getSentences(List<Element> sentenceElements) {
     final pieces = getPieces(sentenceElement);
 
     sentenceElement.querySelector('.english').remove();
-    
     for (var element in sentenceElement.children[0].children) {
       element.querySelector('.furigana')?.remove();
     }
@@ -385,32 +406,31 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
 
   // const meaningsWrapper = $('#page_container > div > div > article > div > div.concept_light-meanings.medium-9.columns > div');
   final meaningsWrapper = document.querySelector('.meanings-wrapper');
-
   final meaningsChildren = meaningsWrapper.children;
-  final List<PhraseScrapeMeaning> meanings = [];
 
+  final List<PhraseScrapeMeaning> meanings = [];
   var mostRecentWordTypes = [];
   for (var meaningIndex = 0; meaningIndex < meaningsChildren.length; meaningIndex += 1) {
     final child = meaningsChildren[meaningIndex];
+    
     if (child.className.contains('meaning-tags')) {
-      mostRecentWordTypes = child.text.split(',').map((s) => s.trim().toLowerCase()).toList();
+      mostRecentWordTypes = child.text.split(',')
+        .map(
+          (s) => s.trim().toLowerCase()
+        ).toList();
+
     } else if (mostRecentWordTypes[0] == 'other forms') {
-      returnValues.otherForms = child.text.split('、')
-        .map((s) => s.replaceAll('【', '').replaceAll('】', '').split(' '))
-        .map((a) => (KanjiKanaPair( kanji: a[0], kana: (a.length == 2) ? a[1] : null ))).toList();
-        
+      returnValues.otherForms = getOtherForms(child);
+
     } else if (mostRecentWordTypes[0] == 'notes') {
       returnValues.notes = child.text.split('\n');
+
     } else {
-      final meaning = child.querySelector('.meaning-meaning').text;
-        child.querySelector('.meaning-abstract')?.querySelector('a')?.remove();
-      final meaningAbstract = child.querySelector('.meaning-abstract')?.text;
-
-      final supplemental = child.querySelector('.supplemental_info')?.text?.split(',')?.map((s) => s.trim())?.toList();
-      final seeAlsoTerms = (supplemental != null) ? getSeeAlsoTerms(supplemental) : null;
-
-      final sentenceElements = child.querySelector('.sentences')?.querySelectorAll('.sentence');
-      final sentences = (sentenceElements != null) ? getSentences(sentenceElements) : null;
+      final meaning = getMeaning(child);
+      final meaningAbstract = getMeaningAbstract(child);
+      final supplemental = getSupplemental(child);
+      final seeAlsoTerms = getSeeAlsoTerms(supplemental);
+      final sentences = getSentences(child);
 
       meanings.add(PhraseScrapeMeaning(
         seeAlsoTerms: seeAlsoTerms,
