@@ -357,7 +357,7 @@ List<String> getSeeAlsoTerms(List<String> supplemental) {
   return seeAlsoTerms;
 }
 
-List<PhraseScrapeSentence> getSentences(sentenceElements) {
+List<PhraseScrapeSentence> getSentences(List<Element> sentenceElements) {
   final List<PhraseScrapeSentence> sentences = [];
 
   for (var sentenceIndex = 0; sentenceIndex < (sentenceElements?.length ?? 0); sentenceIndex += 1) {
@@ -366,8 +366,12 @@ List<PhraseScrapeSentence> getSentences(sentenceElements) {
     final english = sentenceElement.querySelector('.english').text;
     final pieces = getPieces(sentenceElement);
 
-    sentenceElement.querySelector('.english')?.remove();
-    sentenceElement.querySelector('.furigana')?.remove();
+    sentenceElement.querySelector('.english').remove();
+    
+    for (var element in sentenceElement.children[0].children) {
+      element.querySelector('.furigana')?.remove();
+    }
+
     final japanese = sentenceElement.text;
 
     sentences.add(PhraseScrapeSentence(english: english, japanese: japanese, pieces: pieces));
