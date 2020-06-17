@@ -8,6 +8,12 @@ class PhraseScrapeSentence {
     this.japanese = japanese;
     this.pieces = pieces;
   }
+
+  Map<String, dynamic> toJson() => {
+    'english': english,
+    'japanese': japanese,
+    'pieces': pieces
+  };
 }
 
 class PhraseScrapeMeaning {
@@ -34,6 +40,15 @@ class PhraseScrapeMeaning {
     this.tags = tags;
     
   }
+
+  Map<String, dynamic> toJson() => {
+    'seeAlsoTerms': seeAlsoTerms,
+    'sentences': sentences,
+    'definition': definition,
+    'supplemental': supplemental,
+    'definitionAbstract': definitionAbstract,
+    'tags': tags
+  };
 }
 
 class KanjiKanaPair {
@@ -47,34 +62,50 @@ class KanjiKanaPair {
     this.kanji = kanji;
     this.kana = kana;
   }
+
+  Map<String, String> toJson() => {
+    'kanji': kanji,
+    'kana': kana
+  };
 }
 
 class PhrasePageScrapeResult {
   bool found;
   String query;
   String uri;
-  List<KanjiKanaPair> otherForms;
-  List<PhraseScrapeMeaning> meanings;
   List<String> tags;
+  List<PhraseScrapeMeaning> meanings;
+  List<KanjiKanaPair> otherForms;
   List<String> notes;
 
   PhrasePageScrapeResult({
     bool found,
     String query,
     String uri,
-    List<KanjiKanaPair> otherForms,
-    List<PhraseScrapeMeaning> meanings,
     List<String> tags,
+    List<PhraseScrapeMeaning> meanings,
+    List<KanjiKanaPair> otherForms,
     List<String> notes,
   }){
     this.found = found;
     this.query = query;
     this.uri = uri;
-    this.otherForms = otherForms;
-    this.meanings = meanings;
     this.tags = tags;
+    this.meanings = meanings;
+    this.otherForms = otherForms;
     this.notes = notes;
   }
+
+  Map<String, dynamic> toJson() =>
+  {
+    'found': found,
+    'query': query,
+    'uri': uri,
+    'tags': tags,
+    'meanings': meanings,
+    'otherForms': otherForms,
+    'notes': notes
+  };
 }
 
 class YomiExample {
