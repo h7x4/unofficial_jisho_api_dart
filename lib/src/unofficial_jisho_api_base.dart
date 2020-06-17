@@ -334,7 +334,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
 /* PHRASE SCRAPE FUNCTIONS START */
 
 List<String> getTags(Document document) {
-  final tags = [];
+  final List<String> tags = [];
   final tagElements = document.querySelectorAll('.concept_light-tag');
 
   for (var i = 0; i < tagElements.length; i += 1) {
@@ -345,6 +345,37 @@ List<String> getTags(Document document) {
   return tags;
 }
 
+List<String> getSeeAlsoTerms(List<String> supplemental) {
+  final List<String> seeAlsoTerms = [];
+  for (var i = supplemental.length - 1; i >= 0; i -= 1) {
+    final supplementalEntry = supplemental[i];
+    if (supplementalEntry.startsWith('See also')) {
+      seeAlsoTerms.add(supplementalEntry.replaceAll('See also ', ''));
+      supplemental.removeAt(i);
+    }
+  }
+  return seeAlsoTerms;
+}
+
+List<PhraseScrapeSentence> getSentences(sentenceElements) {
+  final List<PhraseScrapeSentence> sentences = [];
+
+  for (var sentenceIndex = 0; sentenceIndex < (sentenceElements?.length ?? 0); sentenceIndex += 1) {
+    final sentenceElement = sentenceElements[sentenceIndex];
+
+    final english = sentenceElement.querySelector('.english').text;
+    final pieces = getPieces(sentenceElement);
+
+    sentenceElement.querySelector('.english')?.remove();
+    sentenceElement.querySelector('.furigana')?.remove();
+    final japanese = sentenceElement.text;
+
+    sentences.add(PhraseScrapeSentence(english: english, japanese: japanese, pieces: pieces));
+  }
+
+  return sentences;
+}
+
 PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
@@ -352,7 +383,7 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
   final meaningsWrapper = document.querySelector('.meanings-wrapper');
 
   final meaningsChildren = meaningsWrapper.children;
-  final meanings = [];
+  final List<PhraseScrapeMeaning> meanings = [];
 
   var mostRecentWordTypes = [];
   for (var meaningIndex = 0; meaningIndex < meaningsChildren.length; meaningIndex += 1) {
@@ -360,48 +391,22 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
     if (child.className.contains('meaning-tags')) {
       mostRecentWordTypes = child.text.split(',').map((s) => s.trim().toLowerCase()).toList();
     } else if (mostRecentWordTypes[0] == 'other forms') {
-
       returnValues.otherForms = child.text.split('、')
         .map((s) => s.replaceAll('【', '').replaceAll('】', '').split(' '))
-        .map((a) => (KanjiKanaPair( kanji: a[0], kana: a[1] )));
+        .map((a) => (KanjiKanaPair( kanji: a[0], kana: (a.length == 2) ? a[1] : null ))).toList();
         
     } else if (mostRecentWordTypes[0] == 'notes') {
       returnValues.notes = child.text.split('\n');
     } else {
       final meaning = child.querySelector('.meaning-meaning').text;
-        child.querySelector('.meaning-abstract')
-        .querySelector('a')
-        .remove();
-      final meaningAbstract = child.querySelector('.meaning-abstract').text;
+        child.querySelector('.meaning-abstract')?.querySelector('a')?.remove();
+      final meaningAbstract = child.querySelector('.meaning-abstract')?.text;
 
-      final supplemental = child.querySelector('.supplemental_info').text.split(',')
-        .map((s) => s.trim())
-        .toList();
+      final supplemental = child.querySelector('.supplemental_info')?.text?.split(',')?.map((s) => s.trim())?.toList();
+      final seeAlsoTerms = (supplemental != null) ? getSeeAlsoTerms(supplemental) : null;
 
-      final seeAlsoTerms = [];
-      for (var i = supplemental.length - 1; i >= 0; i -= 1) {
-        final supplementalEntry = supplemental[i];
-        if (supplementalEntry.startsWith('See also')) {
-          seeAlsoTerms.add(supplementalEntry.replaceAll('See also ', ''));
-          supplemental.removeAt(i);
-        }
-      }
-
-      final sentences = [];
-      final sentenceElements = child.querySelector('.sentences').querySelectorAll('.sentence');
-
-      for (var sentenceIndex = 0; sentenceIndex < sentenceElements.length; sentenceIndex += 1) {
-        final sentenceElement = sentenceElements[sentenceIndex];
-
-        final english = sentenceElement.querySelector('.english').text;
-        final pieces = getPieces(sentenceElement);
-
-        sentenceElement.querySelector('.english').remove();
-        sentenceElement.querySelector('.furigana').remove();
-        final japanese = sentenceElement.text;
-
-        sentences.add(PhraseScrapeSentence(english: english, japanese: japanese, pieces: pieces));
-      }
+      final sentenceElements = child.querySelector('.sentences')?.querySelectorAll('.sentence');
+      final sentences = (sentenceElements != null) ? getSentences(sentenceElements) : null;
 
       meanings.add(PhraseScrapeMeaning(
         seeAlsoTerms: seeAlsoTerms,
@@ -465,19 +470,19 @@ class JishoApi {
   /// @async
   Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
     final uri = uriForPhraseScrape(phrase);
-    try {
+    // try {
       final response = await http.get(uri);
       return parsePhrasePageData(response.body, phrase);
-    } catch (err) {
-      if (err.response.status == 404) {
-        return PhrasePageScrapeResult(
-          query: phrase,
-          found: false,
-        );
-      }
+    // } catch (err) {
+    //   // if (err.response?.status == 404) {
+    //   //   return PhrasePageScrapeResult(
+    //   //     query: phrase,
+    //   //     found: false,
+    //   //   );
+    //   // }
 
-      throw err;
-    }
+    //   throw err;
+    // }
   }
 
   /// Scrape Jisho.org for information about a kanji character.
