@@ -237,6 +237,11 @@ String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
+String getEndSymbolsOfExampleSentence(Element ul) {
+  final endSymbols = RegExp(r'<\/li>([^<>]+)$');
+  return endSymbols.firstMatch(ul.innerHtml).group(1);
+}
+
 ExampleResultData getKanjiAndKana(Element div) {
   final ul = div.querySelector('ul');
   final contents = ul.children;
@@ -277,6 +282,9 @@ ExampleResultData getKanjiAndKana(Element div) {
       }
     }
   }
+    final endSymbols = getEndSymbolsOfExampleSentence(ul).trim();
+    kanji+= endSymbols;
+    kana += endSymbols;
 
   return ExampleResultData(
     kanji: kanji,
