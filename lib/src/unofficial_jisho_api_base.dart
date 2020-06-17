@@ -152,7 +152,7 @@ Radical getRadical(String pageHtml) {
 
       return Radical(
         symbol: radicalSymbolsString[0],
-        forms: radicalForms,
+        forms: radicalForms ?? [],
         meaning: radicalMeaning
       );
     }
@@ -214,12 +214,12 @@ KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
   result.newspaperFrequencyRank = getNewspaperFrequencyRank(pageHtml);
   result.strokeCount = getIntBetweenStrings(pageHtml, '<strong>', '</strong> strokes');
   result.meaning = htmlUnescape.convert(removeNewlines(getStringBetweenStrings(pageHtml, '<div class="kanji-details__main-meanings">', '</div>')).trim());
-  result.kunyomi = getKunyomi(pageHtml);
-  result.onyomi = getOnyomi(pageHtml);
-  result.onyomiExamples = getOnyomiExamples(pageHtml);
-  result.kunyomiExamples = getKunyomiExamples(pageHtml);
+  result.kunyomi = getKunyomi(pageHtml) ?? [];
+  result.onyomi = getOnyomi(pageHtml) ?? [];
+  result.onyomiExamples = getOnyomiExamples(pageHtml) ?? [];
+  result.kunyomiExamples = getKunyomiExamples(pageHtml) ?? [];
   result.radical = getRadical(pageHtml);
-  result.parts = getParts(pageHtml);
+  result.parts = getParts(pageHtml) ?? [];
   result.strokeOrderDiagramUri = getUriForStrokeOrderDiagram(kanji);
   result.strokeOrderSvgUri = getSvgUri(pageHtml);
   result.strokeOrderGifUri = getGifUri(kanji);
@@ -309,7 +309,7 @@ List<ExampleSentencePiece> getPieces(Element sentenceElement) {
 ExampleResultData parseExampleDiv(Element div) {
   final result = getKanjiAndKana(div);
   result.english = div.querySelector('.english').text;
-  result.pieces = getPieces(div);
+  result.pieces = getPieces(div) ?? [];
 
   return result;
 }
@@ -323,7 +323,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   return ExampleResults(
     query: phrase,
     found: results.isNotEmpty,
-    results: results,
+    results: results ?? [],
     uri: uriForExampleSearch(phrase),
     phrase: phrase,
   );
@@ -345,12 +345,8 @@ List<String> getTags(Document document) {
   return tags;
 }
 
-String getMeaning(Element child) => child.querySelector('.meaning-meaning').text;
-
-String getMeaningAbstract(Element child) {
-  
-  child.querySelector('.meaning-abstract')?.querySelector('a')?.remove(); //TODO: Loop remove
-  return child.querySelector('.meaning-abstract')?.text;
+List<String> getMostRecentWordTypes(Element child) {
+  return child.text.split(',').map((s) => s.trim().toLowerCase()).toList();
 }
 
 List<KanjiKanaPair> getOtherForms(Element child) {
@@ -359,12 +355,24 @@ List<KanjiKanaPair> getOtherForms(Element child) {
     .map((a) => (KanjiKanaPair( kanji: a[0], kana: (a.length == 2) ? a[1] : null ))).toList();
 }
 
+List<String> getNotes(Element child) => child.text.split('\n');
+
+String getMeaning(Element child) => child.querySelector('.meaning-meaning').text;
+
+String getMeaningAbstract(Element child) {
+  
+  child.querySelector('.meaning-abstract')?.querySelector('a')?.remove(); //TODO: Loop remove
+  return child.querySelector('.meaning-abstract')?.text;
+}
+
 List<String> getSupplemental(Element child) {
-  return child.querySelector('.supplemental_info')?.text?.split(',')?.map((s) => s.trim())?.toList();
+  final supplemental = child.querySelector('.supplemental_info');
+  if (supplemental == null) return [];
+  return supplemental.text.split(',').map((s) => s.trim()).toList();
 }
 
 List<String> getSeeAlsoTerms(List<String> supplemental) {
-  if (supplemental == null) return null;
+  if (supplemental == null) return [];
 
   final List<String> seeAlsoTerms = [];
   for (var i = supplemental.length - 1; i >= 0; i -= 1) {
@@ -379,7 +387,7 @@ List<String> getSeeAlsoTerms(List<String> supplemental) {
 
 List<PhraseScrapeSentence> getSentences(Element child) {
   final sentenceElements = child.querySelector('.sentences')?.querySelectorAll('.sentence');
-  if (sentenceElements == null) return null;
+  if (sentenceElements == null) return [];
 
   final List<PhraseScrapeSentence> sentences = [];
   for (var sentenceIndex = 0; sentenceIndex < (sentenceElements?.length ?? 0); sentenceIndex += 1) {
@@ -395,7 +403,13 @@ List<PhraseScrapeSentence> getSentences(Element child) {
 
     final japanese = sentenceElement.text;
 
-    sentences.add(PhraseScrapeSentence(english: english, japanese: japanese, pieces: pieces));
+    sentences.add(
+      PhraseScrapeSentence(
+        english: english,
+        japanese: japanese,
+        pieces: pieces ?? []
+      )
+    );
   }
 
   return sentences;
@@ -404,26 +418,25 @@ List<PhraseScrapeSentence> getSentences(Element child) {
 PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
-  // const meaningsWrapper = $('#page_container > div > div > article > div > div.concept_light-meanings.medium-9.columns > div');
   final meaningsWrapper = document.querySelector('.meanings-wrapper');
+  if (meaningsWrapper == null) return PhrasePageScrapeResult(found: false);
+  returnValues.found = true;
+
   final meaningsChildren = meaningsWrapper.children;
 
   final List<PhraseScrapeMeaning> meanings = [];
   var mostRecentWordTypes = [];
   for (var meaningIndex = 0; meaningIndex < meaningsChildren.length; meaningIndex += 1) {
     final child = meaningsChildren[meaningIndex];
-    
+
     if (child.className.contains('meaning-tags')) {
-      mostRecentWordTypes = child.text.split(',')
-        .map(
-          (s) => s.trim().toLowerCase()
-        ).toList();
+      mostRecentWordTypes = getMostRecentWordTypes(child);
 
     } else if (mostRecentWordTypes[0] == 'other forms') {
       returnValues.otherForms = getOtherForms(child);
 
     } else if (mostRecentWordTypes[0] == 'notes') {
-      returnValues.notes = child.text.split('\n');
+      returnValues.notes = getNotes(child);
 
     } else {
       final meaning = getMeaning(child);
@@ -433,12 +446,12 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
       final sentences = getSentences(child);
 
       meanings.add(PhraseScrapeMeaning(
-        seeAlsoTerms: seeAlsoTerms,
-        sentences: sentences,
+        seeAlsoTerms: seeAlsoTerms ?? [],
+        sentences: sentences ?? [],
         definition: meaning,
-        supplemental: supplemental,
+        supplemental: supplemental ?? [],
         definitionAbstract: meaningAbstract,
-        tags: mostRecentWordTypes,
+        tags: mostRecentWordTypes ?? [],
       ));
     }
   }
@@ -456,13 +469,10 @@ PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
   final document = parse(pageHtml);
   final result = getMeaningsOtherFormsAndNotes(document);
 
-    result.found = true;
-    result.query = query;
-    result.uri = uriForPhraseScrape(query);
-    result.tags = getTags(document);
-    // result.meanings = meanings;
-    // result.otherForms = forms;
-    // result.notes = notes;
+  result.query = query;
+  if (!result.found) return result;
+  result.uri = uriForPhraseScrape(query);
+  result.tags = getTags(document);
 
   return result;
 }
@@ -494,19 +504,19 @@ class JishoApi {
   /// @async
   Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
     final uri = uriForPhraseScrape(phrase);
-    // try {
+    try {
       final response = await http.get(uri);
       return parsePhrasePageData(response.body, phrase);
-    // } catch (err) {
-    //   // if (err.response?.status == 404) {
-    //   //   return PhrasePageScrapeResult(
-    //   //     query: phrase,
-    //   //     found: false,
-    //   //   );
-    //   // }
+    } catch (err) {
+      // if (response.statusCode == 404) {
+      //   return PhrasePageScrapeResult(
+      //     query: phrase,
+      //     found: false,
+      //   );
+      // }
 
-    //   throw err;
-    // }
+      throw err;
+    }
   }
 
   /// Scrape Jisho.org for information about a kanji character.
