@@ -111,9 +111,9 @@ class Radical {
 
   Map<String, dynamic> toJson() =>
     {
-      if (symbol != null) 'symbol': symbol,
-      if (forms != null) 'forms': forms,
-      if (meaning != null) 'meaning': meaning
+      'symbol': symbol,
+      'forms': forms,
+      'meaning': meaning
     }; 
 
 }
@@ -152,7 +152,7 @@ class KanjiResult {
       'found': found,
       'taughtIn': taughtIn,
       'jlptLevel': jlptLevel,
-      'newspaperFrequencyRank': newspaperFrequencyRank.toString(), // TODO: Rewrite tests to make this value an int
+      'newspaperFrequencyRank': newspaperFrequencyRank,
       'strokeCount': strokeCount,
       'meaning': meaning,
       'kunyomi': kunyomi,
@@ -166,9 +166,6 @@ class KanjiResult {
       'strokeOrderGifUri': strokeOrderGifUri,
       'uri': uri
     };
-
-    if (newspaperFrequencyRank == null) returnObject.update('newspaperFrequencyRank', (value) => null);
-    returnObject.removeWhere((key, value) => value == null);
     
     return returnObject;
   }
@@ -185,8 +182,8 @@ class ExampleSentencePiece {
 
   Map<String, dynamic> toJson() {
     return {
-      if (lifted != null) 'lifted': lifted,
-      if (unlifted != null)'unlifted': unlifted
+      'lifted': lifted,
+      'unlifted': unlifted
     };
   }
 }
