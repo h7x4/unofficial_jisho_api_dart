@@ -487,9 +487,28 @@ class JishoApi {
   /// @returns {Object} The response data from the official Jisho.org API. Its format is somewhat
   ///   complex and is not documented, so put on your trial-and-error hat.
   /// @async
-  searchForPhrase(String phrase) async {
+  Future<List<JishoResult>> searchForPhrase(String phrase) async {
     final uri = uriForPhraseSearch(phrase);
-    return http.get(uri).then((response) => jsonDecode(response.body).data);
+    final JishoAPIResult jsonData = await http.get(uri).then((response) => jsonDecode(response.body));
+    return jsonData.data;
+  }
+
+  /// Scrape Jisho.org for information about a kanji character.
+  /// @param {string} kanji The kanji to search for.
+  /// @returns {KanjiResult} Information about the searched kanji.
+  /// @async
+  Future<KanjiResult> searchForKanji(String kanji) async {
+    final uri = uriForKanjiSearch(kanji);
+    return http.get(uri).then((response) => parseKanjiPageData(response.body, kanji));
+  }
+
+  /// Scrape Jisho.org for examples.
+  /// @param {string} phrase The word or phrase to search for.
+  /// @returns {ExampleResults}
+  /// @async
+  Future<ExampleResults> searchForExamples(String phrase) async {
+    final uri = uriForExampleSearch(phrase);
+    return http.get(uri).then((response) => parseExamplePageData(response.body, phrase));
   }
 
   /// Scrape the word page for a word/phrase.
@@ -517,23 +536,5 @@ class JishoApi {
 
       throw err;
     }
-  }
-
-  /// Scrape Jisho.org for information about a kanji character.
-  /// @param {string} kanji The kanji to search for.
-  /// @returns {KanjiResult} Information about the searched kanji.
-  /// @async
-  Future<KanjiResult> searchForKanji(String kanji) async {
-    final uri = uriForKanjiSearch(kanji);
-    return http.get(uri).then((response) => parseKanjiPageData(response.body, kanji));
-  }
-
-  /// Scrape Jisho.org for examples.
-  /// @param {string} phrase The word or phrase to search for.
-  /// @returns {ExampleResults}
-  /// @async
-  Future<ExampleResults> searchForExamples(String phrase) async {
-    final uri = uriForExampleSearch(phrase);
-    return http.get(uri).then((response) => parseExamplePageData(response.body, phrase));
   }
 }
