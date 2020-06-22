@@ -388,7 +388,7 @@ class JishoResult {
     this.japanese,
     this.senses,
     this.attribution
-  })
+  });
 
   factory JishoResult.fromJson(Map<String, dynamic> json){
     return JishoResult(
