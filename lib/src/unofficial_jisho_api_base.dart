@@ -7,8 +7,6 @@ import 'package:html/dom.dart';
 
 final htmlUnescape = html_entities.HtmlUnescape();
 
-// TODO: Put public facing types in this file.
-
 const String JISHO_API = 'https://jisho.org/api/v1/search/words';
 const String SCRAPE_BASE_URI = 'https://jisho.org/search/';
 const String STROKE_ORDER_DIAGRAM_BASE_URI = 'https://classic.jisho.org/static/images/stroke_diagrams/';
@@ -46,7 +44,7 @@ String getStringBetweenIndicies(String data, int startIndex, int endIndex) {
 
 String getStringBetweenStrings(String data, String startString, String endString) {
   final regex = RegExp('${RegExp.escape(startString)}(.*?)${RegExp.escape(endString)}', dotAll: true);
-  final match = regex.allMatches(data).toList(); //TODO: Something wrong here
+  final match = regex.allMatches(data).toList();
 
   return match.isNotEmpty ? match[0].group(1).toString() : null;
 }
@@ -237,6 +235,11 @@ String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
+/* TODO: This is the wrong approach. 
+ * Symbols such as 、「」。 are missing in mid sentence
+ * Maybe also JP fullwidth numbers?
+ */
+
 String getEndSymbolsOfExampleSentence(Element ul) {
   final endSymbols = RegExp(r'<\/li>([^<>]+)$');
   return endSymbols.firstMatch(ul.innerHtml).group(1);
@@ -274,7 +277,7 @@ ExampleResultData getKanjiAndKana(Element div) {
         kanji += unlifted;
         kana += unlifted;
       }
-    } else { // TODO: This doesn't catch the "。" when it's not in a tag
+    } else {
       final text = content.text.trim();
       if (text != null) {
         kanji += text;
