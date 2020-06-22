@@ -363,8 +363,13 @@ List<String> getNotes(Element child) => child.text.split('\n');
 String getMeaning(Element child) => child.querySelector('.meaning-meaning').text;
 
 String getMeaningAbstract(Element child) {
+  final meaningAbstract = child.querySelector('.meaning-abstract');
+  if (meaningAbstract == null) return null;
   
-  child.querySelector('.meaning-abstract')?.querySelector('a')?.remove(); //TODO: Loop remove
+  for (var element in meaningAbstract.querySelectorAll('a')) {
+    element.remove();
+  }
+  
   return child.querySelector('.meaning-abstract')?.text;
 }
 
