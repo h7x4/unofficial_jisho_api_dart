@@ -1,4 +1,4 @@
-import 'package:unofficial_jisho_api/src/objects.dart';
+import './objects.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

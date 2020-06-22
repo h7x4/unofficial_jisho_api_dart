@@ -10,19 +10,37 @@ String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
 
-/* TODO: This is the wrong approach. 
- * Symbols such as 、「」。 are missing in mid sentence
- * Maybe also JP fullwidth numbers?
- */
+List<Element> getChildrenAndSymbols(Element ul) {
+  final ulText = ul.text;
+  final ulCharArray = ulText.split('');
+  final ulChildren = ul.children;
+  var offsetPointer = 0;
+  List<Element> result = [];
 
-String getEndSymbolsOfExampleSentence(Element ul) {
-  final endSymbols = RegExp(r'<\/li>([^<>]+)$');
-  return endSymbols.firstMatch(ul.innerHtml).group(1);
+  for (var element in ulChildren) {
+    if (element.text != ulText.substring(offsetPointer, offsetPointer + element.text.length)){
+      var symbols = '';
+      while (element.text.substring(0,1) != ulCharArray[offsetPointer]) {
+        symbols += ulCharArray[offsetPointer];
+        offsetPointer++;
+      }
+      final symbolElement = Element.html('<span>' + symbols + '</span>'); 
+      result.add(symbolElement);
+    }
+      offsetPointer += element.text.length;
+      result.add(element);
+  }
+  if (offsetPointer + 1 != ulText.length){
+    final symbols = ulText.substring(offsetPointer, ulText.length-1);
+    final symbolElement = Element.html('<span>' + symbols + '</span>'); 
+    result.add(symbolElement);
+  }
+  return result;
 }
 
 ExampleResultData getKanjiAndKana(Element div) {
   final ul = div.querySelector('ul');
-  final contents = ul.children;
+  final contents = getChildrenAndSymbols(ul);
 
   var kanji = '';
   var kana = '';
@@ -60,9 +78,6 @@ ExampleResultData getKanjiAndKana(Element div) {
       }
     }
   }
-    final endSymbols = getEndSymbolsOfExampleSentence(ul).trim();
-    kanji+= endSymbols;
-    kana += endSymbols;
 
   return ExampleResultData(
     kanji: kanji,
