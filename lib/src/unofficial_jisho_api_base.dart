@@ -20,7 +20,7 @@ class JishoApi {
   /// @async
   Future<List<JishoResult>> searchForPhrase(String phrase) async {
     final uri = uriForPhraseSearch(phrase);
-    final JishoAPIResult jsonData = await http.get(uri).then((response) => jsonDecode(response.body));
+    final jsonData = await http.get(uri).then((response) => JishoAPIResult.fromJson(jsonDecode(response.body)));
     return jsonData.data;
   }
 

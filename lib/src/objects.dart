@@ -258,8 +258,7 @@ class PhrasePageScrapeResult {
     this.notes
   });
 
-  Map<String, dynamic> toJson() =>
-  {
+  Map<String, dynamic> toJson() => {
     'found': found,
     'query': query,
     'uri': uri,
@@ -285,8 +284,12 @@ class JishoJapaneseWord {
       word: json['word'] as String,
       reading: json['reading'] as String
     );
-    
   }
+
+  Map<String, dynamic> toJson() => {
+    'word': word,
+    'reading': reading
+  };
 }
 
 class JishoSenseLink {
@@ -301,6 +304,11 @@ class JishoSenseLink {
       url: json['url'] as String
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'text': text,
+    'url': url
+  };
 }
 
 class JishoWordSense {
@@ -328,17 +336,29 @@ class JishoWordSense {
 
   factory JishoWordSense.fromJson(Map<String, dynamic> json){
     return JishoWordSense(
-      english_definitions: json['english_definitions'] as List<String>,
-      parts_of_speech: json['parts_of_speech'] as List<String>,
-      links: json['links'] as List<JishoSenseLink>,
-      tags: json['tags'] as List<String>,
-      see_also: json['see_also'] as List<String>,
-      antonyms: json['antonyms'] as List<String>,
+      english_definitions: (json['english_definitions'] as List).map((result) => result as String).toList(),
+      parts_of_speech: (json['parts_of_speech'] as List).map((result) => result as String).toList(),
+      links: (json['links'] as List).map((result) => JishoSenseLink.fromJson(result)).toList(),
+      tags: (json['tags'] as List).map((result) => result as String).toList(),
+      see_also: (json['see_also'] as List).map((result) => result as String).toList(),
+      antonyms: (json['antonyms'] as List).map((result) => result as String).toList(),
       source: json['source'] as List<dynamic>,
-      info: json['info'] as List<String>,
+      info: (json['info'] as List).map((result) => result as String).toList(),
       restrictions: json['restrictions'] as List<dynamic>
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'english_definitions': english_definitions,
+    'parts_of_speech': parts_of_speech,
+    'links': links,
+    'tags': tags,
+    'see_also': see_also,
+    'antonyms': antonyms,
+    'source': source,
+    'info': info,
+    'restrictions': restrictions
+  };
 }
 
 class JishoAttribution {
@@ -353,12 +373,18 @@ class JishoAttribution {
   });
 
   factory JishoAttribution.fromJson(Map<String, dynamic> json){
-    return JishoAttribution(
-      jmdict: json['jmdict'] as bool,
-      jmnedict: json['jmnedict'] as bool,
-      dbpedia: json['dbpedia'] as bool
+    return JishoAttribution( //TODO: This is broken. Find the potential values of a json result and fix
+      jmdict: (json['jmdict'] == 'true'),
+      jmnedict: (json['jmnedict'] == 'true'),
+      dbpedia: (json['dbpedia'] == 'true')
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'jmdict': jmdict,
+    'jmnedict': jmnedict,
+    'dbpedia': dbpedia
+  };
 }
 
 class JishoResult {
@@ -384,13 +410,23 @@ class JishoResult {
     return JishoResult(
       slug: json['slug'] as String,
       is_common: json['is_common'] as bool,
-      tags: json['tags'] as List<String>,
-      jlpt: json['jlpt'] as List<String>,
-      japanese: json['japanese'] as List<JishoJapaneseWord>,
-      senses: json['senses'] as List<JishoWordSense>,
-      attribution: json['attribution'] as JishoAttribution
+      tags: (json['tags'] as List).map((result) => result as String).toList(),
+      jlpt: (json['jlpt'] as List).map((result) => result as String).toList(),
+      japanese: (json['japanese'] as List).map((result) => JishoJapaneseWord.fromJson(result)).toList(),
+      senses: (json['senses'] as List).map((result) => JishoWordSense.fromJson(result)).toList(),
+      attribution: JishoAttribution.fromJson(json['attribution'])
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'slug': slug,
+    'is_common': is_common,
+    'tags': tags,
+    'jlpt': jlpt,
+    'japanese': japanese,
+    'senses': senses,
+    'attribution': attribution
+  };
 }
 
 class JishoResultMeta {
@@ -403,6 +439,10 @@ class JishoResultMeta {
       status: json['status'] as int
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'status': status
+  };
 }
 
 class JishoAPIResult {
@@ -413,8 +453,13 @@ class JishoAPIResult {
 
   factory JishoAPIResult.fromJson(Map<String, dynamic> json){
     return JishoAPIResult(
-      meta: json['meta'] as JishoResultMeta,
-      data: json['data'] as List<JishoResult>
+      meta: JishoResultMeta.fromJson(json['meta']),
+      data: (json['data'] as List).map((result) => JishoResult.fromJson(result)).toList()
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'meta': meta.toJson(),
+    'data': data
+  };
 }
