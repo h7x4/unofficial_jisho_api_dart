@@ -364,7 +364,7 @@ class JishoWordSense {
 class JishoAttribution {
   bool jmdict;
   bool jmnedict;
-  bool dbpedia;
+  bool dbpedia; //This variable might be returned as a link (String). Not sure about the above
 
   JishoAttribution({
     this.jmdict,
@@ -373,10 +373,10 @@ class JishoAttribution {
   });
 
   factory JishoAttribution.fromJson(Map<String, dynamic> json){
-    return JishoAttribution( //TODO: This is broken. Find the potential values of a json result and fix
-      jmdict: (json['jmdict'] == 'true'),
-      jmnedict: (json['jmnedict'] == 'true'),
-      dbpedia: (json['dbpedia'] == 'true')
+    return JishoAttribution(
+      jmdict: (json['jmdict'].toString() == 'true'),
+      jmnedict: (json['jmnedict'].toString() == 'true'),
+      dbpedia: (json['dbpedia'].toString() == 'true')
     );
   }
 

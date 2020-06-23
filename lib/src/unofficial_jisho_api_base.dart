@@ -18,10 +18,9 @@ class JishoApi {
   /// @returns {Object} The response data from the official Jisho.org API. Its format is somewhat
   ///   complex and is not documented, so put on your trial-and-error hat.
   /// @async
-  Future<List<JishoResult>> searchForPhrase(String phrase) async {
+  Future<JishoAPIResult> searchForPhrase(String phrase) async {
     final uri = uriForPhraseSearch(phrase);
-    final jsonData = await http.get(uri).then((response) => JishoAPIResult.fromJson(jsonDecode(response.body)));
-    return jsonData.data;
+    return await http.get(uri).then((response) => JishoAPIResult.fromJson(jsonDecode(response.body)));
   }
 
   /// Scrape Jisho.org for information about a kanji character.
