@@ -1,78 +1,97 @@
 {
-  "query": "水",
-  "expectedResult": {
-    "query": "水",
-    "found": true,
-    "taughtIn": "grade 1",
-    "jlptLevel": "N5",
-    "newspaperFrequencyRank": "223",
-    "strokeCount": 4,
-    "meaning": "water",
-    "kunyomi": [
-      "みず",
-      "みず-"
-    ],
-    "onyomi": [
-      "スイ"
-    ],
-    "onyomiExamples": [
-      {
-        "example": "水",
-        "reading": "スイ",
-        "meaning": "Wednesday, shaved ice (served with flavored syrup), water (fifth of the five elements)"
-      },
-      {
-        "example": "水位",
-        "reading": "スイイ",
-        "meaning": "water level"
-      },
-      {
-        "example": "用水",
-        "reading": "ヨウスイ",
-        "meaning": "irrigation water, water for fire, city water, cistern water"
-      },
-      {
-        "example": "浄水",
-        "reading": "ジョウスイ",
-        "meaning": "clean water"
-      }
-    ],
-    "kunyomiExamples": [
-      {
-        "example": "水",
-        "reading": "みず",
-        "meaning": "water (esp. cool, fresh water, e.g. drinking water), fluid (esp. in an animal tissue), liquid, flood, floodwaters, water offered to wrestlers just prior to a bout, break granted to wrestlers engaged in a prolonged bout"
-      },
-      {
-        "example": "水揚げ",
-        "reading": "みずあげ",
-        "meaning": "landing, unloading (e.g. a ship), catch (of fish), takings, sales (of a shop), defloration (e.g. of a geisha), preservation (of cut flowers, in ikebana)"
-      },
-      {
-        "example": "飲み水",
-        "reading": "のみみず",
-        "meaning": "drinking water, potable water"
-      },
-      {
-        "example": "呼び水",
-        "reading": "よびみず",
-        "meaning": "pump-priming, rousing, stimulation"
-      }
-    ],
-    "radical": {
-      "symbol": "水",
-      "forms": [
-        "氵",
-        "氺"
-      ],
-      "meaning": "water"
-    },
-    "parts": [
-      "水"
-    ],
-    "strokeOrderDiagramUri": "https://classic.jisho.org/static/images/stroke_diagrams/27700_frames.png",
-    "strokeOrderSvgUri": "https://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/06c34.svg",
-    "strokeOrderGifUri": "https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/6c34.gif",
-    "uri": "https://jisho.org/search/%E6%B0%B4%23kanji"
+ "query": "楽",
+ "found": true,
+ "taughtIn": "grade 2",
+ "jlptLevel": "N4",
+ "newspaperFrequencyRank": 373,
+ "strokeCount": 13,
+ "meaning": "music, comfort, ease",
+ "kunyomi": [
+  "たの.しい",
+  "たの.しむ",
+  "この.む"
+ ],
+ "onyomi": [
+  "ガク",
+  "ラク",
+  "ゴウ"
+ ],
+ "onyomiExamples": [
+  {
+   "example": "楽団",
+   "reading": "ガクダン",
+   "meaning": "orchestra, band"
+  },
+  {
+   "example": "楽章",
+   "reading": "ガクショウ",
+   "meaning": "(musical) movement"
+  },
+  {
+   "example": "邦楽",
+   "reading": "ホウガク",
+   "meaning": "Japanese music (esp. traditional Japanese music)"
+  },
+  {
+   "example": "室内楽",
+   "reading": "シツナイガク",
+   "meaning": "chamber music"
+  },
+  {
+   "example": "楽",
+   "reading": "ラク",
+   "meaning": "comfort, ease, relief, (at) peace, relaxation, easy, simple, without trouble, without hardships, (economically) comfortable, raku pottery"
+  },
+  {
+   "example": "楽園",
+   "reading": "ラクエン",
+   "meaning": "pleasure garden, paradise"
+  },
+  {
+   "example": "千秋楽",
+   "reading": "センシュウラク",
+   "meaning": "concluding festivities, concluding program, concluding programme, final day of a tournament"
+  },
+  {
+   "example": "行楽",
+   "reading": "コウラク",
+   "meaning": "outing, excursion, pleasure trip, going on a picnic"
+  },
+  {
+   "example": "猿楽",
+   "reading": "サルガク",
+   "meaning": "sarugaku (form of theatre popular in Japan during the 11th to 14th centuries), noh, fooling around"
   }
+ ],
+ "kunyomiExamples": [
+  {
+   "example": "楽しい",
+   "reading": "たのしい",
+   "meaning": "enjoyable, fun, pleasant, happy, delightful"
+  },
+  {
+   "example": "楽しい思い出",
+   "reading": "たのしいおもいで",
+   "meaning": "happy memory, sweet memory"
+  },
+  {
+   "example": "楽しむ",
+   "reading": "たのしむ",
+   "meaning": "to enjoy (oneself)"
+  }
+ ],
+ "radical": {
+  "symbol": "木",
+  "forms": null,
+  "meaning": "tree"
+ },
+ "parts": [
+  "冫",
+  "木",
+  "白"
+ ],
+ "strokeOrderDiagramUri": "https://classic.jisho.org/static/images/stroke_diagrams/27005_frames.png",
+ "strokeOrderSvgUri": "https://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/0697d.svg",
+ "strokeOrderGifUri": "https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/697d.gif",
+ "uri": "https://jisho.org/search/%E6%A5%BD%23kanji"
 }

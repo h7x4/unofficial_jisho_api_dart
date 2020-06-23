@@ -1,10 +1,1068 @@
 {
-  "query": "彼＊叩く",
-  "expectedResult": {
-    "query": "彼＊叩く",
-    "found": false,
-    "results": [],
-    "uri": "https://jisho.org/search/%E5%BD%BC%EF%BC%8A%E5%8F%A9%E3%81%8F%23sentences",
-    "phrase": "彼＊叩く"
+ "query": "車",
+ "found": true,
+ "results": [
+  {
+   "english": "The colour and make of the president's car are?",
+   "kanji": "社長さんの車種と色は？",
+   "kana": "しゃちょうさんのしゃしゅといろは？",
+   "pieces": [
+    {
+     "lifted": "しゃちょう",
+     "unlifted": "社長"
+    },
+    {
+     "lifted": null,
+     "unlifted": "さん"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "しゃしゅ",
+     "unlifted": "車種"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "いろ",
+     "unlifted": "色"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    }
+   ]
+  },
+  {
+   "english": "The car wouldn't start.",
+   "kanji": "その車は動こうとしなかった。",
+   "kana": "そのくるまはうごこうとしなかった。",
+   "pieces": [
+    {
+     "lifted": null,
+     "unlifted": "その"
+    },
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "うご",
+     "unlifted": "動こう"
+    },
+    {
+     "lifted": null,
+     "unlifted": "としなかった"
+    }
+   ]
+  },
+  {
+   "english": "Now that I think of it, I've been asked to look at a haiku he'd written by the tipsy bloke sitting next to me on the train.",
+   "kanji": "そういえば、電車の中で隣に座ったほろ酔いのおっさんに、自分の俳句を見て欲しいと言われたことがある。",
+   "kana": "そういえば、でんしゃのなかでとなりにすわったほろよいのおっさんに、じぶんのはいくをみてほしいといわれたことがある。",
+   "pieces": [
+    {
+     "lifted": null,
+     "unlifted": "そういえば"
+    },
+    {
+     "lifted": "でんしゃ",
+     "unlifted": "電車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "なか",
+     "unlifted": "中"
+    },
+    {
+     "lifted": null,
+     "unlifted": "で"
+    },
+    {
+     "lifted": "となり",
+     "unlifted": "隣"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "すわ",
+     "unlifted": "座った"
+    },
+    {
+     "lifted": "ほろよ",
+     "unlifted": "ほろ酔い"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": null,
+     "unlifted": "おっさん"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "じぶん",
+     "unlifted": "自分"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "はいく",
+     "unlifted": "俳句"
+    },
+    {
+     "lifted": null,
+     "unlifted": "を"
+    },
+    {
+     "lifted": "み",
+     "unlifted": "見て"
+    },
+    {
+     "lifted": "ほ",
+     "unlifted": "欲しい"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "い",
+     "unlifted": "言われた"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ことがある"
+    }
+   ]
+  },
+  {
+   "english": "If you frequently spit-up blood you should call an ambulance or have a nearby physician make a house call.",
+   "kanji": "ひんぱんに吐血する場合は、救急車を呼ぶか、近くの内科医に往診してもらう。",
+   "kana": "ひんぱんにとけつするばあいは、きゅうきゅうしゃをよぶか、ちかくのないかいにおうしんしてもらう。",
+   "pieces": [
+    {
+     "lifted": null,
+     "unlifted": "ひんぱんに"
+    },
+    {
+     "lifted": "とけつ",
+     "unlifted": "吐血"
+    },
+    {
+     "lifted": null,
+     "unlifted": "する"
+    },
+    {
+     "lifted": "ばあい",
+     "unlifted": "場合"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "きゅうきゅうしゃ",
+     "unlifted": "救急車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "を"
+    },
+    {
+     "lifted": "よ",
+     "unlifted": "呼ぶ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "か"
+    },
+    {
+     "lifted": "ちか",
+     "unlifted": "近く"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "ないかい",
+     "unlifted": "内科医"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "おうしん",
+     "unlifted": "往診"
+    },
+    {
+     "lifted": null,
+     "unlifted": "して"
+    },
+    {
+     "lifted": null,
+     "unlifted": "もらう"
+    }
+   ]
+  },
+  {
+   "english": "The front wheel plays an important role in two-wheeled vehicles moving without falling over.",
+   "kanji": "二輪車が倒れずに走行するのには前輪が大きな役割を演じています。",
+   "kana": "にりんしゃがたおれずにそうこうするのにはぜんりんがおおきなやくわりをえんじています。",
+   "pieces": [
+    {
+     "lifted": "にりんしゃ",
+     "unlifted": "二輪車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": "たお",
+     "unlifted": "倒れず"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "そうこう",
+     "unlifted": "走行"
+    },
+    {
+     "lifted": null,
+     "unlifted": "する"
+    },
+    {
+     "lifted": null,
+     "unlifted": "のに"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "ぜんりん",
+     "unlifted": "前輪"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": "おお",
+     "unlifted": "大きな"
+    },
+    {
+     "lifted": "やくわりをえん",
+     "unlifted": "役割を演じています"
+    }
+   ]
+  },
+  {
+   "english": "Did you catch the train?!",
+   "kanji": "列車に間に合ったのか？！",
+   "kana": "れっしゃにまにあったのか？！",
+   "pieces": [
+    {
+     "lifted": "れっしゃ",
+     "unlifted": "列車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "まにあ",
+     "unlifted": "間に合った"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": null,
+     "unlifted": "か"
+    }
+   ]
+  },
+  {
+   "english": "If you have any opinions concerning traffic calming devices (humps, curb extensions, etc.) please write them.",
+   "kanji": "車の速度を落とす装置（ハンプや狭さく）について、意見があったら書いてください。",
+   "kana": "くるまのそくどをおとすそうち（ハンプやきょうさく）について、いけんがあったらかいてください。",
+   "pieces": [
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "そくど",
+     "unlifted": "速度"
+    },
+    {
+     "lifted": null,
+     "unlifted": "を"
+    },
+    {
+     "lifted": "お",
+     "unlifted": "落とす"
+    },
+    {
+     "lifted": "そうち",
+     "unlifted": "装置"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ハンプ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "や"
+    },
+    {
+     "lifted": "きょう",
+     "unlifted": "狭さく"
+    },
+    {
+     "lifted": null,
+     "unlifted": "について"
+    },
+    {
+     "lifted": "いけん",
+     "unlifted": "意見"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "あったら"
+    },
+    {
+     "lifted": "か",
+     "unlifted": "書いて"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ください"
+    }
+   ]
+  },
+  {
+   "english": "The Mexican government announced the banning of all imports of second-hand cars, except for 1998 models.",
+   "kanji": "メキシコ政府は１９９８年型の中古車以外の中古車の輸入を禁止すると発表した。",
+   "kana": "メキシコせいふは１９９８ねんがたのちゅうこしゃいがいのちゅうこしゃのゆにゅうをきんしするとはっぴょうした。",
+   "pieces": [
+    {
+     "lifted": null,
+     "unlifted": "メキシコ"
+    },
+    {
+     "lifted": "せいふ",
+     "unlifted": "政府"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "ねんがた",
+     "unlifted": "年型"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "ちゅうこしゃ",
+     "unlifted": "中古車"
+    },
+    {
+     "lifted": "いがい",
+     "unlifted": "以外"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "ちゅうこしゃ",
+     "unlifted": "中古車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "ゆにゅう",
+     "unlifted": "輸入"
+    },
+    {
+     "lifted": null,
+     "unlifted": "を"
+    },
+    {
+     "lifted": "きんし",
+     "unlifted": "禁止"
+    },
+    {
+     "lifted": null,
+     "unlifted": "する"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "はっぴょう",
+     "unlifted": "発表"
+    },
+    {
+     "lifted": null,
+     "unlifted": "した"
+    }
+   ]
+  },
+  {
+   "english": "The car dove into the field and, after bumping along for a time, came to a halt.",
+   "kanji": "車は草地に飛び込み、しばらくガクンガクンと走って止まったのです。",
+   "kana": "くるまはくさちにとびこみ、しばらくガクンガクンとはしってとまったのです。",
+   "pieces": [
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "くさち",
+     "unlifted": "草地"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "とびこ",
+     "unlifted": "飛び込み"
+    },
+    {
+     "lifted": null,
+     "unlifted": "しばらく"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ガクンガクンと"
+    },
+    {
+     "lifted": "はし",
+     "unlifted": "走って"
+    },
+    {
+     "lifted": "と",
+     "unlifted": "止まった"
+    },
+    {
+     "lifted": null,
+     "unlifted": "のです"
+    }
+   ]
+  },
+  {
+   "english": "I'm living on welfare, without a car or anything.",
+   "kanji": "車も何もなく、生活保護で生きてます。",
+   "kana": "くるまもなにもなく、せいかつほごでいきてます。",
+   "pieces": [
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "も"
+    },
+    {
+     "lifted": "なに",
+     "unlifted": "何も"
+    },
+    {
+     "lifted": null,
+     "unlifted": "なく"
+    },
+    {
+     "lifted": "せいかつほご",
+     "unlifted": "生活保護"
+    },
+    {
+     "lifted": null,
+     "unlifted": "で"
+    },
+    {
+     "lifted": "い",
+     "unlifted": "生きてます"
+    }
+   ]
+  },
+  {
+   "english": "Cars that, when new, cost 3,000,000 yen are apparently now worth 300,000, so I think I'll use mine a little longer.",
+   "kanji": "新車時３００万円した車も今では３０万円位だそうですから、もう少し乗ろうと思います。",
+   "kana": "しんしゃどき３００まんえんしたくるまもいまでは３０まんえん位だそうですから、もうすこしのろうとおもいます。",
+   "pieces": [
+    {
+     "lifted": "しんしゃ",
+     "unlifted": "新車"
+    },
+    {
+     "lifted": "どき",
+     "unlifted": "時"
+    },
+    {
+     "lifted": "まん",
+     "unlifted": "万"
+    },
+    {
+     "lifted": "えん",
+     "unlifted": "円"
+    },
+    {
+     "lifted": null,
+     "unlifted": "した"
+    },
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "も"
+    },
+    {
+     "lifted": "いま",
+     "unlifted": "今では"
+    },
+    {
+     "lifted": "まん",
+     "unlifted": "万"
+    },
+    {
+     "lifted": "えん",
+     "unlifted": "円"
+    },
+    {
+     "lifted": null,
+     "unlifted": "位"
+    },
+    {
+     "lifted": null,
+     "unlifted": "だ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "そうです"
+    },
+    {
+     "lifted": null,
+     "unlifted": "から"
+    },
+    {
+     "lifted": "もうすこ",
+     "unlifted": "もう少し"
+    },
+    {
+     "lifted": "の",
+     "unlifted": "乗ろう"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "おも",
+     "unlifted": "思います"
+    }
+   ]
+  },
+  {
+   "english": "At that time the snow plow was certainly our hero.",
+   "kanji": "このとき除雪車は確かに私たちの英雄でした。",
+   "kana": "このときじょせつしゃはたしかにわたしたちのえいゆうでした。",
+   "pieces": [
+    {
+     "lifted": null,
+     "unlifted": "この"
+    },
+    {
+     "lifted": null,
+     "unlifted": "とき"
+    },
+    {
+     "lifted": "じょせつしゃ",
+     "unlifted": "除雪車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "たし",
+     "unlifted": "確かに"
+    },
+    {
+     "lifted": "わたし",
+     "unlifted": "私たち"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "えいゆう",
+     "unlifted": "英雄"
+    },
+    {
+     "lifted": null,
+     "unlifted": "でした"
+    }
+   ]
+  },
+  {
+   "english": "He didn't intend to let her drive but she pestered him so much that he finally gave in.",
+   "kanji": "彼は彼女に車を運転させるつもりはなかったのだが、彼女があまりにせがむものだから、彼の方がとうとう折れた。",
+   "kana": "かれはかのじょにくるまをうんてんさせるつもりはなかったのだが、かのじょがあまりにせがむものだから、かれのほうがとうとうおれた。",
+   "pieces": [
+    {
+     "lifted": "かれ",
+     "unlifted": "彼"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "かのじょ",
+     "unlifted": "彼女"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "を"
+    },
+    {
+     "lifted": "うんてん",
+     "unlifted": "運転させる"
+    },
+    {
+     "lifted": null,
+     "unlifted": "つもり"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": null,
+     "unlifted": "なかった"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": null,
+     "unlifted": "だ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": "かのじょ",
+     "unlifted": "彼女"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "あまり"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": null,
+     "unlifted": "せがむ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ものだから"
+    },
+    {
+     "lifted": "かれ",
+     "unlifted": "彼の"
+    },
+    {
+     "lifted": "ほう",
+     "unlifted": "方"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "とうとう"
+    },
+    {
+     "lifted": "お",
+     "unlifted": "折れた"
+    }
+   ]
+  },
+  {
+   "english": "We are now going to move to the crematorium so if Mr. Ogawa and you would enter the car ...",
+   "kanji": "これから火葬場へ移動しますので、小川様と君は車へ。",
+   "kana": "これからかそうばへいどうしますので、小川さまときみはくるまへ。",
+   "pieces": [
+    {
+     "lifted": null,
+     "unlifted": "これから"
+    },
+    {
+     "lifted": "かそうば",
+     "unlifted": "火葬場"
+    },
+    {
+     "lifted": null,
+     "unlifted": "へ"
+    },
+    {
+     "lifted": "いどう",
+     "unlifted": "移動"
+    },
+    {
+     "lifted": null,
+     "unlifted": "します"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ので"
+    },
+    {
+     "lifted": "さま",
+     "unlifted": "様"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "きみ",
+     "unlifted": "君"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "へ"
+    }
+   ]
+  },
+  {
+   "english": "Japanese cars are right hand drive.",
+   "kanji": "日本車は右ハンドルです。",
+   "kana": "にほんしゃはみぎハンドルです。",
+   "pieces": [
+    {
+     "lifted": "にほんしゃ",
+     "unlifted": "日本車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": "みぎ",
+     "unlifted": "右ハンドル"
+    },
+    {
+     "lifted": null,
+     "unlifted": "です"
+    }
+   ]
+  },
+  {
+   "english": "The coalition force fired at her car at the checkpoint in Bagdad.",
+   "kanji": "同盟軍はバグダッドの検問所で彼女の車を襲撃した。",
+   "kana": "どうめいぐんはバグダッドのけんもんじょでかのじょのくるまをしゅうげきした。",
+   "pieces": [
+    {
+     "lifted": "どうめいぐん",
+     "unlifted": "同盟軍"
+    },
+    {
+     "lifted": null,
+     "unlifted": "は"
+    },
+    {
+     "lifted": null,
+     "unlifted": "バグダッド"
+    },
+    {
+     "lifted": null,
+     "unlifted": "の"
+    },
+    {
+     "lifted": "けんもんじょ",
+     "unlifted": "検問所"
+    },
+    {
+     "lifted": null,
+     "unlifted": "で"
+    },
+    {
+     "lifted": "かのじょ",
+     "unlifted": "彼女の"
+    },
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "を"
+    },
+    {
+     "lifted": "しゅうげき",
+     "unlifted": "襲撃"
+    },
+    {
+     "lifted": null,
+     "unlifted": "した"
+    }
+   ]
+  },
+  {
+   "english": "When it sets off the bell rings, \"ding-ding\". Thus 'ding-ding-train'.",
+   "kanji": "動き出すとき、ベルが「ちんちん」と鳴る。だから、ちんちん電車。",
+   "kana": "うごきだすとき、ベルが「ちんちん」となる。だから、ちんちんでんしゃ。",
+   "pieces": [
+    {
+     "lifted": "うごきだ",
+     "unlifted": "動き出す"
+    },
+    {
+     "lifted": null,
+     "unlifted": "とき"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ベル"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ちんちん"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "な",
+     "unlifted": "鳴る"
+    },
+    {
+     "lifted": null,
+     "unlifted": "だから"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ちんちん"
+    },
+    {
+     "lifted": "でんしゃ",
+     "unlifted": "電車"
+    }
+   ]
+  },
+  {
+   "english": "The car was stuck in the mud.",
+   "kanji": "車がぬかるみに填まり込んだ。",
+   "kana": "くるまがぬかるみにはまりこんだ。",
+   "pieces": [
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ぬかるみ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "はまりこ",
+     "unlifted": "填まり込んだ"
+    }
+   ]
+  },
+  {
+   "english": "We reached our destination just as I thought the car was going to give up the ghost.",
+   "kanji": "車がいかれるかと思ったころ終点に着きました。",
+   "kana": "くるまがいかれるかとおもったころしゅうてんにつきました。",
+   "pieces": [
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "いかれる"
+    },
+    {
+     "lifted": null,
+     "unlifted": "か"
+    },
+    {
+     "lifted": null,
+     "unlifted": "と"
+    },
+    {
+     "lifted": "おも",
+     "unlifted": "思った"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ころ"
+    },
+    {
+     "lifted": "しゅうてん",
+     "unlifted": "終点"
+    },
+    {
+     "lifted": null,
+     "unlifted": "に"
+    },
+    {
+     "lifted": "つ",
+     "unlifted": "着きました"
+    }
+   ]
+  },
+  {
+   "english": "Car? Ah, if you mean that limousine, - I chartered it.",
+   "kanji": "車？ああ・・・あのリムジンでしたら、私がチャーターした物ですわ。",
+   "kana": "くるま？ああ・・・あのリムジンでしたら、わたしがチャーターしたものですわ。",
+   "pieces": [
+    {
+     "lifted": "くるま",
+     "unlifted": "車"
+    },
+    {
+     "lifted": null,
+     "unlifted": "ああ"
+    },
+    {
+     "lifted": null,
+     "unlifted": "あの"
+    },
+    {
+     "lifted": null,
+     "unlifted": "リムジン"
+    },
+    {
+     "lifted": null,
+     "unlifted": "でしたら"
+    },
+    {
+     "lifted": "わたし",
+     "unlifted": "私"
+    },
+    {
+     "lifted": null,
+     "unlifted": "が"
+    },
+    {
+     "lifted": null,
+     "unlifted": "チャーター"
+    },
+    {
+     "lifted": null,
+     "unlifted": "した"
+    },
+    {
+     "lifted": "もの",
+     "unlifted": "物"
+    },
+    {
+     "lifted": null,
+     "unlifted": "です"
+    },
+    {
+     "lifted": null,
+     "unlifted": "わ"
+    }
+   ]
   }
+ ],
+ "uri": "https://jisho.org/search/%E8%BB%8A%23sentences",
+ "phrase": "車"
 }
