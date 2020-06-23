@@ -7,12 +7,11 @@ class YomiExample {
   String reading;
   String meaning;
 
-  YomiExample({String example, String reading, String meaning})
-  {
-    this.example = example;
-    this.reading = reading;
-    this.meaning = meaning;
-  }
+  YomiExample({
+    this.example,
+    this.reading,
+    this.meaning
+  });
 
   Map<String, String> toJson() =>
   {
@@ -28,11 +27,11 @@ class Radical {
   List<String> forms;
   String meaning;
 
-  Radical({String symbol, List<String> forms, String meaning}){
-    this.symbol = symbol;
-    this.forms = forms;
-    this.meaning = meaning;
-  }
+  Radical({
+    this.symbol,
+    this.forms,
+    this.meaning
+  });
 
   Map<String, dynamic> toJson() =>
     {
@@ -63,16 +62,28 @@ class KanjiResult {
   String strokeOrderGifUri;
   String uri;
 
+  KanjiResult({
+    this.query,
+    this.found,
+    this.taughtIn,
+    this.jlptLevel,
+    this.newspaperFrequencyRank,
+    this.strokeCount,
+    this.meaning,
+    this.kunyomi,
+    this.onyomi,
+    this.kunyomiExamples,
+    this.onyomiExamples,
+    this.radical,
+    this.parts,
+    this.strokeOrderDiagramUri,
+    this.strokeOrderSvgUri,
+    this.strokeOrderGifUri,
+    this.uri
+  });
+
   Map<String, dynamic> toJson() {
-
-    if (found == false) {
-      return {
-        'query': query,
-        'found': found
-      };
-    }
-
-    var returnObject = {
+    return {
       'query': query,
       'found': found,
       'taughtIn': taughtIn,
@@ -84,15 +95,13 @@ class KanjiResult {
       'onyomi': onyomi,
       'onyomiExamples': onyomiExamples,
       'kunyomiExamples': kunyomiExamples,
-      'radical': radical.toJson(),
+      'radical': (radical != null) ? radical.toJson() : null,
       'parts': parts,
       'strokeOrderDiagramUri': strokeOrderDiagramUri,
       'strokeOrderSvgUri': strokeOrderSvgUri,
       'strokeOrderGifUri': strokeOrderGifUri,
       'uri': uri
     };
-    
-    return returnObject;
   }
 }
 
@@ -104,10 +113,10 @@ class ExampleSentencePiece {
   String lifted;
   String unlifted;
 
-  ExampleSentencePiece({String lifted, String unlifted}){
-    this.lifted = lifted;
-    this.unlifted = unlifted;
-  }
+  ExampleSentencePiece({
+    this.lifted,
+    this.unlifted
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -123,12 +132,12 @@ class ExampleResultData {
   String english;
   List<ExampleSentencePiece> pieces;
 
-  ExampleResultData({String english, String kanji, String kana, List<ExampleSentencePiece> pieces}){
-    this.english = english;
-    this.kanji = kanji;
-    this.kana = kana;
-    this.pieces = pieces;
-  }
+  ExampleResultData({
+    this.english,
+    this.kanji,
+    this.kana,
+    this.pieces
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -147,13 +156,13 @@ class ExampleResults {
   List<ExampleResultData> results;
   String phrase;
 
-  ExampleResults({String query, bool found, List<ExampleResultData> results, String uri, String phrase}){
-    this.query = query;
-    this.found = found;
-    this.results = results;
-    this.uri = uri;
-    this.phrase = phrase;
-  }
+  ExampleResults({
+    this.query,
+    this.found,
+    this.results,
+    this.uri,
+    this.phrase
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -175,11 +184,11 @@ class PhraseScrapeSentence {
   String japanese;
   List<ExampleSentencePiece> pieces;
 
-  PhraseScrapeSentence ({String english, String japanese, List<ExampleSentencePiece> pieces}){
-    this.english = english;
-    this.japanese = japanese;
-    this.pieces = pieces;
-  }
+  PhraseScrapeSentence ({
+    this.english,
+    this.japanese,
+    this.pieces
+  });
 
   Map<String, dynamic> toJson() => {
     'english': english,
@@ -197,21 +206,13 @@ class PhraseScrapeMeaning {
   List<String> tags;
 
   PhraseScrapeMeaning({
-    List<String> seeAlsoTerms,
-    List<PhraseScrapeSentence> sentences,
-    String definition,
-    List<String> supplemental,
-    String definitionAbstract,
-    List<String> tags,
-  }){
-    this.seeAlsoTerms = seeAlsoTerms;
-    this.sentences = sentences;
-    this.definition = definition;
-    this.supplemental = supplemental;
-    this.definitionAbstract = definitionAbstract;
-    this.tags = tags;
-    
-  }
+    this.seeAlsoTerms,
+    this.sentences,
+    this.definition,
+    this.supplemental,
+    this.definitionAbstract,
+    this.tags
+  });
 
   Map<String, dynamic> toJson() => {
     'seeAlsoTerms': seeAlsoTerms,
@@ -228,12 +229,9 @@ class KanjiKanaPair {
   String kana;
 
   KanjiKanaPair({
-    String kanji,
-    String kana
-  }){
-    this.kanji = kanji;
-    this.kana = kana;
-  }
+    this.kanji,
+    this.kana
+  });
 
   Map<String, String> toJson() => {
     'kanji': kanji,
@@ -251,22 +249,14 @@ class PhrasePageScrapeResult {
   List<String> notes;
 
   PhrasePageScrapeResult({
-    bool found,
-    String query,
-    String uri,
-    List<String> tags,
-    List<PhraseScrapeMeaning> meanings,
-    List<KanjiKanaPair> otherForms,
-    List<String> notes,
-  }){
-    this.found = found;
-    this.query = query;
-    this.uri = uri;
-    this.tags = tags;
-    this.meanings = meanings;
-    this.otherForms = otherForms;
-    this.notes = notes;
-  }
+    this.found,
+    this.query,
+    this.uri,
+    this.tags,
+    this.meanings,
+    this.otherForms,
+    this.notes
+  });
 
   Map<String, dynamic> toJson() =>
   {

@@ -24,7 +24,7 @@ List<Element> getChildrenAndSymbols(Element ul) {
         symbols += ulCharArray[offsetPointer];
         offsetPointer++;
       }
-      final symbolElement = Element.html('<span>' + symbols + '</span>'); 
+      final symbolElement = Element.html('<span>${symbols}</span>'); 
       result.add(symbolElement);
     }
       offsetPointer += element.text.length;
@@ -32,7 +32,7 @@ List<Element> getChildrenAndSymbols(Element ul) {
   }
   if (offsetPointer + 1 != ulText.length){
     final symbols = ulText.substring(offsetPointer, ulText.length-1);
-    final symbolElement = Element.html('<span>' + symbols + '</span>'); 
+    final symbolElement = Element.html('<span>${symbols}</span>'); 
     result.add(symbolElement);
   }
   return result;
