@@ -364,7 +364,7 @@ class JishoWordSense {
 class JishoAttribution {
   bool jmdict;
   bool jmnedict;
-  bool dbpedia; //This variable might be returned as a link (String). Not sure about the above
+  String dbpedia;
 
   JishoAttribution({
     this.jmdict,
@@ -376,7 +376,7 @@ class JishoAttribution {
     return JishoAttribution(
       jmdict: (json['jmdict'].toString() == 'true'),
       jmnedict: (json['jmnedict'].toString() == 'true'),
-      dbpedia: (json['dbpedia'].toString() == 'true')
+      dbpedia: (json['dbpedia'].toString() != 'false') ? json['dbpedia'].toString() : null
     );
   }
 
