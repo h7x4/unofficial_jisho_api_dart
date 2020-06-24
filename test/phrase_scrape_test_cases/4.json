@@ -1,7 +1,9 @@
 {
+  "found": false,
   "query": "grlgmregmneriireg",
-  "expectedResult": {
-    "query": "grlgmregmneriireg",
-    "found": false
-  }
+  "uri": null,
+  "tags": null,
+  "meanings": null,
+  "otherForms": null,
+  "notes": null
 }

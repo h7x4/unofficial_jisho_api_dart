@@ -1,10 +1,7 @@
 {
   "query": "grlgmregmneriireg",
-  "expectedResult": {
-    "query": "grlgmregmneriireg",
-    "found": false,
-    "results": [],
-    "uri": "http://jisho.org/search/grlgmregmneriireg%23sentences",
-    "phrase": "grlgmregmneriireg"
-  }
+  "found": false,
+  "results": [],
+  "uri": "https://jisho.org/search/grlgmregmneriireg%23sentences",
+  "phrase": "grlgmregmneriireg"
 }

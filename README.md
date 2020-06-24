@@ -1,4 +1,4 @@
-# Warning: not functional yet
+# unofficial_jisho_api
 
 A rewrite of the [unofficial-jisho-api](https://www.npmjs.com/package/unofficial-jisho-api)
 
@@ -9,19 +9,18 @@ Below are some basic examples.
 
 ### Word/phrase search (provided by official Jisho API)
 
-This returns the same results as the official [Jisho.org](https://jisho.org/) API. See the discussion of that [here](http://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api).
+This returns the same results as the official [Jisho.org](https://jisho.org/) API. See the discussion of that [here](https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api).
 
 ```dart
 import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
 final jisho = JishoApi();
 
-main() async {
+void main() async {
   jisho.searchForPhrase('日').then((result) {
-  ...
-  ...
-  ...
-});
-
+    ...
+    ...
+    ...
+  });
 }
 ```
 
@@ -32,13 +31,13 @@ import 'dart:convert' show jsonEncode;
 import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
 final jisho = JishoApi();
 
-main() async {
-  jisho.searchForKanji('語').then((result) {
-    print('Found: ' + result.found);
+void main() async {
+  await jisho.searchForKanji('語').then((result) {
+    print('Found: ' + result.found.toString());
     print('Taught in: ' + result.taughtIn);
     print('JLPT level: ' + result.jlptLevel);
-    print('Newspaper frequency rank: ' + result.newspaperFrequencyRank);
-    print('Stroke count: ' + result.strokeCount);
+    print('Newspaper frequency rank: ' + result.newspaperFrequencyRank.toString());
+    print('Stroke count: ' + result.strokeCount.toString());
     print('Meaning: ' + result.meaning);
     print('Kunyomi: ' + jsonEncode(result.kunyomi));
     print('Kunyomi example: ' + jsonEncode(result.kunyomiExamples[0]));
@@ -50,7 +49,7 @@ main() async {
     print('Stroke order SVG: ' + result.strokeOrderSvgUri);
     print('Stroke order GIF: ' + result.strokeOrderGifUri);
     print('Jisho Uri: ' + result.uri);
-  }
+  });
 }
 ```
 
@@ -68,11 +67,11 @@ Kunyomi example: {"example":"語る","reading":"かたる","meaning":"to talk ab
 Onyomi: ["ゴ"]
 Onyomi example: {"example":"語","reading":"ゴ","meaning":"language, word"}
 Radical: {"symbol":"言","forms":["訁"],"meaning":"speech"}
-Parts: ["口","五","言"]
-Stroke order diagram: http://classic.jisho.org/static/images/stroke_diagrams/35486_frames.png
-Stroke order SVG: http://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/08a9e.svg
-Stroke order GIF: https://raw.githubusercontent.com/mistval/kotoba/master/resources/images/kanjianimations/08a9e_anim.gif
-Jisho Uri: http://jisho.org/search/%E8%AA%9E%23kanji
+Parts: ["五","口","言"]
+Stroke order diagram: https://classic.jisho.org/static/images/stroke_diagrams/35486_frames.png
+Stroke order SVG: https://d1w6u4xc3l95km.cloudfront.net/kanji-2015-03/08a9e.svg
+Stroke order GIF: https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/8a9e.gif
+Jisho Uri: https://jisho.org/search/%E8%AA%9E%23kanji
 ```
 
 ### Example search
@@ -82,18 +81,18 @@ import 'dart:convert' show jsonEncode;
 import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
 final jisho = JishoApi();
 
-main() async {
-  jisho.searchForExamples('日').then((result) {
+void main() async {
+  await jisho.searchForExamples('日').then((result) {
     print('Jisho Uri: ' + result.uri);
-    print();
+    print('');
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; i++) {
       var example = result.results[i];
       print(example.kanji);
       print(example.kana);
       print(example.english);
       print(jsonEncode(example.pieces));
-      print();
+      print('');
     }
   });
 }
@@ -102,24 +101,23 @@ main() async {
 This outputs the following:
 
 ```
-Jisho Uri: http://jisho.org/search/%E6%97%A5%23sentences
+Jisho Uri: https://jisho.org/search/%E6%97%A5%23sentences
 
 日本人ならそんなことはけっしてしないでしょう。
 にほんじんならそんなことはけっしてしないでしょう。
 A Japanese person would never do such a thing.
-[{"lifted":"にほんじん","unlifted":"日本人"},{"lifted":"","unlifted":"なら"},{"lifted":"","unlifted":"そんな"},{"lifted":"","unlifted":"こと"},{"lifted":"","unlifted":"は"},{"lifted":"","unlifted":"けっして"},{"lifted":"","unlifted":"しない"},{"lifted":"","
-unlifted":"でしょう"}]
+[{"lifted":"にほんじん","unlifted":"日本人"},{"lifted":null,"unlifted":"なら"},{"lifted":null,"unlifted":"そんな"},{"lifted":null,"unlifted":"こと"},{"lifted":null,"unlifted":"は"},{"lifted":null,"unlifted":"けっして"},{"lifted":null,"unlifted":"しない"},{"lifted":null,"unlifted":"でしょう"}]
 
 今日はとても暑い。
 きょうはとてもあつい。
 It is very hot today.
-[{"lifted":"きょう","unlifted":"今日"},{"lifted":"","unlifted":"は"},{"lifted":"","unlifted":"とても"},{"lifted":"あつ","unlifted":"暑い"}]
+[{"lifted":"きょう","unlifted":"今日"},{"lifted":null,"unlifted":"は"},{"lifted":null,"unlifted":"とても"},{"lifted":"あつ","unlifted":"暑い"}]
 
 日本には美しい都市が多い。例えば京都、奈良だ。
 にほんにはうつくしいとしがおおい。たとえばきょうと、奈良だ。
 Japan is full of beautiful cities. Kyoto and Nara, for instance.
-[{"lifted":"にほん","unlifted":"日本"},{"lifted":"","unlifted":"には"},{"lifted":"うつく","unlifted":"美しい"},{"lifted":"とし","unlifted":"都市"},{"lifted":"","unlifted":"が"},{"lifted":"おお","unlifted":"多い"},{"lifted":"たと","unlifted":"例えば"},{"lift
-ed":"きょうと","unlifted":"京都"},{"lifted":"","unlifted":"だ"}]
+[{"lifted":"にほん","unlifted":"日本"},{"lifted":null,"unlifted":"には"},{"lifted":"うつく","unlifted":"美しい"},{"lifted":"とし","unlifted":"都市"},{"lifted":null,"unlifted":"が"},{"lifted":"おお","unlifted":"多い"},{"lifted":"たと","unlifted":"例えば"},{"lifted":"きょうと","unlifted":"京都"},{"lifted":null,"unlifted":"だ"}]
+
 ```
 
 ### Word/phrase scraping
@@ -127,13 +125,14 @@ ed":"きょうと","unlifted":"京都"},{"lifted":"","unlifted":"だ"}]
 This scrapes the word/phrase page on Jisho.org. This can get you some data that the official API doesn't have, such as JLPT level and part-of-speech. The official API (`searchForPhrase`) should be preferred if it has the data you need.
 
 ```dart
-import 'dart:convert' show jsonEncode;
+import 'dart:convert';
 import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
 final jisho = JishoApi();
+final encoder = JsonEncoder.withIndent('  ');
 
-main() async {
-  jisho.scrapeForPhrase('谷').then((data) {
-    print(jsonEncode(data);
+void main() async {
+  await jisho.scrapeForPhrase('谷').then((data) {
+    print(encoder.convert(data));
   });
 }
 ```
@@ -156,7 +155,7 @@ This outputs the following:
       "sentences": [],
       "definition": "valley",
       "supplemental": [],
-      "definitionAbstract": "",
+      "definitionAbstract": null,
       "tags": [
         "noun"
       ]
@@ -186,69 +185,6 @@ This outputs the following:
 }
 ```
 
-## Parsing HTML strings
-
-You can provide the HTML responses from Jisho yourself. This can be useful if you need to use a CORS proxy or something. You can do whatever you need to do to get the HTML and then provide it to this module's parsing functions. For example:
-
-### Parse kanji page HTML
-
-```dart
-import 'package:http/http.dart' as http;
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
-
-main() async {
-  const SEARCH_KANJI = '車';
-  final SEARCH_URI = jisho.getUriForKanjiSearch(SEARCH_KANJI);
-
-  final response = await http.get(SEARCH_URI);
-  final json = jisho.parseKanjiPageHtml(response.body, SEARCH_KANJI);
-
-  print('JLPT level: ${json.jlptLevel}');
-  print('Stroke count: ${json.strokeCount}');
-  print('Meaning: ${json.meaning}');
-}
-```
-
-### Parse example page HTML
-
-```dart
-import 'package:http/http.dart' as http;
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
-
-main() async {
-  const SEARCH_EXAMPLE = '保護者';
-  final SEARCH_URI = jisho.getUriForExampleSearch(SEARCH_EXAMPLE);
-
-  final response = await http.get(SEARCH_URI);
-  final json = jisho.parseExamplePageHtml(response.body, SEARCH_EXAMPLE);
-  
-  print('English: ${json.results[0].english}');
-  print('Kanji ${json.results[0].kanji}');
-  print('Kana: ${json.results[0].kana}');
-}
-```
-
-### Parse phrase page HTML
-
-```dart
-import 'dart:convert' show jsonEncode;
-import 'package:http/http.dart' as http;
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
-
-main() async {
-  const SEARCH_EXAMPLE = '保護者';
-  final SEARCH_URI = jisho.getUriForPhraseScrape(SEARCH_EXAMPLE);
-
-  final response = await http.get(SEARCH_URI);
-  const json = jisho.parsePhraseScrapeHtml(response.body, SEARCH_EXAMPLE);
-  
-  print(jsonEncode(json, null, 2)); 
-}
-```
-
 ## About
 
-Permission to scrape granted by Jisho's admin Kimtaro: http://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api
+Permission to scrape granted by Jisho's admin Kimtaro: https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api
