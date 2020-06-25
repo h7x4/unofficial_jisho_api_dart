@@ -12,6 +12,7 @@ String removeNewlines(String str) {
   return str.replaceAll(RegExp(r'(?:\r|\n)') , '').trim();
 }
 
+/// Provides the URI for a kanji search
 String uriForKanjiSearch(String kanji) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(kanji)}%23kanji';
 }
@@ -187,6 +188,7 @@ int getNewspaperFrequencyRank(String pageHtml) {
   return (frequencySection != null) ? int.parse(getStringBetweenStrings(frequencySection, '<strong>', '</strong>')) : null;
 }
 
+/// Parses a jisho kanji search page to an object
 KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
   final result = KanjiResult();
   result.query = kanji;

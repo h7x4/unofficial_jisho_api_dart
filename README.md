@@ -199,7 +199,7 @@ final SEARCH_URI = jisho_parser.uriForKanjiSearch(SEARCH_KANJI);
 
 void main() async {
   await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseKanjiPageHtml(result.body, SEARCH_KANJI);
+    final parsedResult = jisho_parser.parseKanjiPageData(result.body, SEARCH_KANJI);
     print('JLPT level: ${parsedResult.jlptLevel}');
     print('Stroke count: ${parsedResult.strokeCount}');
     print('Meaning: ${parsedResult.meaning}');
@@ -221,7 +221,7 @@ final SEARCH_URI = jisho_parser.uriForExampleSearch(SEARCH_EXAMPLE);
 
 void main() async {
   await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseExamplePageHtml(result.body, SEARCH_EXAMPLE);
+    final parsedResult = jisho_parser.parseExamplePageData(result.body, SEARCH_EXAMPLE);
     print('English: ${parsedResult.results[0].english}');
     print('Kanji ${parsedResult.results[0].kanji}');
     print('Kana: ${parsedResult.results[0].kana}');
@@ -244,7 +244,7 @@ final SEARCH_URI = jisho_parser.uriForPhraseScrape(SEARCH_EXAMPLE);
 void main() async {
 
   await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parsePhraseScrapeHtml(result.body, SEARCH_EXAMPLE);
+    final parsedResult = jisho_parser.parsePhrasePageData(result.body, SEARCH_EXAMPLE);
     print(encoder.convert(parsedResult));
   });
 }

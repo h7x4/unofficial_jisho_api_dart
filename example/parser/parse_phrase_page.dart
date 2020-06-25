@@ -10,7 +10,7 @@ final SEARCH_URI = jisho_parser.uriForPhraseScrape(SEARCH_EXAMPLE);
 void main() async {
 
   await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parsePhraseScrapeHtml(result.body, SEARCH_EXAMPLE);
+    final parsedResult = jisho_parser.parsePhrasePageData(result.body, SEARCH_EXAMPLE);
     print(encoder.convert(parsedResult));
   });
 }

@@ -6,6 +6,7 @@ import 'package:html/dom.dart';
 
 final RegExp kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
 
+/// Provides the URI for an example search
 String uriForExampleSearch(String phrase) {
   return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
 }
@@ -107,6 +108,7 @@ ExampleResultData parseExampleDiv(Element div) {
   return result;
 }
 
+/// Parses a jisho example sentence search page to an object
 ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final document = parse(pageHtml);
   final divs = document.querySelectorAll('.sentence_content');

@@ -9,7 +9,7 @@ final SEARCH_URI = jisho_parser.uriForKanjiSearch(SEARCH_KANJI);
 
 void main() async {
   await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseKanjiPageHtml(result.body, SEARCH_KANJI);
+    final parsedResult = jisho_parser.parseKanjiPageData(result.body, SEARCH_KANJI);
     print('JLPT level: ${parsedResult.jlptLevel}');
     print('Stroke count: ${parsedResult.strokeCount}');
     print('Meaning: ${parsedResult.meaning}');

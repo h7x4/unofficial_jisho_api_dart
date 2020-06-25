@@ -137,10 +137,12 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
   return returnValues;
 }
 
+/// Provides the URI for a phrase scrape
 String uriForPhraseScrape(String searchTerm) {
   return 'https://jisho.org/word/${Uri.encodeComponent(searchTerm)}';
 }
 
+/// Parses a jisho word search page to an object
 PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
   final document = parse(pageHtml);
   final result = getMeaningsOtherFormsAndNotes(document);

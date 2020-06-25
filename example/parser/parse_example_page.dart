@@ -9,7 +9,7 @@ final SEARCH_URI = jisho_parser.uriForExampleSearch(SEARCH_EXAMPLE);
 
 void main() async {
   await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseExamplePageHtml(result.body, SEARCH_EXAMPLE);
+    final parsedResult = jisho_parser.parseExamplePageData(result.body, SEARCH_EXAMPLE);
     print('English: ${parsedResult.results[0].english}');
     print('Kanji ${parsedResult.results[0].kanji}');
     print('Kana: ${parsedResult.results[0].kana}');
