@@ -2,10 +2,8 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'dart:convert';
 
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
+import 'package:unofficial_jisho_api/api.dart';
 import 'package:test/test.dart';
-
-final jisho = JishoApi();
 
 List<String> getFilePaths(String dirname) {
   final currentdir = Directory.current.path;
@@ -25,7 +23,7 @@ void runTestCases(List<String> testCaseFiles, Function apiFunction) async {
 }
 
 void main() async {
-  await runTestCases(getFilePaths('kanji_test_cases'), jisho.searchForKanji);
-  await runTestCases(getFilePaths('example_test_cases'), jisho.searchForExamples);
-  await runTestCases(getFilePaths('phrase_scrape_test_cases'), jisho.scrapeForPhrase);
+  await runTestCases(getFilePaths('kanji_test_cases'), searchForKanji);
+  await runTestCases(getFilePaths('example_test_cases'), searchForExamples);
+  await runTestCases(getFilePaths('phrase_scrape_test_cases'), scrapeForPhrase);
 }

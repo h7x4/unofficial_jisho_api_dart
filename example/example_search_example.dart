@@ -1,6 +1,5 @@
 import 'dart:convert' show jsonEncode;
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
+import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   await jisho.searchForExamples('日').then((result) {

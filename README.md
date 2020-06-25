@@ -12,8 +12,7 @@ Below are some basic examples.
 This returns the same results as the official [Jisho.org](https://jisho.org/) API. See the discussion of that [here](https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api).
 
 ```dart
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
+import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   jisho.searchForPhrase('日').then((result) {
@@ -28,8 +27,7 @@ void main() async {
 
 ```dart
 import 'dart:convert' show jsonEncode;
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
+import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   await jisho.searchForKanji('語').then((result) {
@@ -78,8 +76,7 @@ Jisho Uri: https://jisho.org/search/%E8%AA%9E%23kanji
 
 ```dart
 import 'dart:convert' show jsonEncode;
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
+import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   await jisho.searchForExamples('日').then((result) {
@@ -126,8 +123,7 @@ This scrapes the word/phrase page on Jisho.org. This can get you some data that 
 
 ```dart
 import 'dart:convert';
-import 'package:unofficial_jisho_api/unofficial_jisho_api.dart';
-final jisho = JishoApi();
+import 'package:unofficial_jisho_api/api.dart' as jisho;
 final encoder = JsonEncoder.withIndent('  ');
 
 void main() async {
