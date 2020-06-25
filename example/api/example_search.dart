@@ -6,7 +6,7 @@ void main() async {
     print('Jisho Uri: ' + result.uri);
     print('');
 
-    for (int i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       var example = result.results[i];
       print(example.kanji);
       print(example.kana);

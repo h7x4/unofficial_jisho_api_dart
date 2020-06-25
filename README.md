@@ -181,6 +181,75 @@ This outputs the following:
 }
 ```
 
+## Parsing HTML strings
+
+You can provide the HTML responses from Jisho yourself. This can be useful if you need to use a CORS proxy or something. You can do whatever you need to do to get the HTML and then provide it to this module's parsing functions. For example:
+
+### Parse kanji page HTML
+
+```dart
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
+
+final encoder = JsonEncoder.withIndent('  ');
+
+const SEARCH_KANJI = '車';
+final SEARCH_URI = jisho_parser.uriForKanjiSearch(SEARCH_KANJI);
+
+void main() async {
+  await http.get(SEARCH_URI).then((result) {
+    final parsedResult = jisho_parser.parseKanjiPageHtml(result.body, SEARCH_KANJI);
+    print('JLPT level: ${parsedResult.jlptLevel}');
+    print('Stroke count: ${parsedResult.strokeCount}');
+    print('Meaning: ${parsedResult.meaning}');
+  });
+}
+```
+
+### Parse example page HTML
+
+```dart
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
+
+final encoder = JsonEncoder.withIndent('  ');
+
+const SEARCH_EXAMPLE = '保護者';
+final SEARCH_URI = jisho_parser.uriForExampleSearch(SEARCH_EXAMPLE);
+
+void main() async {
+  await http.get(SEARCH_URI).then((result) {
+    final parsedResult = jisho_parser.parseExamplePageHtml(result.body, SEARCH_EXAMPLE);
+    print('English: ${parsedResult.results[0].english}');
+    print('Kanji ${parsedResult.results[0].kanji}');
+    print('Kana: ${parsedResult.results[0].kana}');
+  });
+}
+```
+
+### Parse phrase page HTML
+
+```dart
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
+
+final encoder = JsonEncoder.withIndent('  ');
+
+const SEARCH_EXAMPLE = '保護者';
+final SEARCH_URI = jisho_parser.uriForPhraseScrape(SEARCH_EXAMPLE);
+
+void main() async {
+
+  await http.get(SEARCH_URI).then((result) {
+    final parsedResult = jisho_parser.parsePhraseScrapeHtml(result.body, SEARCH_EXAMPLE);
+    print(encoder.convert(parsedResult));
+  });
+}
+```
+
 ## About
 
 Permission to scrape granted by Jisho's admin Kimtaro: https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api
