@@ -1,3 +1,7 @@
+/// This library provides search functions for searching/scraping Jisho.org.
+/// 
+/// It provides a built-in http client and performs async requests to the server
+/// for different types of requests.
 library unofficial_jisho_api;
 import './src/objects.dart';
 import 'package:http/http.dart' as http;
