@@ -3,14 +3,14 @@
 /// It provides a built-in http client and performs async requests to the server
 /// for different types of requests.
 library unofficial_jisho_api;
-import './src/objects.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-import './src/phraseSearch.dart';
-import './src/kanjiSearch.dart';
 import './src/exampleSearch.dart';
+import './src/kanjiSearch.dart';
+import './src/objects.dart';
 import './src/phraseScrape.dart';
+import './src/phraseSearch.dart';
 
 /// Query the official Jisho API for a word or phrase
 /// 
@@ -53,6 +53,6 @@ Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
     //   );
     // }
 
-    throw err;
+    rethrow;
   }
 }

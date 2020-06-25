@@ -1,17 +1,17 @@
-import './baseURI.dart';
-import './objects.dart';
-
 import 'package:html/parser.dart';
 import 'package:html/dom.dart';
 
-final RegExp kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
+import './baseURI.dart';
+import './objects.dart';
+
+final RegExp _kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
 
 /// Provides the URI for an example search
 String uriForExampleSearch(String phrase) {
-  return '${SCRAPE_BASE_URI}${Uri.encodeComponent(phrase)}%23sentences';
+  return '$SCRAPE_BASE_URI${Uri.encodeComponent(phrase)}%23sentences';
 }
 
-List<Element> getChildrenAndSymbols(Element ul) {
+List<Element> _getChildrenAndSymbols(Element ul) {
   final ulText = ul.text;
   final ulCharArray = ulText.split('');
   final ulChildren = ul.children;
@@ -25,7 +25,7 @@ List<Element> getChildrenAndSymbols(Element ul) {
         symbols += ulCharArray[offsetPointer];
         offsetPointer++;
       }
-      final symbolElement = Element.html('<span>${symbols}</span>'); 
+      final symbolElement = Element.html('<span>$symbols</span>'); 
       result.add(symbolElement);
     }
       offsetPointer += element.text.length;
@@ -33,15 +33,15 @@ List<Element> getChildrenAndSymbols(Element ul) {
   }
   if (offsetPointer + 1 != ulText.length){
     final symbols = ulText.substring(offsetPointer, ulText.length-1);
-    final symbolElement = Element.html('<span>${symbols}</span>'); 
+    final symbolElement = Element.html('<span>$symbols</span>'); 
     result.add(symbolElement);
   }
   return result;
 }
 
-ExampleResultData getKanjiAndKana(Element div) {
+ExampleResultData _getKanjiAndKana(Element div) {
   final ul = div.querySelector('ul');
-  final contents = getChildrenAndSymbols(ul);
+  final contents = _getChildrenAndSymbols(ul);
 
   var kanji = '';
   var kana = '';
@@ -59,7 +59,7 @@ ExampleResultData getKanjiAndKana(Element div) {
         final kanaEnding = [];
         for (var j = unlifted.length - 1; j > 0; j -= 1) {
           final char = unlifted[j];
-          if (!kanjiRegex.hasMatch(char)) {
+          if (!_kanjiRegex.hasMatch(char)) {
             kanaEnding.add(char);
           } else {
             break;
@@ -100,8 +100,8 @@ List<ExampleSentencePiece> getPieces(Element sentenceElement) {
   return pieces;
 }
 
-ExampleResultData parseExampleDiv(Element div) {
-  final result = getKanjiAndKana(div);
+ExampleResultData _parseExampleDiv(Element div) {
+  final result = _getKanjiAndKana(div);
   result.english = div.querySelector('.english').text;
   result.pieces = getPieces(div) ?? [];
 
@@ -113,7 +113,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final document = parse(pageHtml);
   final divs = document.querySelectorAll('.sentence_content');
 
-  final results = divs.map((div) => parseExampleDiv(div)).toList();
+  final results = divs.map((div) => _parseExampleDiv(div)).toList();
 
   return ExampleResults(
     query: phrase,

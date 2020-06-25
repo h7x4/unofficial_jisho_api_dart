@@ -1,15 +1,15 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
 
-final encoder = JsonEncoder.withIndent('  ');
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
-const SEARCH_KANJI = '車';
-final SEARCH_URI = jisho_parser.uriForKanjiSearch(SEARCH_KANJI);
+const String searchKanji = '車';
+final String searchURI = jisho_parser.uriForKanjiSearch(searchKanji);
 
 void main() async {
-  await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseKanjiPageData(result.body, SEARCH_KANJI);
+  await http.get(searchURI).then((result) {
+    final parsedResult = jisho_parser.parseKanjiPageData(result.body, searchKanji);
     print('JLPT level: ${parsedResult.jlptLevel}');
     print('Stroke count: ${parsedResult.strokeCount}');
     print('Meaning: ${parsedResult.meaning}');

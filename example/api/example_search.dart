@@ -3,7 +3,7 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   await jisho.searchForExamples('日').then((result) {
-    print('Jisho Uri: ' + result.uri);
+    print('Jisho Uri: ${result.uri}');
     print('');
 
     for (var i = 0; i < 3; i++) {

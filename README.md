@@ -31,22 +31,22 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   await jisho.searchForKanji('語').then((result) {
-    print('Found: ' + result.found.toString());
-    print('Taught in: ' + result.taughtIn);
-    print('JLPT level: ' + result.jlptLevel);
-    print('Newspaper frequency rank: ' + result.newspaperFrequencyRank.toString());
-    print('Stroke count: ' + result.strokeCount.toString());
-    print('Meaning: ' + result.meaning);
-    print('Kunyomi: ' + jsonEncode(result.kunyomi));
-    print('Kunyomi example: ' + jsonEncode(result.kunyomiExamples[0]));
-    print('Onyomi: ' + jsonEncode(result.onyomi));
-    print('Onyomi example: ' + jsonEncode(result.onyomiExamples[0]));
-    print('Radical: ' + jsonEncode(result.radical));
-    print('Parts: ' + jsonEncode(result.parts));
-    print('Stroke order diagram: ' + result.strokeOrderDiagramUri);
-    print('Stroke order SVG: ' + result.strokeOrderSvgUri);
-    print('Stroke order GIF: ' + result.strokeOrderGifUri);
-    print('Jisho Uri: ' + result.uri);
+    print('Found: ${result.found}');
+    print('Taught in: ${result.taughtIn}');
+    print('JLPT level: ${result.jlptLevel}');
+    print('Newspaper frequency rank: ${result.newspaperFrequencyRank}');
+    print('Stroke count: ${result.strokeCount}');
+    print('Meaning: ${result.meaning}');
+    print('Kunyomi: ${jsonEncode(result.kunyomi)}');
+    print('Kunyomi example: ${jsonEncode(result.kunyomiExamples[0])}');
+    print('Onyomi: ${jsonEncode(result.onyomi)}');
+    print('Onyomi example: ${jsonEncode(result.onyomiExamples[0])}');
+    print('Radical: ${jsonEncode(result.radical)}');
+    print('Parts: ${jsonEncode(result.parts)}');
+    print('Stroke order diagram: ${result.strokeOrderDiagramUri}');
+    print('Stroke order SVG: ${result.strokeOrderSvgUri}');
+    print('Stroke order GIF: ${result.strokeOrderGifUri}');
+    print('Jisho Uri: ${result.uri}');
   });
 }
 ```
@@ -80,10 +80,10 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 void main() async {
   await jisho.searchForExamples('日').then((result) {
-    print('Jisho Uri: ' + result.uri);
+    print('Jisho Uri: ${result.uri}');
     print('');
 
-    for (int i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) {
       var example = result.results[i];
       print(example.kanji);
       print(example.kana);
@@ -124,7 +124,7 @@ This scrapes the word/phrase page on Jisho.org. This can get you some data that 
 ```dart
 import 'dart:convert';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
-final encoder = JsonEncoder.withIndent('  ');
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
 void main() async {
   await jisho.scrapeForPhrase('谷').then((data) {
@@ -188,18 +188,18 @@ You can provide the HTML responses from Jisho yourself. This can be useful if yo
 ### Parse kanji page HTML
 
 ```dart
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
 
-final encoder = JsonEncoder.withIndent('  ');
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
-const SEARCH_KANJI = '車';
-final SEARCH_URI = jisho_parser.uriForKanjiSearch(SEARCH_KANJI);
+const String searchKanji = '車';
+final String searchURI = jisho_parser.uriForKanjiSearch(searchKanji);
 
 void main() async {
-  await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseKanjiPageData(result.body, SEARCH_KANJI);
+  await http.get(searchURI).then((result) {
+    final parsedResult = jisho_parser.parseKanjiPageData(result.body, searchKanji);
     print('JLPT level: ${parsedResult.jlptLevel}');
     print('Stroke count: ${parsedResult.strokeCount}');
     print('Meaning: ${parsedResult.meaning}');
@@ -210,18 +210,18 @@ void main() async {
 ### Parse example page HTML
 
 ```dart
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
 
-final encoder = JsonEncoder.withIndent('  ');
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
-const SEARCH_EXAMPLE = '保護者';
-final SEARCH_URI = jisho_parser.uriForExampleSearch(SEARCH_EXAMPLE);
+const String searchExample = '保護者';
+final String searchURI = jisho_parser.uriForExampleSearch(searchExample);
 
 void main() async {
-  await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parseExamplePageData(result.body, SEARCH_EXAMPLE);
+  await http.get(searchURI).then((result) {
+    final parsedResult = jisho_parser.parseExamplePageData(result.body, searchExample);
     print('English: ${parsedResult.results[0].english}');
     print('Kanji ${parsedResult.results[0].kanji}');
     print('Kana: ${parsedResult.results[0].kana}');
@@ -232,19 +232,19 @@ void main() async {
 ### Parse phrase page HTML
 
 ```dart
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
 
-final encoder = JsonEncoder.withIndent('  ');
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
-const SEARCH_EXAMPLE = '保護者';
-final SEARCH_URI = jisho_parser.uriForPhraseScrape(SEARCH_EXAMPLE);
+const String searchExample = '保護者';
+final String searchURI = jisho_parser.uriForPhraseScrape(searchExample);
 
 void main() async {
 
-  await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parsePhrasePageData(result.body, SEARCH_EXAMPLE);
+  await http.get(searchURI).then((result) {
+    final parsedResult = jisho_parser.parsePhrasePageData(result.body, searchExample);
     print(encoder.convert(parsedResult));
   });
 }

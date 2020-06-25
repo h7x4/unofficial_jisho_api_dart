@@ -1,10 +1,10 @@
-import './objects.dart';
-import './exampleSearch.dart';
-
 import 'package:html/parser.dart';
 import 'package:html/dom.dart';
 
-List<String> getTags(Document document) {
+import './exampleSearch.dart' show getPieces;
+import './objects.dart';
+
+List<String> _getTags(Document document) {
   final List<String> tags = [];
   final tagElements = document.querySelectorAll('.concept_light-tag');
 
@@ -16,21 +16,21 @@ List<String> getTags(Document document) {
   return tags;
 }
 
-List<String> getMostRecentWordTypes(Element child) {
+List<String> _getMostRecentWordTypes(Element child) {
   return child.text.split(',').map((s) => s.trim().toLowerCase()).toList();
 }
 
-List<KanjiKanaPair> getOtherForms(Element child) {
+List<KanjiKanaPair> _getOtherForms(Element child) {
   return child.text.split('、')
     .map((s) => s.replaceAll('【', '').replaceAll('】', '').split(' '))
     .map((a) => (KanjiKanaPair( kanji: a[0], kana: (a.length == 2) ? a[1] : null ))).toList();
 }
 
-List<String> getNotes(Element child) => child.text.split('\n');
+List<String> _getNotes(Element child) => child.text.split('\n');
 
-String getMeaning(Element child) => child.querySelector('.meaning-meaning').text;
+String _getMeaning(Element child) => child.querySelector('.meaning-meaning').text;
 
-String getMeaningAbstract(Element child) {
+String _getMeaningAbstract(Element child) {
   final meaningAbstract = child.querySelector('.meaning-abstract');
   if (meaningAbstract == null) return null;
   
@@ -41,13 +41,13 @@ String getMeaningAbstract(Element child) {
   return child.querySelector('.meaning-abstract')?.text;
 }
 
-List<String> getSupplemental(Element child) {
+List<String> _getSupplemental(Element child) {
   final supplemental = child.querySelector('.supplemental_info');
   if (supplemental == null) return [];
   return supplemental.text.split(',').map((s) => s.trim()).toList();
 }
 
-List<String> getSeeAlsoTerms(List<String> supplemental) {
+List<String> _getSeeAlsoTerms(List<String> supplemental) {
   if (supplemental == null) return [];
 
   final List<String> seeAlsoTerms = [];
@@ -61,7 +61,7 @@ List<String> getSeeAlsoTerms(List<String> supplemental) {
   return seeAlsoTerms;
 }
 
-List<PhraseScrapeSentence> getSentences(Element child) {
+List<PhraseScrapeSentence> _getSentences(Element child) {
   final sentenceElements = child.querySelector('.sentences')?.querySelectorAll('.sentence');
   if (sentenceElements == null) return [];
 
@@ -91,7 +91,7 @@ List<PhraseScrapeSentence> getSentences(Element child) {
   return sentences;
 }
 
-PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
+PhrasePageScrapeResult _getMeaningsOtherFormsAndNotes(Document document) {
   final returnValues = PhrasePageScrapeResult( otherForms: [], notes: [] );
 
   final meaningsWrapper = document.querySelector('.meanings-wrapper');
@@ -106,20 +106,20 @@ PhrasePageScrapeResult getMeaningsOtherFormsAndNotes(Document document) {
     final child = meaningsChildren[meaningIndex];
 
     if (child.className.contains('meaning-tags')) {
-      mostRecentWordTypes = getMostRecentWordTypes(child);
+      mostRecentWordTypes = _getMostRecentWordTypes(child);
 
     } else if (mostRecentWordTypes[0] == 'other forms') {
-      returnValues.otherForms = getOtherForms(child);
+      returnValues.otherForms = _getOtherForms(child);
 
     } else if (mostRecentWordTypes[0] == 'notes') {
-      returnValues.notes = getNotes(child);
+      returnValues.notes = _getNotes(child);
 
     } else {
-      final meaning = getMeaning(child);
-      final meaningAbstract = getMeaningAbstract(child);
-      final supplemental = getSupplemental(child);
-      final seeAlsoTerms = getSeeAlsoTerms(supplemental);
-      final sentences = getSentences(child);
+      final meaning = _getMeaning(child);
+      final meaningAbstract = _getMeaningAbstract(child);
+      final supplemental = _getSupplemental(child);
+      final seeAlsoTerms = _getSeeAlsoTerms(supplemental);
+      final sentences = _getSentences(child);
 
       meanings.add(PhraseScrapeMeaning(
         seeAlsoTerms: seeAlsoTerms ?? [],
@@ -145,12 +145,12 @@ String uriForPhraseScrape(String searchTerm) {
 /// Parses a jisho word search page to an object
 PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
   final document = parse(pageHtml);
-  final result = getMeaningsOtherFormsAndNotes(document);
+  final result = _getMeaningsOtherFormsAndNotes(document);
 
   result.query = query;
   if (!result.found) return result;
   result.uri = uriForPhraseScrape(query);
-  result.tags = getTags(document);
+  result.tags = _getTags(document);
 
   return result;
 }

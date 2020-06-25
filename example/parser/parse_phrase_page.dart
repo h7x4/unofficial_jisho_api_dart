@@ -1,16 +1,16 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:unofficial_jisho_api/parser.dart' as jisho_parser;
 
-final encoder = JsonEncoder.withIndent('  ');
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
-const SEARCH_EXAMPLE = '保護者';
-final SEARCH_URI = jisho_parser.uriForPhraseScrape(SEARCH_EXAMPLE);
+const String searchExample = '保護者';
+final String searchURI = jisho_parser.uriForPhraseScrape(searchExample);
 
 void main() async {
 
-  await http.get(SEARCH_URI).then((result) {
-    final parsedResult = jisho_parser.parsePhrasePageData(result.body, SEARCH_EXAMPLE);
+  await http.get(searchURI).then((result) {
+    final parsedResult = jisho_parser.parsePhrasePageData(result.body, searchExample);
     print(encoder.convert(parsedResult));
   });
 }
