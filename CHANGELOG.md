@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fix example README
+
 ## 1.0.1
 
 - Reformatted code
