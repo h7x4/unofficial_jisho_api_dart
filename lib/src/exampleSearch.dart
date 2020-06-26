@@ -113,7 +113,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final document = parse(pageHtml);
   final divs = document.querySelectorAll('.sentence_content');
 
-  final results = divs.map((div) => _parseExampleDiv(div)).toList();
+  final results = divs.map(_parseExampleDiv).toList();
 
   return ExampleResults(
     query: phrase,

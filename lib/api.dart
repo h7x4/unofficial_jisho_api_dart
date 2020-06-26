@@ -42,17 +42,12 @@ Future<ExampleResults> searchForExamples(String phrase) async {
 /// instead of かかる (no results).
 Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
   final uri = uriForPhraseScrape(phrase);
-  try {
-    final response = await http.get(uri);
-    return parsePhrasePageData(response.body, phrase);
-  } catch (err) {
-    // if (response.statusCode == 404) {
-    //   return PhrasePageScrapeResult(
-    //     query: phrase,
-    //     found: false,
-    //   );
-    // }
-
-    rethrow;
+  final response = await http.get(uri);
+  if (response.statusCode == 404) {
+    return PhrasePageScrapeResult(
+      query: phrase,
+      found: false,
+    );
   }
+  return parsePhrasePageData(response.body, phrase);
 }
