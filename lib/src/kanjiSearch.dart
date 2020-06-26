@@ -9,7 +9,7 @@ const _onyomiLocatorSymbol = 'On';
 const _kunyomiLocatorSymbol = 'Kun';
 
 String _removeNewlines(String str) {
-  return str.replaceAll(RegExp(r'(?:\r|\n)') , '').trim();
+  return str.replaceAll(RegExp(r'(?:\r|\n)'), '').trim();
 }
 
 /// Provides the URI for a kanji search
@@ -22,7 +22,8 @@ String _getUriForStrokeOrderDiagram(String kanji) {
 }
 
 bool _containsKanjiGlyph(String pageHtml, String kanji) {
-  final kanjiGlyphToken = '<h1 class="character" data-area-name="print" lang="ja">$kanji</h1>';
+  final kanjiGlyphToken =
+      '<h1 class="character" data-area-name="print" lang="ja">$kanji</h1>';
   return pageHtml.contains(kanjiGlyphToken);
 }
 
@@ -31,15 +32,20 @@ String _getStringBetweenIndicies(String data, int startIndex, int endIndex) {
   return _removeNewlines(result).trim();
 }
 
-String _getStringBetweenStrings(String data, String startString, String endString) {
-  final regex = RegExp('${RegExp.escape(startString)}(.*?)${RegExp.escape(endString)}', dotAll: true);
+String _getStringBetweenStrings(
+    String data, String startString, String endString) {
+  final regex = RegExp(
+      '${RegExp.escape(startString)}(.*?)${RegExp.escape(endString)}',
+      dotAll: true);
   final match = regex.allMatches(data).toList();
 
   return match.isNotEmpty ? match[0].group(1).toString() : null;
 }
 
-int _getIntBetweenStrings(String pageHtml, String startString, String endString) {
-  final  stringBetweenStrings = _getStringBetweenStrings(pageHtml, startString, endString);
+int _getIntBetweenStrings(
+    String pageHtml, String startString, String endString) {
+  final stringBetweenStrings =
+      _getStringBetweenStrings(pageHtml, startString, endString);
   return int.parse(stringBetweenStrings);
 }
 
@@ -59,7 +65,8 @@ List<String> _parseAnchorsToArray(String str) {
 }
 
 List<String> _getYomi(String pageHtml, String yomiLocatorSymbol) {
-  final yomiSection = _getStringBetweenStrings(pageHtml, '<dt>$yomiLocatorSymbol:</dt>', '</dl>');
+  final yomiSection = _getStringBetweenStrings(
+      pageHtml, '<dt>$yomiLocatorSymbol:</dt>', '</dl>');
   return _parseAnchorsToArray(yomiSection ?? '');
 }
 
@@ -73,13 +80,15 @@ List<String> _getOnyomi(String pageHtml) {
 
 List<YomiExample> _getYomiExamples(String pageHtml, String yomiLocatorSymbol) {
   final locatorString = '<h2>$yomiLocatorSymbol reading compounds</h2>';
-  final exampleSection = _getStringBetweenStrings(pageHtml, locatorString, '</ul>');
-  if (exampleSection==null) {
+  final exampleSection =
+      _getStringBetweenStrings(pageHtml, locatorString, '</ul>');
+  if (exampleSection == null) {
     return null;
   }
 
   final regex = RegExp(r'<li>(.*?)<\/li>', dotAll: true);
-  final regexResults = _getAllGlobalGroupMatches(exampleSection, regex).map((s) => s.trim());
+  final regexResults =
+      _getAllGlobalGroupMatches(exampleSection, regex).map((s) => s.trim());
 
   final examples = regexResults.map((regexResult) {
     final examplesLines = regexResult.split('\n').map((s) => s.trim()).toList();
@@ -111,17 +120,20 @@ Radical _getRadical(String pageHtml) {
     radicalMeaningEndString,
   ).trim();
 
-  if (radicalMeaning!=null) {
-    final radicalMeaningStartIndex = pageHtml.indexOf(radicalMeaningStartString);
+  if (radicalMeaning != null) {
+    final radicalMeaningStartIndex =
+        pageHtml.indexOf(radicalMeaningStartString);
 
     final radicalMeaningEndIndex = pageHtml.indexOf(
       radicalMeaningEndString,
       radicalMeaningStartIndex,
     );
 
-    final radicalSymbolStartIndex = radicalMeaningEndIndex + radicalMeaningEndString.length;
+    final radicalSymbolStartIndex =
+        radicalMeaningEndIndex + radicalMeaningEndString.length;
     const radicalSymbolEndString = '</span>';
-    final radicalSymbolEndIndex = pageHtml.indexOf(radicalSymbolEndString, radicalSymbolStartIndex);
+    final radicalSymbolEndIndex =
+        pageHtml.indexOf(radicalSymbolEndString, radicalSymbolStartIndex);
 
     final radicalSymbolsString = _getStringBetweenIndicies(
       pageHtml,
@@ -131,23 +143,19 @@ Radical _getRadical(String pageHtml) {
 
     if (radicalSymbolsString.length > 1) {
       final radicalForms = radicalSymbolsString
-        .substring(1)
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .trim()
-        .split(', ');
+          .substring(1)
+          .replaceAll('(', '')
+          .replaceAll(')', '')
+          .trim()
+          .split(', ');
 
       return Radical(
-        symbol: radicalSymbolsString[0],
-        forms: radicalForms ?? [],
-        meaning: radicalMeaning
-      );
+          symbol: radicalSymbolsString[0],
+          forms: radicalForms ?? [],
+          meaning: radicalMeaning);
     }
 
-    return Radical (
-      symbol: radicalSymbolsString,
-      meaning: radicalMeaning
-    );
+    return Radical(symbol: radicalSymbolsString, meaning: radicalMeaning);
   }
 
   return null;
@@ -178,14 +186,19 @@ String _getSvgUri(String pageHtml) {
 String _getGifUri(String kanji) {
   final unicodeString = kanji.codeUnitAt(0).toRadixString(16);
   final fileName = '$unicodeString.gif';
-  final animationUri = 'https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/$fileName';
+  final animationUri =
+      'https://raw.githubusercontent.com/mistval/kanji_images/master/gifs/$fileName';
 
   return animationUri;
 }
 
 int _getNewspaperFrequencyRank(String pageHtml) {
-  final frequencySection = _getStringBetweenStrings(pageHtml, '<div class="frequency">', '</div>');
-  return (frequencySection != null) ? int.parse(_getStringBetweenStrings(frequencySection, '<strong>', '</strong>')) : null;
+  final frequencySection =
+      _getStringBetweenStrings(pageHtml, '<div class="frequency">', '</div>');
+  return (frequencySection != null)
+      ? int.parse(
+          _getStringBetweenStrings(frequencySection, '<strong>', '</strong>'))
+      : null;
 }
 
 /// Parses a jisho kanji search page to an object
@@ -193,15 +206,21 @@ KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
   final result = KanjiResult();
   result.query = kanji;
   result.found = _containsKanjiGlyph(pageHtml, kanji);
-  if (result.found==false) {
+  if (result.found == false) {
     return result;
   }
 
-  result.taughtIn = _getStringBetweenStrings(pageHtml, 'taught in <strong>', '</strong>');
-  result.jlptLevel = _getStringBetweenStrings(pageHtml, 'JLPT level <strong>', '</strong>');
+  result.taughtIn =
+      _getStringBetweenStrings(pageHtml, 'taught in <strong>', '</strong>');
+  result.jlptLevel =
+      _getStringBetweenStrings(pageHtml, 'JLPT level <strong>', '</strong>');
   result.newspaperFrequencyRank = _getNewspaperFrequencyRank(pageHtml);
-  result.strokeCount = _getIntBetweenStrings(pageHtml, '<strong>', '</strong> strokes');
-  result.meaning = _htmlUnescape.convert(_removeNewlines(_getStringBetweenStrings(pageHtml, '<div class="kanji-details__main-meanings">', '</div>')).trim());
+  result.strokeCount =
+      _getIntBetweenStrings(pageHtml, '<strong>', '</strong> strokes');
+  result.meaning = _htmlUnescape.convert(_removeNewlines(
+          _getStringBetweenStrings(
+              pageHtml, '<div class="kanji-details__main-meanings">', '</div>'))
+      .trim());
   result.kunyomi = _getKunyomi(pageHtml) ?? [];
   result.onyomi = _getOnyomi(pageHtml) ?? [];
   result.onyomiExamples = _getOnyomiExamples(pageHtml) ?? [];

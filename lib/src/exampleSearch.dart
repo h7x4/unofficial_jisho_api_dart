@@ -19,21 +19,22 @@ List<Element> _getChildrenAndSymbols(Element ul) {
   List<Element> result = [];
 
   for (var element in ulChildren) {
-    if (element.text != ulText.substring(offsetPointer, offsetPointer + element.text.length)){
+    if (element.text !=
+        ulText.substring(offsetPointer, offsetPointer + element.text.length)) {
       var symbols = '';
-      while (element.text.substring(0,1) != ulCharArray[offsetPointer]) {
+      while (element.text.substring(0, 1) != ulCharArray[offsetPointer]) {
         symbols += ulCharArray[offsetPointer];
         offsetPointer++;
       }
-      final symbolElement = Element.html('<span>$symbols</span>'); 
+      final symbolElement = Element.html('<span>$symbols</span>');
       result.add(symbolElement);
     }
-      offsetPointer += element.text.length;
-      result.add(element);
+    offsetPointer += element.text.length;
+    result.add(element);
   }
-  if (offsetPointer + 1 != ulText.length){
-    final symbols = ulText.substring(offsetPointer, ulText.length-1);
-    final symbolElement = Element.html('<span>$symbols</span>'); 
+  if (offsetPointer + 1 != ulText.length) {
+    final symbols = ulText.substring(offsetPointer, ulText.length - 1);
+    final symbolElement = Element.html('<span>$symbols</span>');
     result.add(symbolElement);
   }
   return result;

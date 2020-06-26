@@ -7,19 +7,10 @@ class YomiExample {
   String reading;
   String meaning;
 
-  YomiExample({
-    this.example,
-    this.reading,
-    this.meaning
-  });
+  YomiExample({this.example, this.reading, this.meaning});
 
   Map<String, String> toJson() =>
-  {
-    'example': example,
-    'reading': reading,
-    'meaning': meaning
-  }; 
-
+      {'example': example, 'reading': reading, 'meaning': meaning};
 }
 
 class Radical {
@@ -27,19 +18,10 @@ class Radical {
   List<String> forms;
   String meaning;
 
-  Radical({
-    this.symbol,
-    this.forms,
-    this.meaning
-  });
+  Radical({this.symbol, this.forms, this.meaning});
 
   Map<String, dynamic> toJson() =>
-    {
-      'symbol': symbol,
-      'forms': forms,
-      'meaning': meaning
-    }; 
-
+      {'symbol': symbol, 'forms': forms, 'meaning': meaning};
 }
 
 class KanjiResult {
@@ -62,25 +44,24 @@ class KanjiResult {
   String strokeOrderGifUri;
   String uri;
 
-  KanjiResult({
-    this.query,
-    this.found,
-    this.taughtIn,
-    this.jlptLevel,
-    this.newspaperFrequencyRank,
-    this.strokeCount,
-    this.meaning,
-    this.kunyomi,
-    this.onyomi,
-    this.kunyomiExamples,
-    this.onyomiExamples,
-    this.radical,
-    this.parts,
-    this.strokeOrderDiagramUri,
-    this.strokeOrderSvgUri,
-    this.strokeOrderGifUri,
-    this.uri
-  });
+  KanjiResult(
+      {this.query,
+      this.found,
+      this.taughtIn,
+      this.jlptLevel,
+      this.newspaperFrequencyRank,
+      this.strokeCount,
+      this.meaning,
+      this.kunyomi,
+      this.onyomi,
+      this.kunyomiExamples,
+      this.onyomiExamples,
+      this.radical,
+      this.parts,
+      this.strokeOrderDiagramUri,
+      this.strokeOrderSvgUri,
+      this.strokeOrderGifUri,
+      this.uri});
 
   Map<String, dynamic> toJson() {
     return {
@@ -113,16 +94,10 @@ class ExampleSentencePiece {
   String lifted;
   String unlifted;
 
-  ExampleSentencePiece({
-    this.lifted,
-    this.unlifted
-  });
+  ExampleSentencePiece({this.lifted, this.unlifted});
 
   Map<String, dynamic> toJson() {
-    return {
-      'lifted': lifted,
-      'unlifted': unlifted
-    };
+    return {'lifted': lifted, 'unlifted': unlifted};
   }
 }
 
@@ -132,20 +107,10 @@ class ExampleResultData {
   String english;
   List<ExampleSentencePiece> pieces;
 
-  ExampleResultData({
-    this.english,
-    this.kanji,
-    this.kana,
-    this.pieces
-  });
+  ExampleResultData({this.english, this.kanji, this.kana, this.pieces});
 
   Map<String, dynamic> toJson() {
-    return {
-      'english': english,
-      'kanji': kanji,
-      'kana': kana,
-      'pieces': pieces
-    };
+    return {'english': english, 'kanji': kanji, 'kana': kana, 'pieces': pieces};
   }
 }
 
@@ -156,13 +121,7 @@ class ExampleResults {
   List<ExampleResultData> results;
   String phrase;
 
-  ExampleResults({
-    this.query,
-    this.found,
-    this.results,
-    this.uri,
-    this.phrase
-  });
+  ExampleResults({this.query, this.found, this.results, this.uri, this.phrase});
 
   Map<String, dynamic> toJson() {
     return {
@@ -184,17 +143,10 @@ class PhraseScrapeSentence {
   String japanese;
   List<ExampleSentencePiece> pieces;
 
-  PhraseScrapeSentence ({
-    this.english,
-    this.japanese,
-    this.pieces
-  });
+  PhraseScrapeSentence({this.english, this.japanese, this.pieces});
 
-  Map<String, dynamic> toJson() => {
-    'english': english,
-    'japanese': japanese,
-    'pieces': pieces
-  };
+  Map<String, dynamic> toJson() =>
+      {'english': english, 'japanese': japanese, 'pieces': pieces};
 }
 
 class PhraseScrapeMeaning {
@@ -205,38 +157,31 @@ class PhraseScrapeMeaning {
   String definitionAbstract;
   List<String> tags;
 
-  PhraseScrapeMeaning({
-    this.seeAlsoTerms,
-    this.sentences,
-    this.definition,
-    this.supplemental,
-    this.definitionAbstract,
-    this.tags
-  });
+  PhraseScrapeMeaning(
+      {this.seeAlsoTerms,
+      this.sentences,
+      this.definition,
+      this.supplemental,
+      this.definitionAbstract,
+      this.tags});
 
   Map<String, dynamic> toJson() => {
-    'seeAlsoTerms': seeAlsoTerms,
-    'sentences': sentences,
-    'definition': definition,
-    'supplemental': supplemental,
-    'definitionAbstract': definitionAbstract,
-    'tags': tags
-  };
+        'seeAlsoTerms': seeAlsoTerms,
+        'sentences': sentences,
+        'definition': definition,
+        'supplemental': supplemental,
+        'definitionAbstract': definitionAbstract,
+        'tags': tags
+      };
 }
 
 class KanjiKanaPair {
   String kanji;
   String kana;
 
-  KanjiKanaPair({
-    this.kanji,
-    this.kana
-  });
+  KanjiKanaPair({this.kanji, this.kana});
 
-  Map<String, String> toJson() => {
-    'kanji': kanji,
-    'kana': kana
-  };
+  Map<String, String> toJson() => {'kanji': kanji, 'kana': kana};
 }
 
 class PhrasePageScrapeResult {
@@ -248,25 +193,24 @@ class PhrasePageScrapeResult {
   List<KanjiKanaPair> otherForms;
   List<String> notes;
 
-  PhrasePageScrapeResult({
-    this.found,
-    this.query,
-    this.uri,
-    this.tags,
-    this.meanings,
-    this.otherForms,
-    this.notes
-  });
+  PhrasePageScrapeResult(
+      {this.found,
+      this.query,
+      this.uri,
+      this.tags,
+      this.meanings,
+      this.otherForms,
+      this.notes});
 
   Map<String, dynamic> toJson() => {
-    'found': found,
-    'query': query,
-    'uri': uri,
-    'tags': tags,
-    'meanings': meanings,
-    'otherForms': otherForms,
-    'notes': notes
-  };
+        'found': found,
+        'query': query,
+        'uri': uri,
+        'tags': tags,
+        'meanings': meanings,
+        'otherForms': otherForms,
+        'notes': notes
+      };
 }
 
 /* -------------------------------------------------------------------------- */
@@ -279,17 +223,12 @@ class JishoJapaneseWord {
 
   JishoJapaneseWord({this.word, this.reading});
 
-  factory JishoJapaneseWord.fromJson(Map<String, dynamic> json){
+  factory JishoJapaneseWord.fromJson(Map<String, dynamic> json) {
     return JishoJapaneseWord(
-      word: json['word'] as String,
-      reading: json['reading'] as String
-    );
+        word: json['word'] as String, reading: json['reading'] as String);
   }
 
-  Map<String, dynamic> toJson() => {
-    'word': word,
-    'reading': reading
-  };
+  Map<String, dynamic> toJson() => {'word': word, 'reading': reading};
 }
 
 class JishoSenseLink {
@@ -298,17 +237,12 @@ class JishoSenseLink {
 
   JishoSenseLink({this.text, this.url});
 
-  factory JishoSenseLink.fromJson(Map<String, dynamic> json){
+  factory JishoSenseLink.fromJson(Map<String, dynamic> json) {
     return JishoSenseLink(
-      text: json['text'] as String,
-      url: json['url'] as String
-    );
+        text: json['text'] as String, url: json['url'] as String);
   }
 
-  Map<String, dynamic> toJson() => {
-    'text': text,
-    'url': url
-  };
+  Map<String, dynamic> toJson() => {'text': text, 'url': url};
 }
 
 class JishoWordSense {
@@ -322,43 +256,51 @@ class JishoWordSense {
   List<String> info;
   List<dynamic> restrictions;
 
-  JishoWordSense({
-    this.english_definitions,
-    this.parts_of_speech,
-    this.links,
-    this.tags,
-    this.see_also,
-    this.antonyms,
-    this.source,
-    this.info,
-    this.restrictions
-  });
+  JishoWordSense(
+      {this.english_definitions,
+      this.parts_of_speech,
+      this.links,
+      this.tags,
+      this.see_also,
+      this.antonyms,
+      this.source,
+      this.info,
+      this.restrictions});
 
-  factory JishoWordSense.fromJson(Map<String, dynamic> json){
+  factory JishoWordSense.fromJson(Map<String, dynamic> json) {
     return JishoWordSense(
-      english_definitions: (json['english_definitions'] as List).map((result) => result as String).toList(),
-      parts_of_speech: (json['parts_of_speech'] as List).map((result) => result as String).toList(),
-      links: (json['links'] as List).map((result) => JishoSenseLink.fromJson(result)).toList(),
-      tags: (json['tags'] as List).map((result) => result as String).toList(),
-      see_also: (json['see_also'] as List).map((result) => result as String).toList(),
-      antonyms: (json['antonyms'] as List).map((result) => result as String).toList(),
-      source: json['source'] as List<dynamic>,
-      info: (json['info'] as List).map((result) => result as String).toList(),
-      restrictions: json['restrictions'] as List<dynamic>
-    );
+        english_definitions: (json['english_definitions'] as List)
+            .map((result) => result as String)
+            .toList(),
+        parts_of_speech: (json['parts_of_speech'] as List)
+            .map((result) => result as String)
+            .toList(),
+        links: (json['links'] as List)
+            .map((result) => JishoSenseLink.fromJson(result))
+            .toList(),
+        tags: (json['tags'] as List).map((result) => result as String).toList(),
+        see_also: (json['see_also'] as List)
+            .map((result) => result as String)
+            .toList(),
+        antonyms: (json['antonyms'] as List)
+            .map((result) => result as String)
+            .toList(),
+        source: json['source'] as List<dynamic>,
+        info: (json['info'] as List).map((result) => result as String).toList(),
+        restrictions: json['restrictions'] as List<dynamic>);
   }
 
   Map<String, dynamic> toJson() => {
-    'english_definitions': english_definitions,
-    'parts_of_speech': parts_of_speech,
-    'links': links,
-    'tags': tags,
-    'see_also': see_also,
-    'antonyms': antonyms,
-    'source': source,
-    'info': info,
-    'restrictions': restrictions
-  };
+        'english_definitions': english_definitions,
+        'parts_of_speech': parts_of_speech,
+        'links': links,
+        'tags': tags,
+        'see_also': see_also,
+        'antonyms': antonyms,
+        'source': source,
+        'info': info,
+        'restrictions': restrictions
+      };
 }
 
 class JishoAttribution {
@@ -366,25 +308,19 @@ class JishoAttribution {
   bool jmnedict;
   String dbpedia;
 
-  JishoAttribution({
-    this.jmdict,
-    this.jmnedict,
-    this.dbpedia
-  });
+  JishoAttribution({this.jmdict, this.jmnedict, this.dbpedia});
 
-  factory JishoAttribution.fromJson(Map<String, dynamic> json){
+  factory JishoAttribution.fromJson(Map<String, dynamic> json) {
     return JishoAttribution(
-      jmdict: (json['jmdict'].toString() == 'true'),
-      jmnedict: (json['jmnedict'].toString() == 'true'),
-      dbpedia: (json['dbpedia'].toString() != 'false') ? json['dbpedia'].toString() : null
-    );
+        jmdict: (json['jmdict'].toString() == 'true'),
+        jmnedict: (json['jmnedict'].toString() == 'true'),
+        dbpedia: (json['dbpedia'].toString() != 'false')
+            ? json['dbpedia'].toString()
+            : null);
   }
 
-  Map<String, dynamic> toJson() => {
-    'jmdict': jmdict,
-    'jmnedict': jmnedict,
-    'dbpedia': dbpedia
-  };
+  Map<String, dynamic> toJson() =>
+      {'jmdict': jmdict, 'jmnedict': jmnedict, 'dbpedia': dbpedia};
 }
 
 class JishoResult {
@@ -396,37 +332,39 @@ class JishoResult {
   List<JishoWordSense> senses;
   JishoAttribution attribution;
 
-  JishoResult({
-    this.slug,
-    this.is_common,
-    this.tags,
-    this.jlpt,
-    this.japanese,
-    this.senses,
-    this.attribution
-  });
+  JishoResult(
+      {this.slug,
+      this.is_common,
+      this.tags,
+      this.jlpt,
+      this.japanese,
+      this.senses,
+      this.attribution});
 
-  factory JishoResult.fromJson(Map<String, dynamic> json){
+  factory JishoResult.fromJson(Map<String, dynamic> json) {
     return JishoResult(
-      slug: json['slug'] as String,
-      is_common: json['is_common'] as bool,
-      tags: (json['tags'] as List).map((result) => result as String).toList(),
-      jlpt: (json['jlpt'] as List).map((result) => result as String).toList(),
-      japanese: (json['japanese'] as List).map((result) => JishoJapaneseWord.fromJson(result)).toList(),
-      senses: (json['senses'] as List).map((result) => JishoWordSense.fromJson(result)).toList(),
-      attribution: JishoAttribution.fromJson(json['attribution'])
-    );
+        slug: json['slug'] as String,
+        is_common: json['is_common'] as bool,
+        tags: (json['tags'] as List).map((result) => result as String).toList(),
+        jlpt: (json['jlpt'] as List).map((result) => result as String).toList(),
+        japanese: (json['japanese'] as List)
+            .map((result) => JishoJapaneseWord.fromJson(result))
+            .toList(),
+        senses: (json['senses'] as List)
+            .map((result) => JishoWordSense.fromJson(result))
+            .toList(),
+        attribution: JishoAttribution.fromJson(json['attribution']));
   }
 
   Map<String, dynamic> toJson() => {
-    'slug': slug,
-    'is_common': is_common,
-    'tags': tags,
-    'jlpt': jlpt,
-    'japanese': japanese,
-    'senses': senses,
-    'attribution': attribution
-  };
+        'slug': slug,
+        'is_common': is_common,
+        'tags': tags,
+        'jlpt': jlpt,
+        'japanese': japanese,
+        'senses': senses,
+        'attribution': attribution
+      };
 }
 
 class JishoResultMeta {
@@ -434,15 +372,11 @@ class JishoResultMeta {
 
   JishoResultMeta({this.status});
 
-  factory JishoResultMeta.fromJson(Map<String, dynamic> json){
-    return JishoResultMeta(
-      status: json['status'] as int
-    );
+  factory JishoResultMeta.fromJson(Map<String, dynamic> json) {
+    return JishoResultMeta(status: json['status'] as int);
   }
 
-  Map<String, dynamic> toJson() => {
-    'status': status
-  };
+  Map<String, dynamic> toJson() => {'status': status};
 }
 
 class JishoAPIResult {
@@ -451,15 +385,13 @@ class JishoAPIResult {
 
   JishoAPIResult({this.meta, this.data});
 
-  factory JishoAPIResult.fromJson(Map<String, dynamic> json){
+  factory JishoAPIResult.fromJson(Map<String, dynamic> json) {
     return JishoAPIResult(
-      meta: JishoResultMeta.fromJson(json['meta']),
-      data: (json['data'] as List).map((result) => JishoResult.fromJson(result)).toList()
-    );
+        meta: JishoResultMeta.fromJson(json['meta']),
+        data: (json['data'] as List)
+            .map((result) => JishoResult.fromJson(result))
+            .toList());
   }
 
-  Map<String, dynamic> toJson() => {
-    'meta': meta.toJson(),
-    'data': data
-  };
+  Map<String, dynamic> toJson() => {'meta': meta.toJson(), 'data': data};
 }
