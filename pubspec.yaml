@@ -1,9 +1,9 @@
 name: unofficial_jisho_api
-description: An unofficial api for searching and scraping the japanese dictionary Jisho.org
 version: 1.0.0
-repository: https://github.com/h7x4ABk3g/unofficial_jisho_api_dart/
-issue_tracker: https://github.com/h7x4ABk3g/unofficial_jisho_api_dart/issues
 
+description: An unofficial api for searching and scraping the japanese dictionary Jisho.org
+homepage: https://github.com/h7x4ABk3g/unofficial_jisho_api_dart/
+issue_tracker: https://github.com/h7x4ABk3g/unofficial_jisho_api_dart/issues
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
