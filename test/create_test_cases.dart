@@ -1,11 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'dart:convert';
 
 import 'package:unofficial_jisho_api/api.dart';
 
-final encoder = JsonEncoder.withIndent('  ');
-final currentdir = Directory.current.path;
+final JsonEncoder encoder = JsonEncoder.withIndent('  ');
+final String currentdir = Directory.current.path;
 
 void writeCases(Function apiFunction, String folderName, List<String> queries) async {
   final dir = path.join(currentdir, 'test', folderName);
@@ -13,7 +13,7 @@ void writeCases(Function apiFunction, String folderName, List<String> queries) a
   for (var testCount = 0; testCount < queries.length; testCount++) {
     final result = await apiFunction(queries[testCount]);
     final content = encoder.convert(result);
-    final filePath = path.join(dir, '${testCount}.json');
+    final filePath = path.join(dir, '$testCount.json');
 
     await File(filePath).writeAsString(content);
   }
@@ -24,7 +24,7 @@ const exampleQueries = ['車', '日本人', '彼＊叩く', '皆', 'ネガティ
 const phraseQueries = ['車', '日本人', '皆', 'ネガティブ', 'grlgmregmneriireg'];
 
 void main() async {
-  await writeCases(searchForKanji, 'kanji_test_cases', kanjiQueries);
-  await writeCases(searchForExamples, 'example_test_cases', exampleQueries);
-  await writeCases(scrapeForPhrase, 'phrase_scrape_test_cases', phraseQueries);
+  writeCases(searchForKanji, 'kanji_test_cases', kanjiQueries);
+  writeCases(searchForExamples, 'example_test_cases', exampleQueries);
+  writeCases(scrapeForPhrase, 'phrase_scrape_test_cases', phraseQueries);
 }
