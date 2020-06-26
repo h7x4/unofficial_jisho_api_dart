@@ -1,3 +1,8 @@
+## 1.0.1
+
+- Reformatted code
+- Added example readme
+
 ## 1.0.0
 
 - Initial version, created by Stagehand
