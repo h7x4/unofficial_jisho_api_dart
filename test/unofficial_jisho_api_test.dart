@@ -9,7 +9,7 @@ List<String> getFilePaths(String dirname) {
   final currentdir = Directory.current.path;
   final testDir = path.join(currentdir, 'test', dirname);
   final filenames = Directory(testDir).listSync();
-  return filenames.map((filename) => path.join(testDir, filename.path));
+  return filenames.map((filename) => path.join(testDir, filename.path)).toList();
 }
 
 List getTestCases(String directoryName) {
