@@ -1,6 +1,6 @@
 import 'package:html_unescape/html_unescape.dart' as html_entities;
 
-import './baseUri.dart';
+import './base_uri.dart';
 import './objects.dart';
 
 final _htmlUnescape = html_entities.HtmlUnescape();

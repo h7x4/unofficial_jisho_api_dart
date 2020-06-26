@@ -1,7 +1,7 @@
 import 'package:html/parser.dart';
 import 'package:html/dom.dart';
 
-import './baseUri.dart';
+import './base_uri.dart';
 import './objects.dart';
 
 final RegExp _kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');

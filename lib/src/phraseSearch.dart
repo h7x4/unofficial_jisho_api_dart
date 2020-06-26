@@ -1,4 +1,4 @@
-import './baseUri.dart';
+import './base_uri.dart';
 
 
 /// Provides the URI for a phrase search
