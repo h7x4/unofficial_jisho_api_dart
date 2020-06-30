@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Export object interfaces for both libraries
+
 ## 1.0.2
 
 - Fix example README

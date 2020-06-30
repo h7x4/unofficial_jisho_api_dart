@@ -13,6 +13,8 @@ import './src/objects.dart';
 import './src/phraseScrape.dart';
 import './src/phraseSearch.dart';
 
+export './src/objects.dart';
+
 /// Query the official Jisho API for a word or phrase
 ///
 /// See https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api

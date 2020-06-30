@@ -8,5 +8,6 @@ library unofficial_jisho_parser;
 export './src/exampleSearch.dart'
     show uriForExampleSearch, parseExamplePageData;
 export './src/kanjiSearch.dart' show uriForKanjiSearch, parseKanjiPageData;
+export './src/objects.dart';
 export './src/phraseScrape.dart' show uriForPhraseScrape, parsePhrasePageData;
 export './src/phraseSearch.dart';
