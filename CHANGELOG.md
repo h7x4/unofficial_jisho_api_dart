@@ -2,6 +2,7 @@
 
 - Export object interfaces for both libraries
 - Add documentation for object interfaces
+- Remove accidental redundant property "phrase" from ExampleResults
 
 ## 1.0.2
 

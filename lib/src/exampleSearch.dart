@@ -120,7 +120,6 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
     query: phrase,
     found: results.isNotEmpty,
     results: results ?? [],
-    uri: uriForExampleSearch(phrase),
-    phrase: phrase,
+    uri: uriForExampleSearch(phrase)
   );
 }

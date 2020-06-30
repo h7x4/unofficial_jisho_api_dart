@@ -154,18 +154,15 @@ class ExampleResults {
   String uri;
   /// The examples that were found, if any.
   List<ExampleResultData> results;
-  
-  String phrase;
 
-  ExampleResults({this.query, this.found, this.results, this.uri, this.phrase});
+  ExampleResults({this.query, this.found, this.results, this.uri});
 
   Map<String, dynamic> toJson() {
     return {
       'query': query,
       'found': found,
       'results': results,
-      'uri': uri,
-      'phrase': phrase
+      'uri': uri
     };
   }
 }
