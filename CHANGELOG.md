@@ -1,6 +1,7 @@
 ## 1.1.0
 
 - Export object interfaces for both libraries
+- Add documentation for object interfaces
 
 ## 1.0.2
 

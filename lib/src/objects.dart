@@ -3,8 +3,11 @@
 /* -------------------------------------------------------------------------- */
 
 class YomiExample {
+  /// The original text of the example.
   String example;
+  /// The reading of the example.
   String reading;
+  /// The meaning of the example.
   String meaning;
 
   YomiExample({this.example, this.reading, this.meaning});
@@ -14,8 +17,11 @@ class YomiExample {
 }
 
 class Radical {
+  /// The radical symbol, if applicable.
   String symbol;
+  /// The radical forms used in this kanji, if applicable.
   List<String> forms;
+  /// The meaning of the radical, if applicable.
   String meaning;
 
   Radical({this.symbol, this.forms, this.meaning});
@@ -25,23 +31,42 @@ class Radical {
 }
 
 class KanjiResult {
+  /// True if results were found.
   String query;
+  /// The term that you searched for.
   bool found;
 
+  /// The school level that the kanji is taught in, if applicable.
   String taughtIn;
+  /// The lowest JLPT exam that this kanji is likely to appear in, if applicable.
+  /// 
+  /// 'N5' or 'N4' or 'N3' or 'N2' or 'N1'.
   String jlptLevel;
+  /// A number representing this kanji's frequency rank in newspapers, if applicable.
   int newspaperFrequencyRank;
+  /// How many strokes this kanji is typically drawn in, if applicable.
   int strokeCount;
+  /// The meaning of the kanji, if applicable.
   String meaning;
+  /// This character's kunyomi, if applicable.
   List<String> kunyomi;
+  /// This character's onyomi, if applicable.
   List<String> onyomi;
+  /// Examples of this character's kunyomi being used, if applicable.
   List<YomiExample> kunyomiExamples;
+  /// Examples of this character's onyomi being used, if applicable.
   List<YomiExample> onyomiExamples;
+  /// Information about this character's radical, if applicable.
   Radical radical;
+  /// The parts used in this kanji, if applicable.
   List<String> parts;
+  /// The URL to a diagram showing how to draw this kanji step by step, if applicable.
   String strokeOrderDiagramUri;
+  /// The URL to an SVG describing how to draw this kanji, if applicable.
   String strokeOrderSvgUri;
+  ///  The URL to a gif showing the kanji being draw and its stroke order, if applicable.
   String strokeOrderGifUri;
+  /// The URI that these results were scraped from, if applicable.
   String uri;
 
   KanjiResult(
@@ -91,7 +116,9 @@ class KanjiResult {
 /* -------------------------------------------------------------------------- */
 
 class ExampleSentencePiece {
+  /// Baseline text shown on Jisho.org (below the lifted text / furigana)
   String lifted;
+  /// Furigana text shown on Jisho.org (above the unlifted text)
   String unlifted;
 
   ExampleSentencePiece({this.lifted, this.unlifted});
@@ -102,9 +129,13 @@ class ExampleSentencePiece {
 }
 
 class ExampleResultData {
+  /// The example sentence including kanji.
   String kanji;
+  /// The example sentence without kanji (only kana). Sometimes this may include some Kanji, as furigana is not always available from Jisho.org.
   String kana;
+  /// An English translation of the example.
   String english;
+  /// The lifted/unlifted pairs that make up the sentence. Lifted text is furigana, unlifted is the text below the furigana.
   List<ExampleSentencePiece> pieces;
 
   ExampleResultData({this.english, this.kanji, this.kana, this.pieces});
@@ -115,10 +146,15 @@ class ExampleResultData {
 }
 
 class ExampleResults {
+  /// The term that you searched for.
   String query;
+  /// True if results were found.
   bool found;
+  /// The URI that these results were scraped from.
   String uri;
+  /// The examples that were found, if any.
   List<ExampleResultData> results;
+  
   String phrase;
 
   ExampleResults({this.query, this.found, this.results, this.uri, this.phrase});
@@ -139,8 +175,11 @@ class ExampleResults {
 /* -------------------------------------------------------------------------- */
 
 class PhraseScrapeSentence {
+  /// The English meaning of the sentence.
   String english;
+  /// The Japanese text of the sentence.
   String japanese;
+  /// The lifted/unlifted pairs that make up the sentence. Lifted text is furigana, unlifted is the text below the furigana.
   List<ExampleSentencePiece> pieces;
 
   PhraseScrapeSentence({this.english, this.japanese, this.pieces});
@@ -150,11 +189,19 @@ class PhraseScrapeSentence {
 }
 
 class PhraseScrapeMeaning {
+  /// The words that Jisho lists as "see also".
   List<String> seeAlsoTerms;
+  /// Example sentences for this meaning.
   List<PhraseScrapeSentence> sentences;
+  /// The definition of the meaning
   String definition;
+  /// Supplemental information.
+  /// For example "usually written using kana alone".
   List<String> supplemental;
+  /// An "abstract" definition.
+  /// Often this is a Wikipedia definition.
   String definitionAbstract;
+  /// Tags associated with this meaning.
   List<String> tags;
 
   PhraseScrapeMeaning(
@@ -185,12 +232,19 @@ class KanjiKanaPair {
 }
 
 class PhrasePageScrapeResult {
+  /// True if a result was found.
   bool found;
+  /// The term that you searched for.
   String query;
+  /// The URI that these results were scraped from, if a result was found.
   String uri;
+  /// Other forms of the search term, if a result was found.
   List<String> tags;
+  /// Information about the meanings associated with this search result.
   List<PhraseScrapeMeaning> meanings;
+  /// Tags associated with this search result.
   List<KanjiKanaPair> otherForms;
+  /// Notes associated with the search result.
   List<String> notes;
 
   PhrasePageScrapeResult(
