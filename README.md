@@ -1,4 +1,8 @@
 # unofficial_jisho_api
+ ![pub version](https://img.shields.io/pub/v/unofficial_jisho_api)
+ ![pub likes](https://badges.bar/unofficial_jisho_api/likes)
+ ![pub points](https://badges.bar/unofficial_jisho_api/pub%20points)
+ ![pub popularity](https://badges.bar/unofficial_jisho_api/popularity)
 
 A rewrite of the [unofficial-jisho-api](https://www.npmjs.com/package/unofficial-jisho-api)
 
