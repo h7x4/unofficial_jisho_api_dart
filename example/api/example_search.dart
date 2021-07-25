@@ -1,8 +1,8 @@
 import 'dart:convert' show jsonEncode;
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
-void main() async {
-  await jisho.searchForExamples('日').then((result) {
+void main() {
+  jisho.searchForExamples('日').then((result) {
     print('Jisho Uri: ${result.uri}');
     print('');
 

@@ -1,132 +1,101 @@
 {
   "found": true,
   "query": "皆",
-  "uri": "https://jisho.org/word/%E7%9A%86",
-  "tags": [
-    "Common word",
-    "JLPT N5"
-  ],
-  "meanings": [
-    {
-      "seeAlsoTerms": [],
-      "sentences": [
-        {
-          "english": "The people which were here have all gone.",
-          "japanese": "ここにいた人々はみんな行ってしまった。",
-          "pieces": [
-            {
-              "lifted": null,
-              "unlifted": "ここ"
-            },
-            {
-              "lifted": null,
-              "unlifted": "に"
-            },
-            {
-              "lifted": null,
-              "unlifted": "いた"
-            },
-            {
-              "lifted": "ひとびと",
-              "unlifted": "人々"
-            },
-            {
-              "lifted": null,
-              "unlifted": "は"
-            },
-            {
-              "lifted": null,
-              "unlifted": "みんな"
-            },
-            {
-              "lifted": "い",
-              "unlifted": "行って"
-            },
-            {
-              "lifted": null,
-              "unlifted": "しまった"
-            }
-          ]
-        }
-      ],
-      "definition": "all; everyone; everybody",
-      "supplemental": [
-        "Usually written using kana alone"
-      ],
-      "definitionAbstract": null,
-      "tags": [
-        "adverb",
-        "noun"
-      ]
-    },
-    {
-      "seeAlsoTerms": [],
-      "sentences": [
-        {
-          "english": "All the dinner had been eaten before he came.",
-          "japanese": "ごちそうはみんな彼が来ないうちに食べられてしまった。",
-          "pieces": [
-            {
-              "lifted": null,
-              "unlifted": "ごちそう"
-            },
-            {
-              "lifted": null,
-              "unlifted": "は"
-            },
-            {
-              "lifted": null,
-              "unlifted": "みんな"
-            },
-            {
-              "lifted": "かれ",
-              "unlifted": "彼"
-            },
-            {
-              "lifted": null,
-              "unlifted": "が"
-            },
-            {
-              "lifted": "らい",
-              "unlifted": "来"
-            },
-            {
-              "lifted": null,
-              "unlifted": "ないうちに"
-            },
-            {
-              "lifted": "た",
-              "unlifted": "食べられて"
-            },
-            {
-              "lifted": null,
-              "unlifted": "しまった"
-            }
-          ]
-        }
-      ],
-      "definition": "everything",
-      "supplemental": [
-        "Usually written using kana alone"
-      ],
-      "definitionAbstract": null,
-      "tags": [
-        "adverb",
-        "noun"
-      ]
-    }
-  ],
-  "otherForms": [
-    {
-      "kanji": "皆んな",
-      "kana": "みんな"
-    },
-    {
-      "kanji": "皆",
-      "kana": "みな"
-    }
-  ],
-  "notes": [
-    "皆んな: Irregular okurigana usage."
-  ]
+  "data": {
+    "uri": "https://jisho.org/word/%E7%9A%86",
+    "tags": [
+      "Common word",
+      "JLPT N5"
+    ],
+    "meanings": [
+      {
+        "seeAlsoTerms": [],
+        "sentences": [
+          {
+            "english": "She is loved by everybody.",
+            "japanese": "彼女はみんなに愛されている。",
+            "pieces": [
+              {
+                "lifted": "かのじょ",
+                "unlifted": "彼女"
+              },
+              {
+                "lifted": null,
+                "unlifted": "は"
+              },
+              {
+                "lifted": null,
+                "unlifted": "みんな"
+              },
+              {
+                "lifted": null,
+                "unlifted": "に"
+              },
+              {
+                "lifted": "あい",
+                "unlifted": "愛されている"
+              }
+            ]
+          }
+        ],
+        "definition": "everyone; everybody; all",
+        "supplemental": [
+          "Usually written using kana alone"
+        ],
+        "definitionAbstract": null,
+        "tags": []
+      },
+      {
+        "seeAlsoTerms": [],
+        "sentences": [
+          {
+            "english": "The leaves have all fallen.",
+            "japanese": "木の葉はみんな落ちてしまった。",
+            "pieces": [
+              {
+                "lifted": "このは",
+                "unlifted": "木の葉"
+              },
+              {
+                "lifted": null,
+                "unlifted": "は"
+              },
+              {
+                "lifted": null,
+                "unlifted": "みんな"
+              },
+              {
+                "lifted": "お",
+                "unlifted": "落ちて"
+              },
+              {
+                "lifted": null,
+                "unlifted": "しまった"
+              }
+            ]
+          }
+        ],
+        "definition": "everything; all",
+        "supplemental": [
+          "Usually written using kana alone"
+        ],
+        "definitionAbstract": null,
+        "tags": []
+      }
+    ],
+    "otherForms": [
+      {
+        "kanji": "皆んな",
+        "kana": "みんな"
+      },
+      {
+        "kanji": "皆",
+        "kana": "みな"
+      }
+    ],
+    "audio": [],
+    "notes": [
+      "皆んな: Irregular okurigana usage."
+    ]
+  }
 }

@@ -7,7 +7,11 @@ import 'package:unofficial_jisho_api/api.dart';
 final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 final String currentdir = Directory.current.path;
 
-void writeCases(Function apiFunction, String folderName, List<String> queries) async {
+void writeCases(
+  Function apiFunction,
+  String folderName,
+  List<String> queries,
+) async {
   final dir = path.join(currentdir, 'test', folderName);
 
   for (var testCount = 0; testCount < queries.length; testCount++) {

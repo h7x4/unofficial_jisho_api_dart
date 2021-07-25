@@ -1,3 +1,9 @@
+## 2.0.0
+
+- Upgrade library to use null-safety
+- Wrap the result data in "Data" classes that are nullable if no result was found
+- Add sound data to phrase scrape results
+
 ## 1.1.0
 
 - Export object interfaces for both libraries

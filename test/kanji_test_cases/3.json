@@ -1,19 +1,5 @@
 {
   "query": "極上",
   "found": false,
-  "taughtIn": null,
-  "jlptLevel": null,
-  "newspaperFrequencyRank": null,
-  "strokeCount": null,
-  "meaning": null,
-  "kunyomi": null,
-  "onyomi": null,
-  "onyomiExamples": null,
-  "kunyomiExamples": null,
-  "radical": null,
-  "parts": null,
-  "strokeOrderDiagramUri": null,
-  "strokeOrderSvgUri": null,
-  "strokeOrderGifUri": null,
-  "uri": null
+  "data": null
 }

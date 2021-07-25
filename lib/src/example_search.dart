@@ -1,14 +1,15 @@
-import 'package:html/parser.dart';
 import 'package:html/dom.dart';
+import 'package:html/parser.dart';
 
 import './base_uri.dart';
 import './objects.dart';
+import './scraping.dart';
 
 final RegExp _kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
 
 /// Provides the URI for an example search
-String uriForExampleSearch(String phrase) {
-  return '$SCRAPE_BASE_URI${Uri.encodeComponent(phrase)}%23sentences';
+Uri uriForExampleSearch(String phrase) {
+  return Uri.parse('$scrapeBaseUri${Uri.encodeComponent(phrase)}%23sentences');
 }
 
 List<Element> _getChildrenAndSymbols(Element ul) {
@@ -16,7 +17,7 @@ List<Element> _getChildrenAndSymbols(Element ul) {
   final ulCharArray = ulText.split('');
   final ulChildren = ul.children;
   var offsetPointer = 0;
-  List<Element> result = [];
+  final result = <Element>[];
 
   for (var element in ulChildren) {
     if (element.text !=
@@ -40,8 +41,13 @@ List<Element> _getChildrenAndSymbols(Element ul) {
   return result;
 }
 
-ExampleResultData _getKanjiAndKana(Element div) {
-  final ul = div.querySelector('ul');
+/// Although return type is List<String>, it is to be interpreted as (String, String)
+List<String> _getKanjiAndKana(Element div) {
+  final ul = assertNotNull(
+    variable: div.querySelector('ul'),
+    errorMessage:
+        "Could not parse kanji/kana div. Is the provided document corrupt, or has Jisho been updated?",
+  );
   final contents = _getChildrenAndSymbols(ul);
 
   var kanji = '';
@@ -51,7 +57,11 @@ ExampleResultData _getKanjiAndKana(Element div) {
     if (content.localName == 'li') {
       final li = content;
       final furigana = li.querySelector('.furigana')?.text;
-      final unlifted = li.querySelector('.unlinked')?.text;
+      final unlifted = assertNotNull(
+        variable: li.querySelector('.unlinked')?.text,
+        errorMessage:
+            "Could not parse a piece of the example sentence. Is the provided document corrupt, or has Jisho been updated?",
+      );
 
       if (furigana != null) {
         kanji += unlifted;
@@ -74,39 +84,49 @@ ExampleResultData _getKanjiAndKana(Element div) {
       }
     } else {
       final text = content.text.trim();
-      if (text != null) {
-        kanji += text;
-        kana += text;
-      }
+      kanji += text;
+      kana += text;
     }
   }
 
-  return ExampleResultData(
-    kanji: kanji,
-    kana: kana,
-  );
+  return [kanji, kana];
 }
 
 List<ExampleSentencePiece> getPieces(Element sentenceElement) {
   final pieceElements = sentenceElement.querySelectorAll('li.clearfix');
-  final List<ExampleSentencePiece> pieces = [];
-  for (var pieceIndex = 0; pieceIndex < pieceElements.length; pieceIndex += 1) {
-    final pieceElement = pieceElements[pieceIndex];
-    pieces.add(ExampleSentencePiece(
-      lifted: pieceElement.querySelector('.furigana')?.text,
-      unlifted: pieceElement.querySelector('.unlinked')?.text,
-    ));
-  }
 
-  return pieces;
+  return pieceElements.map((var e) {
+    final unlifted = assertNotNull(
+      variable: e.querySelector('.unlinked')?.text,
+      errorMessage:
+          "Could not parse a piece of the example sentence. Is the provided document corrupt, or has Jisho been updated?",
+    );
+
+    return ExampleSentencePiece(
+      lifted: e.querySelector('.furigana')?.text,
+      unlifted: unlifted,
+    );
+  }).toList();
 }
 
 ExampleResultData _parseExampleDiv(Element div) {
   final result = _getKanjiAndKana(div);
-  result.english = div.querySelector('.english').text;
-  result.pieces = getPieces(div) ?? [];
+  final kanji = result[0];
+  final kana = result[1];
 
-  return result;
+  final english = assertNotNull(
+    variable: div.querySelector('.english')?.text,
+    errorMessage:
+        "Could not parse translation. Is the provided document corrupt, or has Jisho been updated?",
+  );
+  final pieces = getPieces(div);
+
+  return ExampleResultData(
+    english: english,
+    kanji: kanji,
+    kana: kana,
+    pieces: pieces,
+  );
 }
 
 /// Parses a jisho example sentence search page to an object
@@ -117,9 +137,8 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final results = divs.map(_parseExampleDiv).toList();
 
   return ExampleResults(
-    query: phrase,
-    found: results.isNotEmpty,
-    results: results ?? [],
-    uri: uriForExampleSearch(phrase)
-  );
+      query: phrase,
+      found: results.isNotEmpty,
+      results: results,
+      uri: uriForExampleSearch(phrase).toString());
 }

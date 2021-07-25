@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path/path.dart' as path;
 
-import 'package:unofficial_jisho_api/api.dart';
+import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
+import 'package:unofficial_jisho_api/api.dart';
 
 List<String> getFilePaths(String dirname) {
   final currentdir = Directory.current.path;
   final testDir = path.join(currentdir, 'test', dirname);
   final filenames = Directory(testDir).listSync();
-  return filenames.map((filename) => path.join(testDir, filename.path)).toList();
+  return filenames
+      .map((filename) => path.join(testDir, filename.path))
+      .toList();
 }
 
 List getTestCases(String directoryName) {

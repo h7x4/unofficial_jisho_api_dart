@@ -7,11 +7,11 @@ library unofficial_jisho_api;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import './src/exampleSearch.dart';
-import './src/kanjiSearch.dart';
+import './src/example_search.dart';
+import './src/kanji_search.dart';
 import './src/objects.dart';
-import './src/phraseScrape.dart';
-import './src/phraseSearch.dart';
+import './src/phrase_scrape.dart';
+import './src/phrase_search.dart';
 
 export './src/objects.dart';
 

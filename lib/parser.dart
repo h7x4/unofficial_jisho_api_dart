@@ -5,9 +5,8 @@
 /// for providing HTML.
 library unofficial_jisho_parser;
 
-export './src/exampleSearch.dart'
-    show uriForExampleSearch, parseExamplePageData;
-export './src/kanjiSearch.dart' show uriForKanjiSearch, parseKanjiPageData;
 export './src/objects.dart';
-export './src/phraseScrape.dart' show uriForPhraseScrape, parsePhrasePageData;
-export './src/phraseSearch.dart';
+export 'src/example_search.dart' show uriForExampleSearch, parseExamplePageData;
+export 'src/kanji_search.dart' show uriForKanjiSearch, parseKanjiPageData;
+export 'src/phrase_scrape.dart' show uriForPhraseScrape, parsePhrasePageData;
+export 'src/phrase_search.dart';
