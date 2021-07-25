@@ -36,21 +36,25 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 void main() async {
   await jisho.searchForKanji('語').then((result) {
     print('Found: ${result.found}');
-    print('Taught in: ${result.taughtIn}');
-    print('JLPT level: ${result.jlptLevel}');
-    print('Newspaper frequency rank: ${result.newspaperFrequencyRank}');
-    print('Stroke count: ${result.strokeCount}');
-    print('Meaning: ${result.meaning}');
-    print('Kunyomi: ${jsonEncode(result.kunyomi)}');
-    print('Kunyomi example: ${jsonEncode(result.kunyomiExamples[0])}');
-    print('Onyomi: ${jsonEncode(result.onyomi)}');
-    print('Onyomi example: ${jsonEncode(result.onyomiExamples[0])}');
-    print('Radical: ${jsonEncode(result.radical)}');
-    print('Parts: ${jsonEncode(result.parts)}');
-    print('Stroke order diagram: ${result.strokeOrderDiagramUri}');
-    print('Stroke order SVG: ${result.strokeOrderSvgUri}');
-    print('Stroke order GIF: ${result.strokeOrderGifUri}');
-    print('Jisho Uri: ${result.uri}');
+
+    final data = result.data;
+    if (data != null) {
+      print('Taught in: ${data.taughtIn}');
+      print('JLPT level: ${data.jlptLevel}');
+      print('Newspaper frequency rank: ${data.newspaperFrequencyRank}');
+      print('Stroke count: ${data.strokeCount}');
+      print('Meaning: ${data.meaning}');
+      print('Kunyomi: ${jsonEncode(data.kunyomi)}');
+      print('Kunyomi example: ${jsonEncode(data.kunyomiExamples[0])}');
+      print('Onyomi: ${jsonEncode(data.onyomi)}');
+      print('Onyomi example: ${jsonEncode(data.onyomiExamples[0])}');
+      print('Radical: ${jsonEncode(data.radical)}');
+      print('Parts: ${jsonEncode(data.parts)}');
+      print('Stroke order diagram: ${data.strokeOrderDiagramUri}');
+      print('Stroke order SVG: ${data.strokeOrderSvgUri}');
+      print('Stroke order GIF: ${data.strokeOrderGifUri}');
+      print('Jisho Uri: ${data.uri}');
+    }
   });
 }
 ```
@@ -143,45 +147,53 @@ This outputs the following:
 {
   "found": true,
   "query": "谷",
-  "uri": "https://jisho.org/word/%E8%B0%B7",
-  "tags": [
-    "Common word",
-    "JLPT N3",
-    "Wanikani level 5"
-  ],
-  "meanings": [
-    {
-      "seeAlsoTerms": [],
-      "sentences": [],
-      "definition": "valley",
-      "supplemental": [],
-      "definitionAbstract": null,
-      "tags": [
-        "noun"
-      ]
-    },
-    {
-      "seeAlsoTerms": [],
-      "sentences": [],
-      "definition": "Valley",
-      "supplemental": [],
-      "definitionAbstract": "In geology, a valley or dale is a depression with predominant extent in one direction. A very deep river valley may be called a canyon or gorge. The terms U-shaped and V-shaped are descriptive terms of geography to characterize the form of valleys. Most valleys belong to one of these two main types or a mixture of them, (at least) with respect of the cross section of the slopes or hillsides.",
-      "tags": [
-        "wikipedia definition"
-      ]
-    }
-  ],
-  "otherForms": [
-    {
-      "kanji": "渓",
-      "kana": "たに"
-    },
-    {
-      "kanji": "谿",
-      "kana": "たに"
-    }
-  ],
-  "notes": []
+  "data": {
+    "uri": "https://jisho.org/word/%E8%B0%B7",
+    "tags": [
+      "Common word",
+      "JLPT N3",
+      "Wanikani level 5"
+    ],
+    "meanings": [
+      {
+        "seeAlsoTerms": [],
+        "sentences": [],
+        "definition": "valley",
+        "supplemental": [],
+        "definitionAbstract": null,
+        "tags": []
+      },
+      {
+        "seeAlsoTerms": [],
+        "sentences": [],
+        "definition": "Valley",
+        "supplemental": [],
+        "definitionAbstract": "In geology, a valley or dale is a depression with predominant extent in one direction. A very deep river valley may be called a canyon or gorge. The terms U-shaped and V-shaped are descriptive terms of geography to characterize the form of valleys. Most valleys belong to one of these two main types or a mixture of them, (at least) with respect of the cross section of the slopes or hillsides.",
+        "tags": []
+      }
+    ],
+    "otherForms": [
+      {
+        "kanji": "渓",
+        "kana": "たに"
+      },
+      {
+        "kanji": "谿",
+        "kana": "たに"
+      }
+    ],
+    "audio": [
+      {
+        "uri": "https://d1vjc5dkcd3yh2.cloudfront.net/audio/b9ff4f25c7a20f0f39131b3e3db0cd19.mp3",
+        "mimetype": "audio/mpeg"
+      },
+      {
+        "uri": "https://d1vjc5dkcd3yh2.cloudfront.net/audio_ogg/b9ff4f25c7a20f0f39131b3e3db0cd19.ogg",
+        "mimetype": "audio/ogg"
+      }
+    ],
+    "notes": []
+  }
 }
 ```
 
@@ -204,9 +216,12 @@ final String searchURI = jisho_parser.uriForKanjiSearch(searchKanji);
 void main() async {
   await http.get(searchURI).then((result) {
     final parsedResult = jisho_parser.parseKanjiPageData(result.body, searchKanji);
-    print('JLPT level: ${parsedResult.jlptLevel}');
-    print('Stroke count: ${parsedResult.strokeCount}');
-    print('Meaning: ${parsedResult.meaning}');
+    final data = parsedResult.data;
+    if (data != null) {
+      print('JLPT level: ${data.jlptLevel}');
+      print('Stroke count: ${data.strokeCount}');
+      print('Meaning: ${data.meaning}');
+    }
   });
 }
 ```
@@ -257,3 +272,9 @@ void main() async {
 ## About
 
 Permission to scrape granted by Jisho's admin Kimtaro: https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api
+
+## Notes
+
+The null-safety of dart 2.12 makes the parsing and interpreting of the native search API a little unreliable. Please be cautious when using `jisho.searchForPhrase()`, and if you do, please read the [API docs][api-docs] about the different result values.
+
+[api-docs]: https://pub.dev/documentation/unofficial_jisho_api/latest/

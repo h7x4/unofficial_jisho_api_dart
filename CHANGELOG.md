@@ -1,3 +1,7 @@
+## 2.0.1
+
+- Fixed the readme
+
 ## 2.0.0
 
 - Upgrade library to use null-safety
