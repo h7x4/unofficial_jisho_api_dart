@@ -231,6 +231,7 @@ class ExampleResultData {
     };
   }
 }
+
 /// The main wrapper containing data about the query and whether or not it was successful.
 class ExampleResults {
   /// The term that you searched for.
@@ -416,7 +417,7 @@ class PhrasePageScrapeResultData {
   /// Tags associated with this search result.
   List<KanjiKanaPair> otherForms;
 
-/// Pronounciation of the search result.
+  /// Pronounciation of the search result.
   List<AudioFile> audio;
 
   /// Notes associated with the search result.
@@ -448,7 +449,7 @@ class PhrasePageScrapeResultData {
 /* -------------------------------------------------------------------------- */
 
 /// Kanji/Furigana pair, or just kana as word.
-/// 
+///
 /// Which field acts as kanji and/or kana might be unreliable, which is why both are nullable.
 class JishoJapaneseWord {
   /// Usually kanji or kana.
@@ -520,9 +521,9 @@ class JishoWordSource {
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
-    'language:': language,
-    'word': word,
-  };
+        'language:': language,
+        'word': word,
+      };
 }
 
 /// One sense of the word.
@@ -645,13 +646,13 @@ class JishoAttribution {
 /// The main API data class, collecting all information of one result in one place.
 class JishoResult {
   /// The main version of the word
-  /// 
+  ///
   /// This value might sometimes appear as some kind of hash or encoded version of the word.
   /// Whenever it happens, the word usually originates taken from dbpedia
   String slug;
 
   /// Whether the word is common.
-  /// 
+  ///
   /// Dbpedia sometimes omit this value.
   bool? isCommon;
 
@@ -710,7 +711,7 @@ class JishoResult {
       };
 }
 
-  /// Metadata with result status.
+/// Metadata with result status.
 class JishoResultMeta {
   /// HTTP status code.
   int status;

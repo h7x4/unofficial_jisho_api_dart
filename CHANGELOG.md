@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Fixed formatting
+
 ## 2.0.1
 
 - Fixed the readme

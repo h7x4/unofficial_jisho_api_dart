@@ -1,5 +1,5 @@
 name: unofficial_jisho_api
-version: 2.0.1
+version: 2.0.2
 
 description: An unofficial api for searching and scraping the japanese dictionary Jisho.org
 homepage: https://github.com/h7x4ABk3g/unofficial_jisho_api_dart/

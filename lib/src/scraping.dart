@@ -3,7 +3,7 @@ String removeNewlines(String str) {
   return str.replaceAll(RegExp(r'(?:\r|\n)'), '').trim();
 }
 
-/// Remove alltext between two positions, and remove all newlines 
+/// Remove all text between two positions, and remove all newlines
 String getStringBetweenIndicies(String data, int startIndex, int endIndex) {
   final result = data.substring(startIndex, endIndex);
   return removeNewlines(result).trim();
