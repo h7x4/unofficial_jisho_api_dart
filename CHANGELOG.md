@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Bug fixes
+
 ## 2.0.2
 
 - Fixed formatting

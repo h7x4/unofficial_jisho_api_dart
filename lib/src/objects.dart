@@ -520,6 +520,14 @@ class JishoWordSource {
   });
 
   // ignore: public_member_api_docs
+  factory JishoWordSource.fromJson(Map<String, dynamic> json) {
+    return JishoWordSource(
+      language: json['language'] as String,
+      word: json['word'] as String?,
+    );
+  }
+
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'language:': language,
         'word': word,
@@ -571,25 +579,28 @@ class JishoWordSense {
   // ignore: public_member_api_docs
   factory JishoWordSense.fromJson(Map<String, dynamic> json) {
     return JishoWordSense(
-        englishDefinitions: (json['english_definitions'] as List)
-            .map((result) => result as String)
-            .toList(),
-        partsOfSpeech: (json['parts_of_speech'] as List)
-            .map((result) => result as String)
-            .toList(),
-        links: (json['links'] as List)
-            .map((result) => JishoSenseLink.fromJson(result))
-            .toList(),
-        tags: (json['tags'] as List).map((result) => result as String).toList(),
-        seeAlso: (json['see_also'] as List)
-            .map((result) => result as String)
-            .toList(),
-        antonyms: (json['antonyms'] as List)
-            .map((result) => result as String)
-            .toList(),
-        source: json['source'] as List<JishoWordSource>,
-        info: (json['info'] as List).map((result) => result as String).toList(),
-        restrictions: json['restrictions'] as List<String>);
+      englishDefinitions: (json['english_definitions'] as List)
+          .map((result) => result as String)
+          .toList(),
+      partsOfSpeech: (json['parts_of_speech'] as List)
+          .map((result) => result as String)
+          .toList(),
+      links: (json['links'] as List)
+          .map((result) => JishoSenseLink.fromJson(result))
+          .toList(),
+      tags: (json['tags'] as List).map((result) => result as String).toList(),
+      seeAlso:
+          (json['see_also'] as List).map((result) => result as String).toList(),
+      antonyms:
+          (json['antonyms'] as List).map((result) => result as String).toList(),
+      source: (json['source'] as List)
+          .map((result) => JishoWordSource.fromJson(result))
+          .toList(),
+      info: (json['info'] as List).map((result) => result as String).toList(),
+      restrictions: (json['restrictions'] as List)
+          .map((result) => result as String)
+          .toList(),
+    );
   }
 
   // ignore: public_member_api_docs
