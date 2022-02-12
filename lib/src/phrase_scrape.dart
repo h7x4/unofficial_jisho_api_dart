@@ -159,11 +159,12 @@ PhrasePageScrapeResultData _getMeaningsOtherFormsAndNotes(
   var notes;
 
   for (var child in meaningsWrapper.children) {
+    final mostRecentWordType = mostRecentWordTypes.length >= 1 ? mostRecentWordTypes[0] : null;
     if (child.className.contains('meaning-tags')) {
       mostRecentWordTypes = _getMostRecentWordTypes(child);
-    } else if (mostRecentWordTypes[0] == 'other forms') {
+    } else if (mostRecentWordType == 'other forms') {
       otherForms = _getOtherForms(child);
-    } else if (mostRecentWordTypes[0] == 'notes') {
+    } else if (mostRecentWordType == 'notes') {
       notes = _getNotes(child);
     } else {
       meanings.add(_getMeaning(child));
