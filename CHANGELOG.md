@@ -1,3 +1,8 @@
+# 2.0.4
+
+- Fixed bug where pieces were missing in example sentences
+- Fixed bug where some scrapeForPhrase searches would crash for no apparent reason.
+
 ## 2.0.3
 
 - Bug fixes

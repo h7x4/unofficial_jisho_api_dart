@@ -159,7 +159,7 @@ PhrasePageScrapeResultData _getMeaningsOtherFormsAndNotes(
   var notes;
 
   for (var child in meaningsWrapper.children) {
-    final mostRecentWordType = mostRecentWordTypes.length >= 1 ? mostRecentWordTypes[0] : null;
+    final mostRecentWordType = mostRecentWordTypes.isNotEmpty ? mostRecentWordTypes[0] : null;
     if (child.className.contains('meaning-tags')) {
       mostRecentWordTypes = _getMostRecentWordTypes(child);
     } else if (mostRecentWordType == 'other forms') {
