@@ -92,10 +92,19 @@ List<String> _getKanjiAndKana(Element div) {
   return [kanji, kana];
 }
 
-List<ExampleSentencePiece> getPieces(Element sentenceElement) {
-  final pieceElements = sentenceElement.querySelectorAll('li.clearfix');
+Element normalizeSentenceElement(Element sentenceElement) =>
+    Element.html('<ul>' +
+        sentenceElement.children.first.innerHtml.replaceAllMapped(
+          RegExp(r'(?<=^|<\/li>)\s*([^<>]+)\s*(?=<li)'),
+          (match) =>
+              '<li class="clearfix"><span class="unlinked">${match.group(0)}</span></li>',
+        ) +
+        '</ul>');
 
-  return pieceElements.map((var e) {
+List<ExampleSentencePiece> getPieces(Element sentenceElement) {
+  return normalizeSentenceElement(sentenceElement)
+      .querySelectorAll('li.clearfix')
+      .map((var e) {
     final unlifted = assertNotNull(
       variable: e.querySelector('.unlinked')?.text,
       errorMessage:
