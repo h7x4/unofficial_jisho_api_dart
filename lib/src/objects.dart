@@ -1,24 +1,38 @@
+import 'package:equatable/equatable.dart';
+
+import 'example_search.dart';
+import 'kanji_search.dart';
+
 /* -------------------------------------------------------------------------- */
 /*                       searchForKanji related classes                       */
 /* -------------------------------------------------------------------------- */
 
 /// An example of a word that contains the kanji in question.
-class YomiExample {
+class YomiExample extends Equatable {
   /// The original text of the example.
-  String example;
+  final String example;
 
   /// The reading of the example.
-  String reading;
+  final String reading;
 
   /// The meaning of the example.
-  String meaning;
+  final String meaning;
 
   // ignore: public_member_api_docs
-  YomiExample({
+  const YomiExample({
     required this.example,
     required this.reading,
     required this.meaning,
   });
+
+  // ignore: public_member_api_docs
+  factory YomiExample.fromJson(Map<String, dynamic> json) {
+    return YomiExample(
+      example: json['example'] as String,
+      reading: json['reading'] as String,
+      meaning: json['meaning'] as String,
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, String> toJson() => {
@@ -26,25 +40,38 @@ class YomiExample {
         'reading': reading,
         'meaning': meaning,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [example, reading, meaning];
 }
 
 /// Information regarding the radical of a kanji.
-class Radical {
+class Radical extends Equatable {
   /// The radical symbol.
-  String symbol;
+  final String symbol;
 
   /// The radical forms used in this kanji.
-  List<String> forms;
+  final List<String> forms;
 
   /// The meaning of the radical.
-  String meaning;
+  final String meaning;
 
   // ignore: public_member_api_docs
-  Radical({
+  const Radical({
     required this.symbol,
     this.forms = const [],
     required this.meaning,
   });
+
+  // ignore: public_member_api_docs
+  factory Radical.fromJson(Map<String, dynamic> json) {
+    return Radical(
+      symbol: json['symbol'] as String,
+      forms: (json['forms'] as List).map((e) => e as String).toList(),
+      meaning: json['meaning'] as String,
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
@@ -52,87 +79,105 @@ class Radical {
         'forms': forms,
         'meaning': meaning,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [symbol, forms, meaning];
 }
 
 /// The main wrapper containing data about the query and whether or not it was successful.
-class KanjiResult {
+class KanjiResult extends Equatable {
   /// True if results were found.
-  String query;
+  final String query;
 
   /// The term that you searched for.
-  bool found;
+  bool get found => data != null;
 
   /// The result data if search was successful.
-  KanjiResultData? data;
+  final KanjiResultData? data;
 
   // ignore: public_member_api_docs
-  KanjiResult({
+  const KanjiResult({
     required this.query,
-    required this.found,
     this.data,
   });
 
   // ignore: public_member_api_docs
-  Map<String, dynamic> toJson() {
-    return {
-      'query': query,
-      'found': found,
-      'data': data,
-    };
+  factory KanjiResult.fromJson(Map<String, dynamic> json) {
+    return KanjiResult(
+      query: json['query'] as String,
+      data:
+          json['data'] != null ? KanjiResultData.fromJson(json['data']) : null,
+    );
   }
+
+  // ignore: public_member_api_docs
+  Map<String, dynamic> toJson() => {
+        'query': query,
+        'found': found,
+        'data': data,
+      };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [query, data];
 }
 
 /// The main kanji data class, collecting all the result information in one place.
-class KanjiResultData {
+class KanjiResultData extends Equatable {
+  /// The kanji symbol
+  final String kanji;
+
   /// The school level that the kanji is taught in, if applicable.
-  String? taughtIn;
+  final String? taughtIn;
 
   /// The lowest JLPT exam that this kanji is likely to appear in, if applicable.
   ///
   /// 'N5' or 'N4' or 'N3' or 'N2' or 'N1'.
-  String? jlptLevel;
+  final String? jlptLevel;
 
   /// A number representing this kanji's frequency rank in newspapers, if applicable.
-  int? newspaperFrequencyRank;
+  final int? newspaperFrequencyRank;
 
   /// How many strokes this kanji is typically drawn in.
-  int strokeCount;
+  final int strokeCount;
 
   /// The meaning of the kanji.
-  String meaning;
+  final String meaning;
 
   /// This character's kunyomi.
-  List<String> kunyomi;
+  final List<String> kunyomi;
 
   /// This character's onyomi.
-  List<String> onyomi;
+  final List<String> onyomi;
 
   /// Examples of this character's kunyomi being used.
-  List<YomiExample> kunyomiExamples;
+  final List<YomiExample> kunyomiExamples;
 
   /// Examples of this character's onyomi being used.
-  List<YomiExample> onyomiExamples;
+  final List<YomiExample> onyomiExamples;
 
   /// Information about this character's radical, if applicable.
-  Radical? radical;
+  final Radical? radical;
 
   /// The parts used in this kanji.
-  List<String> parts;
+  final List<String> parts;
 
   /// The URL to a diagram showing how to draw this kanji step by step.
-  String strokeOrderDiagramUri;
+  String get strokeOrderDiagramUri => getUriForStrokeOrderDiagram(kanji);
 
   /// The URL to an SVG describing how to draw this kanji.
-  String strokeOrderSvgUri;
+  final String strokeOrderSvgUri;
 
   ///  The URL to a gif showing the kanji being draw and its stroke order.
-  String strokeOrderGifUri;
+  String get strokeOrderGifUri => getGifUri(kanji);
 
   /// The URI that these results were scraped from.
-  String uri;
+  String get uri => uriForKanjiSearch(kanji).toString();
 
   // ignore: public_member_api_docs
-  KanjiResultData({
+  const KanjiResultData({
+    required this.kanji,
     this.taughtIn,
     this.jlptLevel,
     this.newspaperFrequencyRank,
@@ -144,32 +189,69 @@ class KanjiResultData {
     this.onyomiExamples = const [],
     this.radical,
     this.parts = const [],
-    required this.strokeOrderDiagramUri,
     required this.strokeOrderSvgUri,
-    required this.strokeOrderGifUri,
-    required this.uri,
   });
 
   // ignore: public_member_api_docs
-  Map<String, dynamic> toJson() {
-    return {
-      'taughtIn': taughtIn,
-      'jlptLevel': jlptLevel,
-      'newspaperFrequencyRank': newspaperFrequencyRank,
-      'strokeCount': strokeCount,
-      'meaning': meaning,
-      'kunyomi': kunyomi,
-      'onyomi': onyomi,
-      'onyomiExamples': onyomiExamples,
-      'kunyomiExamples': kunyomiExamples,
-      'radical': radical?.toJson(),
-      'parts': parts,
-      'strokeOrderDiagramUri': strokeOrderDiagramUri,
-      'strokeOrderSvgUri': strokeOrderSvgUri,
-      'strokeOrderGifUri': strokeOrderGifUri,
-      'uri': uri,
-    };
+  factory KanjiResultData.fromJson(Map<String, dynamic> json) {
+    return KanjiResultData(
+      kanji: json['kanji'] as String,
+      taughtIn: json['taughtIn'] as String?,
+      jlptLevel: json['jlptLevel'] as String?,
+      newspaperFrequencyRank: json['newspaperFrequencyRank'] as int?,
+      strokeCount: json['strokeCount'] as int,
+      meaning: json['meaning'] as String,
+      kunyomi: (json['kunyomi'] as List).map((e) => e as String).toList(),
+      onyomi: (json['onyomi'] as List).map((e) => e as String).toList(),
+      kunyomiExamples: (json['kunyomiExamples'] as List)
+          .map((e) => YomiExample.fromJson(e))
+          .toList(),
+      onyomiExamples: (json['onyomiExamples'] as List)
+          .map((e) => YomiExample.fromJson(e))
+          .toList(),
+      radical:
+          json['radical'] != null ? Radical.fromJson(json['radical']) : null,
+      parts: (json['parts'] as List).map((e) => e as String).toList(),
+      strokeOrderSvgUri: json['strokeOrderSvgUri'] as String,
+    );
   }
+
+  // ignore: public_member_api_docs
+  Map<String, dynamic> toJson() => {
+        'kanji': kanji,
+        'taughtIn': taughtIn,
+        'jlptLevel': jlptLevel,
+        'newspaperFrequencyRank': newspaperFrequencyRank,
+        'strokeCount': strokeCount,
+        'meaning': meaning,
+        'kunyomi': kunyomi,
+        'onyomi': onyomi,
+        'onyomiExamples': onyomiExamples,
+        'kunyomiExamples': kunyomiExamples,
+        'radical': radical?.toJson(),
+        'parts': parts,
+        'strokeOrderDiagramUri': strokeOrderDiagramUri,
+        'strokeOrderSvgUri': strokeOrderSvgUri,
+        'strokeOrderGifUri': strokeOrderGifUri,
+        'uri': uri,
+      };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [
+        taughtIn,
+        jlptLevel,
+        newspaperFrequencyRank,
+        strokeCount,
+        meaning,
+        kunyomi,
+        onyomi,
+        kunyomiExamples,
+        onyomiExamples,
+        radical,
+        parts,
+        strokeOrderSvgUri,
+      ];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -177,18 +259,26 @@ class KanjiResultData {
 /* -------------------------------------------------------------------------- */
 
 /// A word in an example sentence, consisting of either just kana, or kanji with furigana.
-class ExampleSentencePiece {
+class ExampleSentencePiece extends Equatable {
   /// Furigana text shown on Jisho.org (above the unlifted text), if applicable.
-  String? lifted;
+  final String? lifted;
 
   /// Baseline text shown on Jisho.org (below the lifted text / furigana).
-  String unlifted;
+  final String unlifted;
 
   // ignore: public_member_api_docs
-  ExampleSentencePiece({
+  const ExampleSentencePiece({
     this.lifted,
     required this.unlifted,
   });
+
+  // ignore: public_member_api_docs
+  factory ExampleSentencePiece.fromJson(Map<String, dynamic> json) {
+    return ExampleSentencePiece(
+      lifted: json['lifted'] as String?,
+      unlifted: json['unlifted'] as String,
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() {
@@ -197,29 +287,43 @@ class ExampleSentencePiece {
       'unlifted': unlifted,
     };
   }
+
+  List<Object?> get props => [lifted, unlifted];
 }
 
 /// All data making up one example sentence.
-class ExampleResultData {
+class ExampleResultData extends Equatable {
   /// The example sentence including kanji.
-  String kanji;
+  final String kanji;
 
   /// The example sentence without kanji (only kana). Sometimes this may include some Kanji, as furigana is not always available from Jisho.org.
-  String kana;
+  final String kana;
 
   /// An English translation of the example.
-  String english;
+  final String english;
 
   /// The lifted/unlifted pairs that make up the sentence. Lifted text is furigana, unlifted is the text below the furigana.
-  List<ExampleSentencePiece> pieces;
+  final List<ExampleSentencePiece> pieces;
 
   // ignore: public_member_api_docs
-  ExampleResultData({
+  const ExampleResultData({
     required this.english,
     required this.kanji,
     required this.kana,
     required this.pieces,
   });
+
+  // ignore: public_member_api_docs
+  factory ExampleResultData.fromJson(Map<String, dynamic> json) {
+    return ExampleResultData(
+      english: json['english'] as String,
+      kanji: json['kanji'] as String,
+      kana: json['kana'] as String,
+      pieces: (json['pieces'] as List)
+          .map((e) => ExampleSentencePiece.fromJson(e))
+          .toList(),
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() {
@@ -230,29 +334,39 @@ class ExampleResultData {
       'pieces': pieces,
     };
   }
+
+  List<Object> get props => [english, kanji, kana, pieces];
 }
 
 /// The main wrapper containing data about the query and whether or not it was successful.
-class ExampleResults {
+class ExampleResults extends Equatable {
   /// The term that you searched for.
-  String query;
+  final String query;
 
   /// True if results were found.
-  bool found;
+  bool get found => results.isNotEmpty;
 
   /// The URI that these results were scraped from.
-  String uri;
+  String get uri => uriForExampleSearch(query).toString();
 
   /// The examples that were found, if any.
-  List<ExampleResultData> results;
+  final List<ExampleResultData> results;
 
   // ignore: public_member_api_docs
-  ExampleResults({
+  const ExampleResults({
     required this.query,
-    required this.found,
     required this.results,
-    required this.uri,
   });
+
+  // ignore: public_member_api_docs
+  factory ExampleResults.fromJson(Map<String, dynamic> json) {
+    return ExampleResults(
+      query: json['query'] as String,
+      results: (json['results'] as List)
+          .map((e) => ExampleResultData.fromJson(e))
+          .toList(),
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() {
@@ -263,6 +377,8 @@ class ExampleResults {
       'uri': uri,
     };
   }
+
+  List<Object> get props => [query, results];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -270,52 +386,70 @@ class ExampleResults {
 /* -------------------------------------------------------------------------- */
 
 /// An example sentence.
-class PhraseScrapeSentence {
+class PhraseScrapeSentence extends Equatable {
   /// The English meaning of the sentence.
-  String english;
+  final String english;
 
   /// The Japanese text of the sentence.
-  String japanese;
+  final String japanese;
 
   /// The lifted/unlifted pairs that make up the sentence. Lifted text is furigana, unlifted is the text below the furigana.
-  List<ExampleSentencePiece> pieces;
+  final List<ExampleSentencePiece> pieces;
 
   // ignore: public_member_api_docs
-  PhraseScrapeSentence({
+  const PhraseScrapeSentence({
     required this.english,
     required this.japanese,
     required this.pieces,
   });
 
   // ignore: public_member_api_docs
-  Map<String, dynamic> toJson() =>
-      {'english': english, 'japanese': japanese, 'pieces': pieces};
+  factory PhraseScrapeSentence.fromJson(Map<String, dynamic> json) {
+    return PhraseScrapeSentence(
+      english: json['english'] as String,
+      japanese: json['japanese'] as String,
+      pieces: (json['pieces'] as List)
+          .map((e) => ExampleSentencePiece.fromJson(e))
+          .toList(),
+    );
+  }
+
+  // ignore: public_member_api_docs
+  Map<String, dynamic> toJson() => {
+        'english': english,
+        'japanese': japanese,
+        'pieces': pieces,
+      };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [english, japanese, pieces];
 }
 
 /// The data representing one "meaning" or "sense" of the word
-class PhraseScrapeMeaning {
+class PhraseScrapeMeaning extends Equatable {
   /// The words that Jisho lists as "see also".
-  List<String> seeAlsoTerms;
+  final List<String> seeAlsoTerms;
 
   /// Example sentences for this meaning.
-  List<PhraseScrapeSentence> sentences;
+  final List<PhraseScrapeSentence> sentences;
 
   /// The definition of the meaning.
-  String definition;
+  final String definition;
 
   /// Supplemental information.
   /// For example "usually written using kana alone".
-  List<String> supplemental;
+  final List<String> supplemental;
 
   /// An "abstract" definition.
   /// Often this is a Wikipedia definition.
-  String? definitionAbstract;
+  final String? definitionAbstract;
 
   /// Tags associated with this meaning.
-  List<String> tags;
+  final List<String> tags;
 
   // ignore: public_member_api_docs
-  PhraseScrapeMeaning({
+  const PhraseScrapeMeaning({
     this.seeAlsoTerms = const [],
     required this.sentences,
     required this.definition,
@@ -323,6 +457,22 @@ class PhraseScrapeMeaning {
     this.definitionAbstract,
     this.tags = const [],
   });
+
+  // ignore: public_member_api_docs
+  factory PhraseScrapeMeaning.fromJson(Map<String, dynamic> json) {
+    return PhraseScrapeMeaning(
+      seeAlsoTerms:
+          (json['seeAlsoTerms'] as List).map((e) => e as String).toList(),
+      sentences: (json['sentences'] as List)
+          .map((e) => PhraseScrapeSentence.fromJson(e))
+          .toList(),
+      definition: json['definition'] as String,
+      supplemental:
+          (json['supplemental'] as List).map((e) => e as String).toList(),
+      definitionAbstract: json['definitionAbstract'] as String?,
+      tags: (json['tags'] as List).map((e) => e as String).toList(),
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
@@ -333,46 +483,78 @@ class PhraseScrapeMeaning {
         'definitionAbstract': definitionAbstract,
         'tags': tags,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [
+        seeAlsoTerms,
+        sentences,
+        definition,
+        supplemental,
+        definitionAbstract,
+        tags
+      ];
 }
 
 /// A pair of kanji and potential furigana.
-class KanjiKanaPair {
+class KanjiKanaPair extends Equatable {
   /// Kanji
-  String kanji;
+  final String kanji;
 
   /// Furigana, if applicable.
-  String? kana;
+  final String? kana;
 
   // ignore: public_member_api_docs
-  KanjiKanaPair({
+  const KanjiKanaPair({
     required this.kanji,
     this.kana,
   });
+
+  // ignore: public_member_api_docs
+  factory KanjiKanaPair.fromJson(Map<String, dynamic> json) {
+    return KanjiKanaPair(
+      kanji: json['kanji'] as String,
+      kana: json['kana'] as String?,
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'kanji': kanji,
         'kana': kana,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [kanji, kana];
 }
 
 /// The main wrapper containing data about the query and whether or not it was successful.
-class PhrasePageScrapeResult {
+class PhrasePageScrapeResult extends Equatable {
   /// True if a result was found.
-  bool found;
+  bool get found => data != null;
 
   /// The term that you searched for.
-  String query;
+  final String query;
 
   /// The result data if search was successful.
-  PhrasePageScrapeResultData? data;
+  final PhrasePageScrapeResultData? data;
 
   // ignore: public_member_api_docs
-  PhrasePageScrapeResult({
-    required this.found,
+  const PhrasePageScrapeResult({
     required this.query,
     this.data,
   });
+
+  // ignore: public_member_api_docs
+  factory PhrasePageScrapeResult.fromJson(Map<String, dynamic> json) {
+    return PhrasePageScrapeResult(
+      query: json['query'] as String,
+      data: json['data'] != null
+          ? PhrasePageScrapeResultData.fromJson(json['data'])
+          : null,
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
@@ -380,51 +562,67 @@ class PhrasePageScrapeResult {
         'query': query,
         'data': data,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [query, data];
 }
 
 /// Pronounciation audio.
-class AudioFile {
+class AudioFile extends Equatable {
   /// The uri of the audio file.
-  String uri;
+  final String uri;
 
   /// The mimetype of the audio.
-  String mimetype;
+  final String mimetype;
 
   // ignore: public_member_api_docs
-  AudioFile({
+  const AudioFile({
     required this.uri,
     required this.mimetype,
   });
+
+  // ignore: public_member_api_docs
+  factory AudioFile.fromJson(Map<String, dynamic> json) {
+    return AudioFile(
+      uri: json['uri'] as String,
+      mimetype: json['mimetype'] as String,
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'uri': uri,
         'mimetype': mimetype,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [uri, mimetype];
 }
 
 /// The main scrape data class, collecting all the result information in one place.
-class PhrasePageScrapeResultData {
+class PhrasePageScrapeResultData extends Equatable {
   /// The URI that these results were scraped from.
-  String uri;
+  final String uri;
 
   /// Other forms of the search term.
-  List<String> tags;
+  final List<String> tags;
 
   /// Information about the meanings associated with this search result.
-  List<PhraseScrapeMeaning> meanings;
+  final List<PhraseScrapeMeaning> meanings;
 
   /// Tags associated with this search result.
-  List<KanjiKanaPair> otherForms;
+  final List<KanjiKanaPair> otherForms;
 
   /// Pronounciation of the search result.
-  List<AudioFile> audio;
+  final List<AudioFile> audio;
 
   /// Notes associated with the search result.
-  List<String> notes;
+  final List<String> notes;
 
   // ignore: public_member_api_docs
-  PhrasePageScrapeResultData({
+  const PhrasePageScrapeResultData({
     required this.uri,
     this.tags = const [],
     this.meanings = const [],
@@ -432,6 +630,22 @@ class PhrasePageScrapeResultData {
     this.audio = const [],
     this.notes = const [],
   });
+
+  // ignore: public_member_api_docs
+  factory PhrasePageScrapeResultData.fromJson(Map<String, dynamic> json) {
+    return PhrasePageScrapeResultData(
+      uri: json['uri'] as String,
+      tags: (json['tags'] as List).map((e) => e as String).toList(),
+      meanings: (json['meanings'] as List)
+          .map((e) => PhraseScrapeMeaning.fromJson(e))
+          .toList(),
+      otherForms: (json['otherForms'] as List)
+          .map((e) => KanjiKanaPair.fromJson(e))
+          .toList(),
+      audio: (json['audio'] as List).map((e) => AudioFile.fromJson(e)).toList(),
+      notes: (json['notes'] as List).map((e) => e as String).toList(),
+    );
+  }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
@@ -442,6 +656,10 @@ class PhrasePageScrapeResultData {
         'audio': audio,
         'notes': notes,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [uri, tags, meanings, otherForms, audio, notes];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -451,18 +669,18 @@ class PhrasePageScrapeResultData {
 /// Kanji/Furigana pair, or just kana as word.
 ///
 /// Which field acts as kanji and/or kana might be unreliable, which is why both are nullable.
-class JishoJapaneseWord {
+class JishoJapaneseWord extends Equatable {
   /// Usually kanji or kana.
-  String? word;
+  final String? word;
 
   /// Usually furigana, if applicable.
-  String? reading;
+  final String? reading;
 
   // ignore: public_member_api_docs
-  JishoJapaneseWord({
+  const JishoJapaneseWord({
     this.word,
     this.reading,
-  });
+  }) : assert(word != null || reading != null);
 
   // ignore: public_member_api_docs
   factory JishoJapaneseWord.fromJson(Map<String, dynamic> json) {
@@ -477,18 +695,22 @@ class JishoJapaneseWord {
         'word': word,
         'reading': reading,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [word, reading];
 }
 
 /// Relevant links of the search result.
-class JishoSenseLink {
+class JishoSenseLink extends Equatable {
   /// Description of the linked webpage.
-  String text;
+  final String text;
 
   /// Link to the webpage.
-  String url;
+  final String url;
 
   // ignore: public_member_api_docs
-  JishoSenseLink({required this.text, required this.url});
+  const JishoSenseLink({required this.text, required this.url});
 
   // ignore: public_member_api_docs
   factory JishoSenseLink.fromJson(Map<String, dynamic> json) {
@@ -503,18 +725,22 @@ class JishoSenseLink {
         'text': text,
         'url': url,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [text, url];
 }
 
 /// Origin of the word (from other languages).
-class JishoWordSource {
+class JishoWordSource extends Equatable {
   /// Origin language.
-  String language;
+  final String language;
 
   /// Origin word, if present.
-  String? word;
+  final String? word;
 
   // ignore: public_member_api_docs
-  JishoWordSource({
+  const JishoWordSource({
     required this.language,
     this.word,
   });
@@ -532,39 +758,43 @@ class JishoWordSource {
         'language:': language,
         'word': word,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [language, word];
 }
 
 /// One sense of the word.
-class JishoWordSense {
+class JishoWordSense extends Equatable {
   /// The meaning(s) of the word.
-  List<String> englishDefinitions;
+  final List<String> englishDefinitions;
 
   /// Type of word (Noun, Verb, etc.).
-  List<String> partsOfSpeech;
+  final List<String> partsOfSpeech;
 
   /// Relevant links.
-  List<JishoSenseLink> links;
+  final List<JishoSenseLink> links;
 
   /// Relevant tags.
-  List<String> tags;
+  final List<String> tags;
 
   /// Relevant words (might include synonyms).
-  List<String> seeAlso;
+  final List<String> seeAlso;
 
   /// Words with opposite meaning.
-  List<String> antonyms;
+  final List<String> antonyms;
 
   /// Origins of the word (from other languages).
-  List<JishoWordSource> source;
+  final List<JishoWordSource> source;
 
   /// Additional info.
-  List<String> info;
+  final List<String> info;
 
   /// Restrictions as to which variants of the japanese words are usable for this sense.
-  List<String> restrictions;
+  final List<String> restrictions;
 
   // ignore: public_member_api_docs
-  JishoWordSense({
+  const JishoWordSense({
     required this.englishDefinitions,
     required this.partsOfSpeech,
     this.links = const [],
@@ -580,26 +810,22 @@ class JishoWordSense {
   factory JishoWordSense.fromJson(Map<String, dynamic> json) {
     return JishoWordSense(
       englishDefinitions: (json['english_definitions'] as List)
-          .map((result) => result as String)
+          .map((e) => e as String)
           .toList(),
-      partsOfSpeech: (json['parts_of_speech'] as List)
-          .map((result) => result as String)
-          .toList(),
+      partsOfSpeech:
+          (json['parts_of_speech'] as List).map((e) => e as String).toList(),
       links: (json['links'] as List)
-          .map((result) => JishoSenseLink.fromJson(result))
+          .map((e) => JishoSenseLink.fromJson(e))
           .toList(),
-      tags: (json['tags'] as List).map((result) => result as String).toList(),
-      seeAlso:
-          (json['see_also'] as List).map((result) => result as String).toList(),
-      antonyms:
-          (json['antonyms'] as List).map((result) => result as String).toList(),
+      tags: (json['tags'] as List).map((e) => e as String).toList(),
+      seeAlso: (json['see_also'] as List).map((e) => e as String).toList(),
+      antonyms: (json['antonyms'] as List).map((e) => e as String).toList(),
       source: (json['source'] as List)
-          .map((result) => JishoWordSource.fromJson(result))
+          .map((e) => JishoWordSource.fromJson(e))
           .toList(),
-      info: (json['info'] as List).map((result) => result as String).toList(),
-      restrictions: (json['restrictions'] as List)
-          .map((result) => result as String)
-          .toList(),
+      info: (json['info'] as List).map((e) => e as String).toList(),
+      restrictions:
+          (json['restrictions'] as List).map((e) => e as String).toList(),
     );
   }
 
@@ -615,21 +841,35 @@ class JishoWordSense {
         'info': info,
         'restrictions': restrictions
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [
+        englishDefinitions,
+        partsOfSpeech,
+        links,
+        tags,
+        seeAlso,
+        antonyms,
+        source,
+        info,
+        restrictions,
+      ];
 }
 
 /// The original source(s) of the result.
-class JishoAttribution {
+class JishoAttribution extends Equatable {
   /// Whether jmdict was a source.
-  bool jmdict;
+  final bool jmdict;
 
   /// Whether jmnedict was a source.
-  bool jmnedict;
+  final bool jmnedict;
 
   /// Additional sources, if applicable.
-  String? dbpedia;
+  final String? dbpedia;
 
   // ignore: public_member_api_docs
-  JishoAttribution({
+  const JishoAttribution({
     required this.jmdict,
     required this.jmnedict,
     this.dbpedia,
@@ -652,38 +892,42 @@ class JishoAttribution {
         'jmnedict': jmnedict,
         'dbpedia': dbpedia,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [jmdict, jmnedict, dbpedia];
 }
 
 /// The main API data class, collecting all information of one result in one place.
-class JishoResult {
+class JishoResult extends Equatable {
   /// The main version of the word
   ///
   /// This value might sometimes appear as some kind of hash or encoded version of the word.
   /// Whenever it happens, the word usually originates taken from dbpedia
-  String slug;
+  final String slug;
 
   /// Whether the word is common.
   ///
   /// Dbpedia sometimes omit this value.
-  bool? isCommon;
+  final bool? isCommon;
 
   /// Related tags.
-  List<String> tags;
+  final List<String> tags;
 
   /// Relevant jlpt levels.
-  List<String> jlpt;
+  final List<String> jlpt;
 
   /// Japanese versions of the word.
-  List<JishoJapaneseWord> japanese;
+  final List<JishoJapaneseWord> japanese;
 
   /// Translations of the word.
-  List<JishoWordSense> senses;
+  final List<JishoWordSense> senses;
 
   /// Sources.
-  JishoAttribution attribution;
+  final JishoAttribution attribution;
 
   // ignore: public_member_api_docs
-  JishoResult({
+  const JishoResult({
     required this.slug,
     required this.isCommon,
     this.tags = const [],
@@ -698,13 +942,13 @@ class JishoResult {
     return JishoResult(
       slug: json['slug'] as String,
       isCommon: json['is_common'] as bool?,
-      tags: (json['tags'] as List).map((result) => result as String).toList(),
-      jlpt: (json['jlpt'] as List).map((result) => result as String).toList(),
+      tags: (json['tags'] as List).map((e) => e as String).toList(),
+      jlpt: (json['jlpt'] as List).map((e) => e as String).toList(),
       japanese: (json['japanese'] as List)
-          .map((result) => JishoJapaneseWord.fromJson(result))
+          .map((e) => JishoJapaneseWord.fromJson(e))
           .toList(),
       senses: (json['senses'] as List)
-          .map((result) => JishoWordSense.fromJson(result))
+          .map((e) => JishoWordSense.fromJson(e))
           .toList(),
       attribution: JishoAttribution.fromJson(json['attribution']),
     );
@@ -720,15 +964,27 @@ class JishoResult {
         'senses': senses,
         'attribution': attribution,
       };
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [
+        slug,
+        isCommon,
+        tags,
+        jlpt,
+        japanese,
+        senses,
+        attribution,
+      ];
 }
 
 /// Metadata with result status.
-class JishoResultMeta {
+class JishoResultMeta extends Equatable {
   /// HTTP status code.
-  int status;
+  final int status;
 
   // ignore: public_member_api_docs
-  JishoResultMeta({required this.status});
+  const JishoResultMeta({required this.status});
 
   // ignore: public_member_api_docs
   factory JishoResultMeta.fromJson(Map<String, dynamic> json) {
@@ -737,18 +993,22 @@ class JishoResultMeta {
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {'status': status};
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object> get props => [status];
 }
 
 /// The main API result wrapper containing whether it was successful, and potential results.
-class JishoAPIResult {
+class JishoAPIResult extends Equatable {
   /// Metadata with result status.
-  JishoResultMeta meta;
+  final JishoResultMeta meta;
 
   /// Results.
-  List<JishoResult>? data;
+  final List<JishoResult>? data;
 
   // ignore: public_member_api_docs
-  JishoAPIResult({
+  const JishoAPIResult({
     required this.meta,
     this.data,
   });
@@ -758,10 +1018,14 @@ class JishoAPIResult {
     return JishoAPIResult(
         meta: JishoResultMeta.fromJson(json['meta']),
         data: (json['data'] as List)
-            .map((result) => JishoResult.fromJson(result))
+            .map((e) => JishoResult.fromJson(e))
             .toList());
   }
 
   // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {'meta': meta.toJson(), 'data': data};
+
+  @override
+  // ignore: public_member_api_docs
+  List<Object?> get props => [meta, data];
 }

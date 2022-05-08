@@ -7,6 +7,7 @@ void main() {
 
     final data = result.data;
     if (data != null) {
+      print('Kanji: ${data.kanji}');
       print('Taught in: ${data.taughtIn}');
       print('JLPT level: ${data.jlptLevel}');
       print('Newspaper frequency rank: ${data.newspaperFrequencyRank}');

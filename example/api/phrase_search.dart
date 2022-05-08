@@ -4,7 +4,6 @@ final JsonEncoder encoder = JsonEncoder.withIndent('  ');
 
 void main() {
   jisho.searchForPhrase('日').then((result) {
-  // jisho.searchForPhrase('する').then((result) {
     print(encoder.convert(result));
   });
 }

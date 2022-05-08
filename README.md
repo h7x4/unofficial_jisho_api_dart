@@ -39,6 +39,7 @@ void main() async {
 
     final data = result.data;
     if (data != null) {
+      print('Kanji: ${data.kanji}');
       print('Taught in: ${data.taughtIn}');
       print('JLPT level: ${data.jlptLevel}');
       print('Newspaper frequency rank: ${data.newspaperFrequencyRank}');
@@ -63,6 +64,7 @@ This outputs the following:
 
 ```
 Found: true
+Kanji: 語
 Taught in: grade 2
 JLPT level: N5
 Newspaper frequency rank: 301
@@ -268,6 +270,10 @@ void main() async {
   });
 }
 ```
+
+## Note on usage with web
+
+Although the library is marked as ok for use with website outputs, you will not be able to reach through the CORS setup of jisho.org. You should set up a backend as a proxy if you want to make a website. See (#3)
 
 ## About
 

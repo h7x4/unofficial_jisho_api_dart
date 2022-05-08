@@ -3,69 +3,14 @@
   "found": true,
   "results": [
     {
-      "english": "If we can't get the money in any other way, we can, as a last resort, sell the car.",
-      "kanji": "他の方法でお金がつくれなければ最後の手段として車を売り払えばよい。",
-      "kana": "ほかのほうほうでおかねがつくれなければさいごのしゅだんとしてくるまをうりはらえばよい。",
-      "pieces": [
-        {
-          "lifted": "ほか",
-          "unlifted": "他の"
-        },
-        {
-          "lifted": "ほうほう",
-          "unlifted": "方法"
-        },
-        {
-          "lifted": null,
-          "unlifted": "で"
-        },
-        {
-          "lifted": "おかね",
-          "unlifted": "お金"
-        },
-        {
-          "lifted": null,
-          "unlifted": "が"
-        },
-        {
-          "lifted": null,
-          "unlifted": "つくれ"
-        },
-        {
-          "lifted": null,
-          "unlifted": "なければ"
-        },
-        {
-          "lifted": "さいごのしゅだん",
-          "unlifted": "最後の手段"
-        },
-        {
-          "lifted": null,
-          "unlifted": "として"
-        },
-        {
-          "lifted": "くるま",
-          "unlifted": "車"
-        },
-        {
-          "lifted": null,
-          "unlifted": "を"
-        },
-        {
-          "lifted": "うりはら",
-          "unlifted": "売り払えば"
-        },
-        {
-          "lifted": null,
-          "unlifted": "よい"
-        }
-      ]
-    },
-    {
       "english": "Any car will do, as long as it runs.",
       "kanji": "走りさえすれば、どんな車でもよいのです。",
       "kana": "はしりさえすれば、どんなくるまでもよいのです。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "はし",
           "unlifted": "走り"
@@ -73,6 +18,10 @@
         {
           "lifted": null,
           "unlifted": "さえすれば"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": null,
@@ -102,6 +51,10 @@
       "kana": "まどのそとをみると、くるまがいちだいきたるのがみえた。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "まど",
           "unlifted": "窓"
         },
@@ -124,6 +77,10 @@
         {
           "lifted": null,
           "unlifted": "と"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "くるま",
@@ -161,6 +118,10 @@
       "kana": "すてきなくるまじゃない。ずいぶんたかかっただろう？",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "すてき",
           "unlifted": "素敵な"
         },
@@ -171,6 +132,10 @@
         {
           "lifted": null,
           "unlifted": "じゃない"
+        },
+        {
+          "lifted": null,
+          "unlifted": "。"
         },
         {
           "lifted": null,
@@ -191,6 +156,10 @@
       "kanji": "祖母は列車で旅行をするのが好きだ。",
       "kana": "そぼはれっしゃでりょこうをするのがすきだ。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "そぼ",
           "unlifted": "祖母"
@@ -243,6 +212,10 @@
       "kana": "ぜんいんそのくるまにのった。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "ぜんいん",
           "unlifted": "全員"
         },
@@ -269,6 +242,10 @@
       "kanji": "前方に赤い車が見える。",
       "kana": "ぜんぽうにあかいくるまがみえる。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "ぜんぽう",
           "unlifted": "前方"
@@ -301,6 +278,10 @@
       "kana": "まえのくるまは１０ねんいじょうもっていた。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "まえ",
           "unlifted": "前"
         },
@@ -315,6 +296,10 @@
         {
           "lifted": null,
           "unlifted": "は"
+        },
+        {
+          "lifted": null,
+          "unlifted": "１０"
         },
         {
           "lifted": "ねん",
@@ -335,6 +320,10 @@
       "kanji": "船で旅行するのは車で旅行するよりも時間がかかる。",
       "kana": "ふねでりょこうするのはくるまでりょこうするよりもじかんがかかる。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "ふね",
           "unlifted": "船"
@@ -391,6 +380,10 @@
       "kana": "せんろのうえにてっぺんがあったためにれっしゃはだっせんした。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "せんろ",
           "unlifted": "線路"
         },
@@ -446,8 +439,16 @@
       "kana": "あらえば、くるまはたいようのひかりをあびてかがやくだろう。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "あら",
           "unlifted": "洗えば"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "くるま",
@@ -493,6 +494,10 @@
       "kana": "せんしゃやひこうきはぐんたいをうちやぶることはできようが、こくみんをせいふくすることはできない。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "せんしゃ",
           "unlifted": "戦車"
         },
@@ -537,6 +542,10 @@
           "unlifted": "が"
         },
         {
+          "lifted": null,
+          "unlifted": "、"
+        },
+        {
           "lifted": "こくみん",
           "unlifted": "国民"
         },
@@ -563,6 +572,10 @@
       "kanji": "先生は新しい車が気に入っている。",
       "kana": "せんせいはあたらしいくるまがきにっている。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "せんせい",
           "unlifted": "先生"
@@ -594,6 +607,10 @@
       "kanji": "先生は私の家まで車で送ってくれた。",
       "kana": "せんせいはわたしのいえまでくるまでおくってくれた。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "せんせい",
           "unlifted": "先生"
@@ -638,6 +655,10 @@
       "kana": "仙台いきのれっしゃはでたばかりです。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      仙台"
+        },
+        {
           "lifted": "い",
           "unlifted": "行き"
         },
@@ -673,6 +694,10 @@
       "kana": "ゆきのためれっしゃははしれなかった。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "ゆき",
           "unlifted": "雪"
         },
@@ -704,6 +729,10 @@
       "kana": "ゆきのため、れっしゃがおくれた。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "ゆき",
           "unlifted": "雪"
         },
@@ -714,6 +743,10 @@
         {
           "lifted": null,
           "unlifted": "ため"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "れっしゃ",
@@ -734,6 +767,10 @@
       "kanji": "雪のせいで私は電車に乗り遅れた。",
       "kana": "ゆきのせいでわたしはでんしゃにのりおくれた。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "ゆき",
           "unlifted": "雪"
@@ -770,6 +807,10 @@
       "kana": "きっぷなしででんしゃにのってはいけません。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "きっぷ",
           "unlifted": "切符"
         },
@@ -805,6 +846,10 @@
       "kana": "つみにがおちたので、トラックはていしゃしなければならなかった。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "つみに",
           "unlifted": "積み荷"
         },
@@ -819,6 +864,10 @@
         {
           "lifted": null,
           "unlifted": "ので"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": null,
@@ -839,6 +888,49 @@
         {
           "lifted": null,
           "unlifted": "なければならなかった"
+        }
+      ]
+    },
+    {
+      "english": "I'll come at noon to pick you up.",
+      "kanji": "正午に車で迎えに行くよ。",
+      "kana": "しょうごにくるまでむかえにいくよ。",
+      "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
+          "lifted": "しょうご",
+          "unlifted": "正午"
+        },
+        {
+          "lifted": null,
+          "unlifted": "に"
+        },
+        {
+          "lifted": "くるま",
+          "unlifted": "車"
+        },
+        {
+          "lifted": null,
+          "unlifted": "で"
+        },
+        {
+          "lifted": "むか",
+          "unlifted": "迎え"
+        },
+        {
+          "lifted": null,
+          "unlifted": "に"
+        },
+        {
+          "lifted": "い",
+          "unlifted": "行く"
+        },
+        {
+          "lifted": null,
+          "unlifted": "よ"
         }
       ]
     }

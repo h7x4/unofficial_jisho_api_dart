@@ -14,7 +14,8 @@ Uri uriForKanjiSearch(String kanji) {
   return Uri.parse('$scrapeBaseUri${Uri.encodeComponent(kanji)}%23kanji');
 }
 
-String _getUriForStrokeOrderDiagram(String kanji) {
+/// Provides the URI for a stroke order diagram
+String getUriForStrokeOrderDiagram(String kanji) {
   return '$strokeOrderDiagramBaseUri${kanji.codeUnitAt(0)}_frames.png';
 }
 
@@ -155,6 +156,7 @@ List<String> _getParts(String pageHtml) {
   return result;
 }
 
+/// Provides the URI for a SVG image of the kanji
 String _getSvgUri(String pageHtml) {
   var svgRegex = RegExp('\/\/.*?.cloudfront.net\/.*?.svg');
 
@@ -167,7 +169,8 @@ String _getSvgUri(String pageHtml) {
   return 'https:$regexResult';
 }
 
-String _getGifUri(String kanji) {
+/// Provides the URI for a GIF of the kanji stroke order
+String getGifUri(String kanji) {
   final unicodeString = kanji.codeUnitAt(0).toRadixString(16);
   final fileName = '$unicodeString.gif';
   final animationUri =
@@ -212,32 +215,26 @@ String? _getJlptLevel(String pageHtml) {
 
 /// Parses a jisho kanji search page to an object
 KanjiResult parseKanjiPageData(String pageHtml, String kanji) {
-  final result = KanjiResult(
-    query: kanji,
-    found: _containsKanjiGlyph(pageHtml, kanji),
-  );
-
-  if (result.found == false) {
-    return result;
+  if (!_containsKanjiGlyph(pageHtml, kanji)) {
+    return KanjiResult(query: kanji);
   }
 
-  result.data = KanjiResultData(
-    strokeCount: _getStrokeCount(pageHtml),
-    meaning: _getMeaning(pageHtml),
-    strokeOrderDiagramUri: _getUriForStrokeOrderDiagram(kanji),
-    strokeOrderSvgUri: _getSvgUri(pageHtml),
-    strokeOrderGifUri: _getGifUri(kanji),
-    uri: uriForKanjiSearch(kanji).toString(),
-    parts: _getParts(pageHtml),
-    taughtIn: _getTaughtIn(pageHtml),
-    jlptLevel: _getJlptLevel(pageHtml),
-    newspaperFrequencyRank: _getNewspaperFrequencyRank(pageHtml),
-    kunyomi: _getKunyomi(pageHtml),
-    onyomi: _getOnyomi(pageHtml),
-    kunyomiExamples: _getKunyomiExamples(pageHtml),
-    onyomiExamples: _getOnyomiExamples(pageHtml),
-    radical: _getRadical(pageHtml),
+  return KanjiResult(
+    query: kanji,
+    data: KanjiResultData(
+      kanji: kanji,
+      strokeCount: _getStrokeCount(pageHtml),
+      meaning: _getMeaning(pageHtml),
+      strokeOrderSvgUri: _getSvgUri(pageHtml),
+      parts: _getParts(pageHtml),
+      taughtIn: _getTaughtIn(pageHtml),
+      jlptLevel: _getJlptLevel(pageHtml),
+      newspaperFrequencyRank: _getNewspaperFrequencyRank(pageHtml),
+      kunyomi: _getKunyomi(pageHtml),
+      onyomi: _getOnyomi(pageHtml),
+      kunyomiExamples: _getKunyomiExamples(pageHtml),
+      onyomiExamples: _getOnyomiExamples(pageHtml),
+      radical: _getRadical(pageHtml),
+    ),
   );
-
-  return result;
 }

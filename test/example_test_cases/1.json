@@ -8,8 +8,16 @@
       "kana": "せんご、にほんじんのきんべんさとせつやくはアメリカじんにつよいいんしょうをあたえた。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "せんご",
           "unlifted": "戦後"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "にほんじん",
@@ -59,6 +67,10 @@
       "kana": "せいけつはにほんじんのしゅうせいだ。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "せいけつ",
           "unlifted": "清潔"
         },
@@ -90,6 +102,10 @@
       "kana": "じょうせんきゃくはおもににほんじんだった。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "じょうせん",
           "unlifted": "乗船"
         },
@@ -120,6 +136,10 @@
       "kanji": "出席をしている人々は全部日本人です。",
       "kana": "しゅっせきをしているひとびと々はぜんぶにほんじんです。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "しゅっせき",
           "unlifted": "出席"
@@ -160,6 +180,10 @@
       "kana": "わかいにほんじんのなかには、けっこんするよりどくしんでいることをこのむものもいる。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "わか",
           "unlifted": "若い"
         },
@@ -178,6 +202,10 @@
         {
           "lifted": null,
           "unlifted": "には"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "けっこん",
@@ -231,6 +259,10 @@
       "kana": "わたしはかれがにほんじんだとはしらなかった。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "わたし",
           "unlifted": "私"
         },
@@ -274,6 +306,10 @@
       "kana": "わたしはにほんじんいっぱんについていっているのだ。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "わたし",
           "unlifted": "私"
         },
@@ -309,6 +345,10 @@
       "kana": "わたしはにほんじんですが、あなたはアメリカじんです。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "わたし",
           "unlifted": "私"
         },
@@ -327,6 +367,10 @@
         {
           "lifted": null,
           "unlifted": "が"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": null,
@@ -351,6 +395,10 @@
       "kanji": "私は仕事中毒者は日本人だけかと思っていました。",
       "kana": "わたしはしごとちゅうどくしゃはにほんじんだけかとおもっていました。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "わたし",
           "unlifted": "私"
@@ -403,6 +451,10 @@
       "kana": "にほんじんならそんなことはけっしてしないでしょう。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "にほんじん",
           "unlifted": "日本人"
         },
@@ -441,6 +493,10 @@
       "kanji": "こんな歌を残している明治天皇の一面を知っている日本人は少ないのではないだろうか。",
       "kana": "こんなうたをのこしているめいじてんのうのいちめんをしっているにほんじんはすくないのではないだろうか。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": null,
           "unlifted": "こんな"
@@ -509,6 +565,10 @@
       "kana": "わたしはにほんじんですが、にほんにすんでいません。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "わたし",
           "unlifted": "私"
         },
@@ -529,6 +589,10 @@
           "unlifted": "が"
         },
         {
+          "lifted": null,
+          "unlifted": "、"
+        },
+        {
           "lifted": "にほん",
           "unlifted": "日本"
         },
@@ -547,6 +611,10 @@
       "kanji": "向こうではセレブという言葉を「金持ち」の意味では使わない。という事で日本人と判明しました。",
       "kana": "むこうではセレブということばを「かねもち」のいみではつかわない。ということでにほんじんとはんめいしました。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "む",
           "unlifted": "向こう"
@@ -576,8 +644,16 @@
           "unlifted": "を"
         },
         {
+          "lifted": null,
+          "unlifted": "「"
+        },
+        {
           "lifted": "かねも",
           "unlifted": "金持ち"
+        },
+        {
+          "lifted": null,
+          "unlifted": "」"
         },
         {
           "lifted": null,
@@ -598,6 +674,10 @@
         {
           "lifted": "つか",
           "unlifted": "使わない"
+        },
+        {
+          "lifted": null,
+          "unlifted": "。"
         },
         {
           "lifted": null,
@@ -638,6 +718,10 @@
       "kanji": "日本人で英語をうまく使える人はほとんどいません。",
       "kana": "にほんじんでえいごをうまくつかえるひとはほとんどいません。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "にほんじん",
           "unlifted": "日本人"
@@ -686,6 +770,10 @@
       "kana": "にほんじんはなれしたこのうつくしいそうぼうからもわかるように、優奈はじつはきっすいのにほんじんじゃない。せいようじんをおばあちゃんにもつ、クォーターだったりする。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "にほんじん",
           "unlifted": "日本人"
         },
@@ -727,6 +815,10 @@
         },
         {
           "lifted": null,
+          "unlifted": "、優奈"
+        },
+        {
+          "lifted": null,
           "unlifted": "は"
         },
         {
@@ -744,6 +836,10 @@
         {
           "lifted": null,
           "unlifted": "じゃない"
+        },
+        {
+          "lifted": null,
+          "unlifted": "。"
         },
         {
           "lifted": "せいようじん",
@@ -767,6 +863,10 @@
         },
         {
           "lifted": null,
+          "unlifted": "、"
+        },
+        {
+          "lifted": null,
           "unlifted": "クォーター"
         },
         {
@@ -785,6 +885,10 @@
       "kana": "きょうのトピックは「きたちょうせんによるにほんじんらちもんだい」です。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "きょう",
           "unlifted": "今日"
         },
@@ -799,6 +903,10 @@
         {
           "lifted": null,
           "unlifted": "は"
+        },
+        {
+          "lifted": null,
+          "unlifted": "「"
         },
         {
           "lifted": "きたちょうせん",
@@ -822,6 +930,10 @@
         },
         {
           "lifted": null,
+          "unlifted": "」"
+        },
+        {
+          "lifted": null,
           "unlifted": "です"
         }
       ]
@@ -831,6 +943,10 @@
       "kanji": "外米はぼそぼそしていて、日本人の口には合わない。",
       "kana": "がいまいはぼそぼそしていて、にほんじんのくちにはあわない。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "がいまい",
           "unlifted": "外米"
@@ -846,6 +962,10 @@
         {
           "lifted": null,
           "unlifted": "していて"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "にほんじん",
@@ -875,8 +995,16 @@
       "kana": "まいとし、おおくのにほんじんがかいがいへりょこうする。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "まいとし",
           "unlifted": "毎年"
+        },
+        {
+          "lifted": null,
+          "unlifted": "、"
         },
         {
           "lifted": "おお",
@@ -918,6 +1046,10 @@
       "kana": "かのじょのちちおやはにほんじんだ。",
       "pieces": [
         {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
+        {
           "lifted": "かのじょ",
           "unlifted": "彼女の"
         },
@@ -944,6 +1076,10 @@
       "kanji": "彼らは日本人労働者が不足しているから外国人を雇う。",
       "kana": "かれらはにほんじんろうどうしゃがふそくしているからがいこくじんをやとう。",
       "pieces": [
+        {
+          "lifted": null,
+          "unlifted": "\n      "
+        },
         {
           "lifted": "かれ",
           "unlifted": "彼ら"

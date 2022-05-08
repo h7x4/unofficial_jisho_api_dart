@@ -1,3 +1,11 @@
+# 3.0.0
+
+- Add fromJson factories for all objects
+- Make some properties use getters, to reduce redundant data
+- Make all objects comparable with the equatable package
+- Make all objects immutable with a constant constructor
+    as a result of making them comparable
+
 # 2.0.4
 
 - Fixed bug where pieces were missing in example sentences

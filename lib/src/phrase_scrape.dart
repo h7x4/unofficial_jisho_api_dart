@@ -190,14 +190,11 @@ PhrasePageScrapeResult parsePhrasePageData(String pageHtml, String query) {
   final document = parse(pageHtml);
 
   if (!_resultWasFound(document)) {
-    return PhrasePageScrapeResult(found: false, query: query);
+    return PhrasePageScrapeResult(query: query);
   }
 
-  final data = _getMeaningsOtherFormsAndNotes(query, document);
-
   return PhrasePageScrapeResult(
-    found: true,
     query: query,
-    data: data,
+    data: _getMeaningsOtherFormsAndNotes(query, document),
   );
 }

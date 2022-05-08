@@ -53,10 +53,7 @@ Future<PhrasePageScrapeResult> scrapeForPhrase(String phrase) async {
   final uri = uriForPhraseScrape(phrase);
   final response = await http.get(uri);
   if (response.statusCode == 404) {
-    return PhrasePageScrapeResult(
-      query: phrase,
-      found: false,
-    );
+    return PhrasePageScrapeResult(query: phrase);
   }
   return parsePhrasePageData(response.body, phrase);
 }

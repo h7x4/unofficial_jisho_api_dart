@@ -147,8 +147,7 @@ ExampleResults parseExamplePageData(String pageHtml, String phrase) {
   final results = divs.map(_parseExampleDiv).toList();
 
   return ExampleResults(
-      query: phrase,
-      found: results.isNotEmpty,
-      results: results,
-      uri: uriForExampleSearch(phrase).toString());
+    query: phrase,
+    results: results,
+  );
 }

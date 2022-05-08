@@ -71,6 +71,10 @@
               {
                 "lifted": null,
                 "unlifted": "ない"
+              },
+              {
+                "lifted": null,
+                "unlifted": "。"
               }
             ]
           }
@@ -83,13 +87,18 @@
       {
         "seeAlsoTerms": [],
         "sentences": [],
-        "definition": "wheel",
+        "definition": "wheel; castor; caster",
         "supplemental": [],
         "definitionAbstract": null,
         "tags": []
       }
     ],
-    "otherForms": [],
+    "otherForms": [
+      {
+        "kanji": "クルマ",
+        "kana": null
+      }
+    ],
     "audio": [
       {
         "uri": "https://d1vjc5dkcd3yh2.cloudfront.net/audio/7f47c2a8e633ca3a79ac199f55a212dd.mp3",

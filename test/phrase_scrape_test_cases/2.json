@@ -34,6 +34,10 @@
               {
                 "lifted": "あい",
                 "unlifted": "愛されている"
+              },
+              {
+                "lifted": null,
+                "unlifted": "。"
               }
             ]
           }
@@ -71,6 +75,10 @@
               {
                 "lifted": null,
                 "unlifted": "しまった"
+              },
+              {
+                "lifted": null,
+                "unlifted": "。"
               }
             ]
           }
