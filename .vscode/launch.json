@@ -8,7 +8,7 @@
       "name": "unofficial-jisho-api-dart",
       "request": "launch",
       "type": "dart",
-      "program": "example/api/phrase_search_copy.dart"
+      "program": "example/api/phrase_search.dart"
     }
   ]
 }

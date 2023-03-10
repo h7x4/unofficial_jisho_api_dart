@@ -1,6 +1,7 @@
 import './base_uri.dart';
 
 /// Provides the URI for a phrase search
-Uri uriForPhraseSearch(String phrase) {
-  return Uri.parse('$jishoApi?keyword=${Uri.encodeComponent(phrase)}');
+/// [requestPage] : added to get more pharse
+Uri uriForPhraseSearch(String phrase, {int requestPage = 1}) {
+  return Uri.parse('$jishoApi?keyword=${Uri.encodeComponent(phrase)}&page=${Uri.encodeComponent(requestPage.toString())}');
 }

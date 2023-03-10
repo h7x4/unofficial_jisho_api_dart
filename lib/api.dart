@@ -19,8 +19,8 @@ export './src/objects.dart';
 ///
 /// See https://jisho.org/forum/54fefc1f6e73340b1f160000-is-there-any-kind-of-search-api
 /// for discussion about the official API.
-Future<JishoAPIResult> searchForPhrase(String phrase) async {
-  final uri = uriForPhraseSearch(phrase);
+Future<JishoAPIResult> searchForPhrase(String phrase, {int page = 1}) async {
+  final uri = uriForPhraseSearch(phrase, requestPage: page);
   return await http
       .get(uri)
       .then((response) => JishoAPIResult.fromJson(jsonDecode(response.body)));
@@ -35,8 +35,8 @@ Future<KanjiResult> searchForKanji(String kanji) async {
 }
 
 /// Scrape Jisho.org for examples.
-Future<ExampleResults> searchForExamples(String phrase) async {
-  final uri = uriForExampleSearch(phrase);
+Future<ExampleResults> searchForExamples(String phrase, {int page = 1}) async {
+  final uri = uriForExampleSearch(phrase, requestPage: page);
   return http
       .get(uri)
       .then((response) => parseExamplePageData(response.body, phrase));
