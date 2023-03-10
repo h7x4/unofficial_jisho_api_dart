@@ -8,8 +8,8 @@ import './scraping.dart';
 final RegExp _kanjiRegex = RegExp(r'[\u4e00-\u9faf\u3400-\u4dbf]');
 
 /// Provides the URI for an example search
-Uri uriForExampleSearch(String phrase) {
-  return Uri.parse('$scrapeBaseUri${Uri.encodeComponent(phrase)}%23sentences');
+Uri uriForExampleSearch(String phrase, {int requestPage = 1}) {
+   return Uri.parse('$scrapeBaseUri${Uri.encodeComponent(phrase)}%23sentences?page=${Uri.encodeComponent(requestPage.toString())}');
 }
 
 List<Element> _getChildrenAndSymbols(Element ul) {

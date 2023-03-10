@@ -1017,7 +1017,7 @@ class JishoAPIResult extends Equatable {
   factory JishoAPIResult.fromJson(Map<String, dynamic> json) {
     return JishoAPIResult(
         meta: JishoResultMeta.fromJson(json['meta']),
-        data: (json['data'] as List)
+        data:  (json['data'] as List)
             .map((e) => JishoResult.fromJson(e))
             .toList());
   }
